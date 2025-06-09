@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Optoelectronic Lab Upgrade Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center; /* Center the container horizontally */
+        align-items: flex-start; /* Align to the top */
+        min-height: 90vh; /* Ensure body takes up most of the viewport height */
+    }
+    .container {
+        max-width: 550px; /* Increased max-width for more room for wider elements */
+        width: 100%; /* Ensure it uses available width up to max-width */
+        margin: 20px; /* Added some margin around the container */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 20px; /* Adjusted margin for title */
+        line-height: 1.2; /* Allow title to wrap gracefully */
+    }
+    .row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px; /* Reduced margin-bottom for tighter spacing */
+    }
+    /* Changed display labels to span to avoid label errors */
+    .row .display-label { /* New class for labels for display spans */
+        flex: 2;
+        margin-right: 10px;
+        min-width: 120px;
+    }
+    .row label { /* Original label for form fields */
+        flex: 2;
+        margin-right: 10px;
+        min-width: 120px;
+    }
+    .row input[type="text"],
+    .row select {
+        flex: 3; /* Give inputs more space */
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Include padding and border in the element's total width */
+        text-align: right; /* Align numbers to the right */
+        /* Removed max-width: 150px from here to allow individual overrides */
+    }
+    /* Specific styling for workshop input rows to create columns */
+    .workshop-row {
+        display: grid;
+        /* Adjusted grid columns: Name | Level (narrow) | Held (wider) */
+        grid-template-columns: 2.2fr 0.6fr 1.6fr; /* Total 4.4fr */
+        gap: 10px; /* Space between columns */
+        align-items: center;
+        margin-bottom: 8px; /* Reduced margin-bottom for tighter spacing */
+    }
+    .workshop-row label { /* Label for workshop names (e.g., Quartz Workshop 1) */
+        grid-column: 1;
+        text-align: left;
+        margin-right: 0; /* Remove flex margin */
+        min-width: unset; /* Override general label min-width */
+    }
+    .workshop-row input {
+        text-align: right;
+        max-width: unset; /* Allow grid to manage width */
+    }
+    .workshop-row input[id^="level"] {
+        grid-column: 2;
+        width: 100%; /* Fill its grid cell */
+    }
+    .workshop-row input[id^="quartz"] {
+        grid-column: 3;
+        width: 100%; /* Fill its grid cell */
+    }
+
+    /* Specific width for the Time Zone Select dropdown */
+    #timezoneSelect {
+        max-width: 280px; /* Increased width to prevent text cutoff */
+    }
+
+    /* Specific width for Quartz Held and Quartz Needed inputs */
+    #quartzHeldText,
+    #quartzNeededText {
+        max-width: 200px; /* Consistent width for both */
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .header-row {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: grid;
+        /* Match workshop-row columns */
+        grid-template-columns: 2.2fr 0.6fr 1.6fr;
+        gap: 10px;
+    }
+    .header-row span:first-child { /* The empty span for layout */
+        text-align: left;
+        grid-column: 1;
+    }
+    .header-row strong { /* Changed labels to strong for header semantic */
+        grid-column: auto; /* Let grid handle positioning */
+        text-align: center;
+    }
+    .display-value {
+        font-weight: bold;
+        color: #333;
+        flex: 2; /* Give display values space */
+        text-align: right; /* Align to the right */
+        padding: 8px; /* Match input padding for alignment */
+        min-width: 150px; /* Ensure it doesn't wrap too much */
+        box-sizing: border-box;
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background: #eee;
+        margin: 15px 0; /* Reduced margin for the horizontal rule */
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Time Until Optoelectronic Lab Can Be Upgraded</h2>
+
+    <div class="header-row">
+        <span></span>
+        <strong id="header-level">Level</strong>
+        <strong id="header-held">Held</strong>
+    </div>
+
+    <div class="workshop-row">
+        <label id="workshop1-name">Quartz Workshop 1</label>
+        <input type="text" id="level1" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="1" aria-labelledby="workshop1-name header-level" maxlength="2">
+        <input type="text" id="quartz1" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="workshop1-name header-held">
+    </div>
+    <div class="workshop-row">
+        <label id="workshop2-name">Quartz Workshop 2</label>
+        <input type="text" id="level2" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="workshop2-name header-level" maxlength="2">
+        <input type="text" id="quartz2" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="workshop2-name header-held">
+    </div>
+    <div class="workshop-row">
+        <label id="workshop3-name">Quartz Workshop 3</label>
+        <input type="text" id="level3" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="workshop3-name header-level" maxlength="2">
+        <input type="text" id="quartz3" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="workshop3-name header-held">
+    </div>
+    <div class="workshop-row">
+        <label id="workshop4-name">Quartz Workshop 4</label>
+        <input type="text" id="level4" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="workshop4-name header-level" maxlength="2">
+        <input type="text" id="quartz4" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="workshop4-name header-held">
+    </div>
+    <div class="workshop-row">
+        <label id="weekly-name">Weekly Workshop</label>
+        <input type="text" id="levelWeekly" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="weekly-name header-level" maxlength="2">
+        <input type="text" id="quartzWeekly" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="weekly-name header-held">
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <span class="display-label">Quartz/hr:</span>
+        <span id="quartzHrDisplay" class="display-value">0</span>
+    </div>
+
+    <div class="row">
+        <label for="quartzHeldText">Quartz Held:</label>
+        <input type="text" id="quartzHeldText" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="11">
+    </div>
+
+    <div class="row">
+        <span class="display-label">Total Quartz:</span>
+        <span id="totalQuartzDisplay" class="display-value">0</span>
+    </div>
+
+    <div class="row">
+        <label for="quartzNeededText">Quartz Needed:</label>
+        <input type="text" id="quartzNeededText" value="" onblur="updateCalculations(); formatInput(this)" onfocus="this.select()" tabindex="12">
+    </div>
+
+    <div class="row">
+        <span class="display-label">Time to Complete:</span>
+        <span id="timeDisplay" class="display-value">N/A</span>
+    </div>
+
+    <div class="row">
+        <span class="display-label">Completion Time:</span>
+        <span id="completionTimeDisplay" class="display-value">N/A</span>
+    </div>
+
+    <div class="row">
+        <label for="timezoneSelect">Display Time Zone:</label>
+        <select id="timezoneSelect" onchange="updateCalculations()" tabindex="13">
+            </select>
+    </div>
+
+    <button onclick="updateCalculations()" tabindex="14">Calculate</button>
+</div>
+
+<script>
+    // ######################### Helper Functions #########################
+
+    // Function to clean and format number input for display in text fields
+    function formatInput(inputElement) {
+        let value = inputElement.value.replace(/[^0-9.]/g, ''); // Remove non-numeric except dot
+        if (value === '') {
+            inputElement.value = '';
+            return;
+        }
+        let number = parseFloat(value);
+        if (isNaN(number)) {
+            inputElement.value = '';
+            return;
+        }
+
+        // Format with thousands separator
+        if (value.includes('.')) {
+            inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); // Adjust decimals as needed
+        } else {
+            inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+    }
+
+    // Function to get a cleaned number from a textbox (removes commas)
+    function getCleanNumber(id) {
+        const inputElement = document.getElementById(id);
+        if (!inputElement) return 0;
+        const value = inputElement.value.replace(/,/g, ''); // Remove commas for calculation
+        // If the value is empty, parseFloat will return NaN, which || 0 handles.
+        return parseFloat(value) || 0;
+    }
+
+    // ######################### Time Zone Logic #########################
+
+    // Time zone IDs to include. Their full names (including DST) and offsets are generated dynamically.
+    const curatedTimeZoneIds = [
+        "Etc/UTC", // Coordinated Universal Time
+        "America/St_Johns", // Newfoundland Time Zone
+        "America/Halifax",  // Atlantic Time Zone
+        "America/New_York", // Eastern Time Zone
+        "America/Indiana/Indianapolis", // Central Indiana, observes DST (New addition!)
+        "America/Chicago",  // Central Time Zone
+        "America/Denver",   // Mountain Time Zone (Observes DST, name changes between MST/MDT)
+        "America/Phoenix",  // Mountain Standard Time (Arizona - Does NOT observe DST)
+        "America/Los_Angeles", // Pacific Time Zone
+        "America/Anchorage",   // Alaska Time Zone
+        "America/Honolulu",    // Hawaii Time Zone (Problematic on some systems, now handled with static fallback)
+        "Asia/Tokyo"           // Japan Standard Time Zone
+    ];
+
+    // Helper to get the current numerical UTC offset for a given time zone ID.
+    // This dynamically adjusts for DST based on the current date.
+    function getNumericalOffsetInHours(tzId) {
+        try {
+            const now = new Date();
+            const offsetFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: tzId,
+                timeZoneName: 'shortOffset', // e.g., "GMT-4", "GMT+10:30"
+            });
+            const offsetString = offsetFormatter.format(now); // This might return "6/9/2025, GMT-4" or "GMT"
+
+            // Special handling for Etc/UTC or others that might just return "GMT" or "UTC"
+            // If the string contains "GMT" or "UTC" but no explicit +/- offset, assume 0.
+            if ((offsetString.includes('GMT') || offsetString.includes('UTC')) && !offsetString.match(/[+-]\d/)) {
+                return 0; // It's likely UTC+0
+            }
+
+            // Robust Regex: Look for 'GMT' followed by optional space, then the actual offset.
+            // This is more flexible to handle leading date/time info which some browsers emit.
+            const match = offsetString.match(/GMT\s*([+-]\d{1,2}(:\d{2})?)/);
+            if (match && match[1]) {
+                const offsetPart = match[1];
+                const sign = offsetPart.startsWith('-') ? -1 : 1;
+                const [hoursStr, minutesStr] = offsetPart.replace(/[+-]/, '').split(':');
+                let totalHours = parseInt(hoursStr, 10);
+                if (minutesStr) {
+                    totalHours += parseInt(minutesStr, 10) / 60;
+                }
+                return sign * totalHours;
+            } else {
+                console.warn(`Could not parse numerical offset from: '${offsetString}' for '${tzId}'. No 'GMT+/-X' pattern found.`);
+            }
+        } catch (e) {
+            console.error(`Error calculating offset for '${tzId}':`, e);
+        }
+        return 0; // Default to 0 if unable to parse or error occurs
+    }
+
+    function populateTimezones() {
+        const timezoneSelect = document.getElementById('timezoneSelect');
+        const now = new Date(); // Use a consistent date for all offset and name calculations (important for DST)
+        const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Local time zone
+
+        timezoneSelect.innerHTML = ''; // Clear existing options
+
+        const tempOptions = []; // Array to build options before sorting and appending
+
+        // Iterate through curated IDs and add valid ones, or static fallbacks for unsupported ones
+        curatedTimeZoneIds.forEach(tzId => {
+            let offsetHours = 0;
+            let longTimeZoneName = tzId;
+            let formattedOffset = `UTC+0`; // Default to UTC+0
+
+            try {
+                // EXPLICIT CHECK: Test if the browser supports the timezone ID at all.
+                // This catches 'RangeError: Invalid time zone specified' directly.
+                new Intl.DateTimeFormat('en-US', { timeZone: tzId }).format(now); 
+
+                // If no error, proceed with dynamic calculation for this tzId
+                offsetHours = getNumericalOffsetInHours(tzId);
+                
+                // --- Start of improved offset formatting ---
+                if (offsetHours === 0) {
+                    formattedOffset = `UTC+0`;
+                } else {
+                    const offsetSign = offsetHours > 0 ? '+' : '-'; // Correctly determine sign
+                    const absOffsetHours = Math.abs(offsetHours);
+                    const integerHours = Math.floor(absOffsetHours);
+                    const fractionalMinutes = (absOffsetHours % 1) * 60;
+
+                    if (fractionalMinutes > 0) {
+                        formattedOffset = `UTC${offsetSign}${integerHours}:${String(fractionalMinutes).padStart(2, '0')}`;
+                    } else {
+                        formattedOffset = `UTC${offsetSign}${integerHours}`;
+                    }
+                }
+                // --- End of improved offset formatting ---
+
+                // Use formatToParts to reliably extract just the timeZoneName
+                const parts = new Intl.DateTimeFormat('en-US', {
+                    timeZone: tzId,
+                    timeZoneName: 'long', // Request long time zone name
+                    year: 'numeric', month: 'numeric', day: 'numeric', // Add other parts to ensure 'timeZoneName' is present
+                    hour: 'numeric', minute: 'numeric', second: 'numeric'
+                }).formatToParts(now);
+
+                let foundTimeZoneNamePart = parts.find(part => part.type === 'timeZoneName');
+                if (foundTimeZoneNamePart && typeof foundTimeZoneNamePart.value === 'string' && foundTimeZoneNamePart.value.trim() !== '') {
+                    longTimeZoneName = foundTimeZoneNamePart.value;
+                } else {
+                    console.warn(`Could not extract long timeZoneName from parts for '${tzId}'. Falling back to ID.`);
+                    longTimeZoneName = tzId;
+                }
+
+                // --- Specific overrides for custom names ---
+                if (tzId === "America/Phoenix") {
+                    longTimeZoneName = "Arizona (Mountain)"; // Custom name for Phoenix
+                } else if (tzId === "America/Indiana/Indianapolis") {
+                    longTimeZoneName = "Indiana (East)"; // Custom name for Indiana
+                }
+
+            } catch (e) {
+                // This catch block specifically handles the RangeError: Invalid time zone specified
+                // or any other error during dynamic calculation.
+                if (e instanceof RangeError && e.message.includes('Invalid time zone specified')) {
+                    // Changed to console.warn as we're providing a graceful fallback.
+                    console.warn(`Time zone '${tzId}' is explicitly unsupported by the browser (RangeError). Adding a static fallback entry.`, e.message);
+                } else {
+                    console.error(`Error during dynamic time zone data calculation for '${tzId}'. Adding a static fallback entry.`, e);
+                }
+                
+                // Add static entry for unsupported time zones
+                if (tzId === "America/Honolulu") {
+                    longTimeZoneName = "Hawaii";
+                    formattedOffset = "UTC-10:00"; // Manual static offset for Honolulu
+                    offsetHours = -10;
+                } else if (tzId === "Etc/UTC") { 
+                    longTimeZoneName = "Coordinated Universal Time";
+                    formattedOffset = "UTC+0"; // Manual static offset for UTC
+                    offsetHours = 0;
+                } else {
+                    // Generic static fallback for any other unsupported ID
+                    longTimeZoneName = `${tzId} (Unsupported)`;
+                    formattedOffset = `UTC+0`;
+                    offsetHours = 0;
+                }
+            }
+
+            tempOptions.push({
+                id: tzId, // Use original ID even for static entries for consistent selection
+                name: `${longTimeZoneName} (${formattedOffset})`,
+                offset: offsetHours
+            });
+        });
+
+        // Sort options: Primary sort by numerical offset, secondary sort by name (alphabetical for same offset)
+        tempOptions.sort((a, b) => {
+            if (a.offset !== b.offset) {
+                return a.offset - b.offset; // Sort from earliest (e.g., -10) to latest (e.g., +9)
+            }
+            return a.name.localeCompare(b.name); // Alphabetical for same offset
+        });
+
+        tempOptions.forEach(tzData => {
+            const option = document.createElement('option');
+            option.value = tzData.id;
+            option.textContent = tzData.name;
+            timezoneSelect.appendChild(option);
+        });
+
+        // Attempt to select the user's local timezone's IANA ID
+        timezoneSelect.value = localTimeZone;
+
+        // Fallback: If the user's specific localTimeZone IANA ID is not found in our curated list,
+        // or if the selection fails, find the option with the closest offset.
+        if (timezoneSelect.value !== localTimeZone && tempOptions.length > 0) {
+            const localOffset = getNumericalOffsetInHours(localTimeZone);
+            let bestMatchIndex = 0;
+            let minDiff = Infinity; // Initialize with a very large number
+
+            // Iterate through the sorted options to find the one with the closest offset
+            for (let i = 0; i < tempOptions.length; i++) {
+                const diff = Math.abs(tempOptions[i].offset - localOffset);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    bestMatchIndex = i;
+                }
+            }
+            timezoneSelect.selectedIndex = bestMatchIndex; // Select the closest match
+            console.warn(`Local timezone '${localTimeZone}' not directly in curated list or unsupported. Defaulting to closest offset: '${tempOptions[bestMatchIndex].name}'.`);
+        }
+    }
+
+
+    // ######################### Main Calculation Logic #########################
+    function updateCalculations() {
+        let totalQuartzFromWorkshops = 0;
+        let totalWorkshopRate = 0;
+
+        const workshopLevels = [
+            document.getElementById('level1'),
+            document.getElementById('level2'),
+            document.getElementById('level3'),
+            document.getElementById('level4'),
+            document.getElementById('levelWeekly')
+        ];
+        const quartzWorkshops = [
+            document.getElementById('quartz1'),
+            document.getElementById('quartz2'),
+            document.getElementById('quartz3'),
+            document.getElementById('quartz4'),
+            document.getElementById('quartzWeekly')
+        ];
+
+        for (let i = 0; i < 5; i++) {
+            let level = getCleanNumber(workshopLevels[i].id); // Use getCleanNumber
+            if (level <= 30) {
+                totalWorkshopRate += level;
+            }
+            let quartz = getCleanNumber(quartzWorkshops[i].id); // Use getCleanNumber
+            totalQuartzFromWorkshops += quartz;
+        }
+
+        const quartzHeld = getCleanNumber('quartzHeldText');
+        const quartzNeeded = getCleanNumber('quartzNeededText');
+
+        const quartzPerHour = totalWorkshopRate * 720;
+        document.getElementById('quartzHrDisplay').textContent = quartzPerHour.toLocaleString('en-US');
+
+        const totalCurrentQuartz = quartzHeld + totalQuartzFromWorkshops;
+        document.getElementById('totalQuartzDisplay').textContent = totalCurrentQuartz.toLocaleString('en-US');
+
+        const timeDisplay = document.getElementById('timeDisplay');
+        const completionTimeDisplay = document.getElementById('completionTimeDisplay');
+
+        // Condition for displaying completion time: must have a quartz rate and still need quartz
+        if (quartzPerHour > 0 && totalCurrentQuartz < quartzNeeded) {
+            const hoursRequired = (quartzNeeded - totalCurrentQuartz) / quartzPerHour;
+            timeDisplay.textContent = `${hoursRequired.toFixed(2)} hrs`;
+
+            const completionDateTimeUtc = new Date(Date.now() + hoursRequired * 60 * 60 * 1000);
+            
+            const selectedTimeZone = document.getElementById('timezoneSelect').value;
+
+            // IMPORTANT: Check if a time zone is actually selected before formatting
+            if (!selectedTimeZone) {
+                console.error("No time zone selected in dropdown. Cannot display completion time.");
+                completionTimeDisplay.textContent = "N/A (Select TZ)";
+                return; // Exit function if no TZ is selected to prevent errors
+            }
+            
+            // Format the completion time using Intl.DateTimeFormat
+            // Note: If selectedTimeZone is a 'static' one because the browser didn't support it,
+            // this formatter might still throw if used with the unsupported ID.
+            // The value in the dropdown is still the IANA ID.
+            try { // Added try-catch around formatting completion time, just in case
+                const formatter = new Intl.DateTimeFormat('en-US', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true, // Use AM/PM
+                    timeZone: selectedTimeZone,
+                    timeZoneName: 'short' // Displays abbreviations like EDT, JST
+                });
+                completionTimeDisplay.textContent = formatter.format(completionDateTimeUtc);
+            } catch (e) {
+                console.error(`Error formatting completion time for '${selectedTimeZone}'. Displaying UTC.`, e);
+                // Fallback to UTC if selected timezone formatter fails for completion time display
+                const utcFormatter = new Intl.DateTimeFormat('en-US', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true,
+                    timeZone: 'UTC',
+                    timeZoneName: 'short'
+                });
+                completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTimeUtc)}`;
+            }
+
+        } else {
+            timeDisplay.textContent = "N/A";
+            completionTimeDisplay.textContent = "N/A";
+        }
+
+        // Re-format all input fields after calculations to ensure they show commas
+        // Only format if the value is not empty, otherwise leave it empty
+        workshopLevels.forEach(input => { if (input.value !== '') formatInput(input); });
+        quartzWorkshops.forEach(input => { if (input.value !== '') formatInput(input); });
+        if (document.getElementById('quartzHeldText').value !== '') formatInput(document.getElementById('quartzHeldText'));
+        if (document.getElementById('quartzNeededText').value !== '') formatInput(document.getElementById('quartzNeededText'));
+    }
+
+    // ######################### Initial Load #########################
+    // Populate timezones and then run initial calculations when the page loads
+    window.onload = () => {
+        populateTimezones();
+        updateCalculations();
+    };
+</script>
+
+</body>
+</html>
