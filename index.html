@@ -7,7 +7,7 @@
     /* Define CSS variables for consistent sizing */
     :root {
         --level-input-width: 45px; /* Enough for "Level" text + padding (max 2 digits) */
-        --held-input-width: 160px; /* Enough for "1,000,000,000,000" */
+        --held-input-width: 145px; /* Comfortably fits "99,999,999,999" plus padding */
     }
 
     body {
@@ -19,7 +19,6 @@
         justify-content: flex-start; /* Align content from the top */
         align-items: center; /* Center items horizontally */
         min-height: 90vh;
-        /* Removed position: relative; as language selector is no longer absolutely positioned */
     }
     .container {
         max-width: 550px;
@@ -72,7 +71,7 @@
         font-weight: bold;
         color: #333;
         flex: 1; /* Display values take remaining space, can grow/shrink */
-        text-align: right;
+        text-align: right; /* Ensure right justification */
         padding: 8px; /* Match input padding for alignment */
         min-width: unset; /* Remove previous min-width that was causing large gaps */
         box-sizing: border-box;
@@ -196,7 +195,7 @@
     /* --- Media Queries for Mobile Responsiveness (max-width: 480px) --- */
     @media (max-width: 480px) {
         body {
-            font-size: 20px; /* Base font size, will scale all 'em' units */
+            font-size: 15px; /* Reduced base font size for better mobile fit */
         }
 
         /* Language Selector Stacking */
@@ -206,15 +205,14 @@
             gap: 2px;
             margin-top: 10px;
             margin-right: 10px;
-            /* No bottom margin needed here as it will be stacked by body flex */
-            padding: 0; /* Remove padding if not needed on mobile */
+            padding: 0;
         }
         #language-selector-container label {
-            font-size: 0.8em;
+            font-size: 0.9em; /* Slightly larger for readability */
         }
         #languageSelect {
             padding: 5px 8px;
-            font-size: 0.9em;
+            font-size: 1em; /* Adjusted relative to new body font-size */
             min-width: unset; /* Allow it to shrink if needed */
         }
 
@@ -226,66 +224,79 @@
         }
 
         h2 {
-            font-size: 1.5em;
+            font-size: 1.3em; /* Slightly smaller for mobile */
             margin-bottom: 15px;
         }
 
         /* General rows on mobile (e.g., Quartz Held) */
         .row {
-            flex-wrap: wrap; /* Allow labels to wrap to a new line */
+            flex-wrap: nowrap; /* IMPORTANT: Prevent wrapping labels/inputs onto new line */
+            justify-content: space-between; /* Space out label and input */
         }
         .row .display-label,
         .row label {
-            flex: 1 1 100%; /* Labels take full width on mobile, pushing inputs below */
-            margin-right: 0; /* No right margin when stacked */
-            margin-bottom: 5px; /* Add space below label when stacked */
-            text-align: left; /* Align labels left when stacked */
+            flex: 0 1 auto; /* Allow label to shrink if needed (flex-shrink: 1), but prefer content size */
+            min-width: 0; /* Allow content to shrink below its intrinsic width */
+            margin-right: 10px; /* Keep a small gap */
+            font-size: 1em; /* Adjust relative to new body font-size */
         }
         .row input[type="tel"],
         .row select,
         .display-value {
-            flex: 1 1 100%; /* Inputs/values take full width on mobile */
+            flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
+            min-width: 0; /* Allow input to shrink below its intrinsic width */
             text-align: right;
-            max-width: 100%; /* Ensure they don't exceed 100% of parent width */
+            font-size: 1em; /* Adjust relative to new body font-size */
+            max-width: unset; /* Remove fixed max-width for mobile, let flex: 1 take over */
         }
         /* Specific overrides for timezoneSelect on mobile */
         #timezoneSelect {
-            max-width: 100%;
+            max-width: 100%; /* Ensure it doesn't overflow if flex:1 overstretches */
             width: 100%;
         }
 
 
         /* Workshop rows on mobile */
         .workshop-row {
-            /* Retain grid, but use more relative sizing for columns */
-            grid-template-columns: auto 0.8fr 1.2fr;
+            display: grid; /* Keep grid */
+            /* Precise mobile column widths for strict alignment and consistent sizing */
+            grid-template-columns: minmax(80px, 1fr) 40px 95px; /* label col | level col | held col */
             gap: 8px; /* Slightly reduced gap on mobile */
+            align-items: center; /* Ensure vertical alignment */
         }
         /* Make inputs fill their grid columns on mobile and remove desktop max-width */
-        .workshop-row input[id^="level"],
+        .workshop-row input[id^="level"] {
+            width: 100%;
+            max-width: unset; /* Remove desktop fixed width constraints */
+            font-size: 0.9em;
+            padding: 5px; /* Smaller padding for mobile */
+        }
         .workshop-row input[id^="quartz"] {
             width: 100%;
-            max-width: unset; /* Crucial: Remove desktop fixed width constraints */
-        }
-        .workshop-row label,
-        .workshop-row input {
+            max-width: unset; /* Remove desktop fixed width constraints */
             font-size: 0.9em;
-            padding: 8px;
+            padding: 5px; /* Smaller padding for mobile */
+        }
+        .workshop-row label {
+            font-size: 0.9em;
+            padding: 0; /* Remove padding if not needed */
         }
 
         .header-row {
-            grid-template-columns: auto 0.8fr 1.2fr; /* Match workshop-row on mobile */
+            /* Match workshop-row on mobile for perfect alignment */
+            grid-template-columns: minmax(80px, 1fr) 40px 95px;
             gap: 8px;
+            font-size: 0.9em; /* Match workshop row labels */
         }
 
         button {
-            padding: 12px;
-            font-size: 1.1em;
+            padding: 10px;
+            font-size: 1em;
             margin-top: 15px;
         }
 
         .version-info {
-            font-size: 0.7em;
+            font-size: 0.65em; /* Slightly smaller for mobile */
             margin-top: 15px;
         }
     }
@@ -376,7 +387,7 @@
 </div>
 
 <div class="version-info">
-    Version 1.8 - Last Updated: June 12, 2025, 02:44 AM EDT
+    Version 2.0 - Last Updated: June 12, 2025, 03:00 AM EDT
 </div>
 
 <script>
@@ -646,7 +657,7 @@
                 }
                 return sign * totalHours;
             } else {
-                console.warn(`Could not parse numerical offset from: '${offsetString}' for '${tzId}'. No 'GMT+/-X' pattern found.`);
+                console.warn(`Could not parse numerical offset from: '<span class="math-inline">\{offsetString\}' for '</span>{tzId}'. No 'GMT+/-X' pattern found.`);
             }
         } catch (e) {
             console.error(`Error calculating offset for '${tzId}':`, e);
@@ -682,7 +693,7 @@
                     const fractionalMinutes = (absOffsetHours % 1) * 60;
 
                     if (fractionalMinutes > 0) {
-                        formattedOffset = `UTC${offsetSign}${integerHours}:${String(fractionalMinutes).padStart(2, '0')}`;
+                        formattedOffset = `UTC${offsetSign}<span class="math-inline">\{integerHours\}\:</span>{String(fractionalMinutes).padStart(2, '0')}`;
                     } else {
                         formattedOffset = `UTC${offsetSign}${integerHours}`;
                     }
@@ -729,7 +740,7 @@
 
             tempOptions.push({
                 id: tzId,
-                name: `${longTimeZoneName} (${formattedOffset})`,
+                name: `<span class="math-inline">\{longTimeZoneName\} \(</span>{formattedOffset})`,
                 offset: offsetHours
             });
         });
@@ -763,7 +774,7 @@
                 }
             }
             timezoneSelect.selectedIndex = bestMatchIndex;
-            console.warn(`Local timezone '${localTimeZone}' not directly in curated list or unsupported. Defaulting to closest offset: '${tempOptions[bestMatchIndex].name}'.`);
+            console.warn(`Local timezone '<span class="math-inline">\{localTimeZone\}' not directly in curated list or unsupported\. Defaulting to closest offset\: '</span>{tempOptions[bestMatchIndex].name}'.`);
         }
     }
 
