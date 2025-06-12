@@ -383,14 +383,14 @@
 </div>
 
 <div class="version-info">
-    Version 4.1.0 - Last Updated: June 12, 2025, 04:08 AM EDT
+    Version 4.1.1 - Last Updated: June 12, 2025, 04:30 AM EDT
 </div>
 
 <script>
     // ######################### Configuration Variables #########################
     // Easily change these values to adapt the calculator for different buildings or resources
     const BUILDING_NAME = 'Optoelectronic Lab';
-    const RESOURCE_NAME = 'Quartz';
+    const RESOURCE_NAME = 'Quartz'; // This constant defines the resource name and is NOT translated.
     const BUILDING_TYPE = 'Workshop'; // New variable for the type of building (e.g., Workshop, Factory, Field)
     // ###########################################################################
 
@@ -422,7 +422,7 @@
             resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
             resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
             resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
-            weeklyBuilding: `Semanal ${BUILDING_TYPE}`, // Changed to use variable
+            weeklyBuilding: `Semanal ${BUILDING_TYPE}`,
             resourcePerHour: `${RESOURCE_NAME}/hora:`,
             resourceHeld: `${RESOURCE_NAME} Actual:`,
             totalResource: `${RESOURCE_NAME} Total:`,
@@ -436,11 +436,11 @@
             title: `Tempo até o ${BUILDING_NAME} Poder Ser Atualizado`,
             headerLevel: 'Nível',
             headerHeld: 'Tido',
-            resourceBuilding1: `Oficina de ${RESOURCE_NAME} 1`, // Needs to be updated
-            resourceBuilding2: `Oficina de ${RESOURCE_NAME} 2`, // Needs to be updated
-            resourceBuilding3: `Oficina de ${RESOURCE_NAME} 3`, // Needs to be updated
-            resourceBuilding4: `Oficina de ${RESOURCE_NAME} 4`, // Needs to be updated
-            weeklyBuilding: `Oficina Semanal`, // Needs to be updated
+            resourceBuilding1: `${BUILDING_TYPE} de ${RESOURCE_NAME} 1`, // Portuguese word order
+            resourceBuilding2: `${BUILDING_TYPE} de ${RESOURCE_NAME} 2`,
+            resourceBuilding3: `${BUILDING_TYPE} de ${RESOURCE_NAME} 3`,
+            resourceBuilding4: `${BUILDING_TYPE} de ${RESOURCE_NAME} 4`,
+            weeklyBuilding: `${BUILDING_TYPE} Semanal`,
             resourcePerHour: `${RESOURCE_NAME}/hr:`,
             resourceHeld: `${RESOURCE_NAME} Atual:`,
             totalResource: `${RESOURCE_NAME} Total:`,
@@ -454,11 +454,11 @@
             title: `${BUILDING_NAME} 업그레이드까지 남은 시간`,
             headerLevel: '레벨',
             headerHeld: '보유',
-            resourceBuilding1: `${RESOURCE_NAME} 작업장 1`, // Needs to be updated
-            resourceBuilding2: `${RESOURCE_NAME} 작업장 2`, // Needs to be updated
-            resourceBuilding3: `${RESOURCE_NAME} 작업장 3`, // Needs to be updated
-            resourceBuilding4: `${RESOURCE_NAME} 작업장 4`, // Needs to be updated
-            weeklyBuilding: '주간 작업장', // Needs to be updated
+            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
+            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
+            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
+            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
+            weeklyBuilding: `주간 ${BUILDING_TYPE}`,
             resourcePerHour: `시간당 ${RESOURCE_NAME}:`,
             resourceHeld: `보유 ${RESOURCE_NAME}:`,
             totalResource: `총 ${RESOURCE_NAME}:`,
@@ -472,15 +472,15 @@
             title: `${BUILDING_NAME} アップグレードまでの時間`,
             headerLevel: 'レベル',
             headerHeld: '所持',
-            resourceBuilding1: `${RESOURCE_NAME}ワークショップ 1`, // Needs to be updated
-            resourceBuilding2: `${RESOURCE_NAME}ワークショップ 2`, // Needs to be updated
-            resourceBuilding3: `${RESOURCE_NAME}ワークショップ 3`, // Needs to be updated
-            resourceBuilding4: `${RESOURCE_NAME}ワークショップ 4`, // Needs to be updated
-            weeklyBuilding: '週次ワークショップ', // Needs to be updated
+            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`, // Added space for consistency and readability
+            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
+            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
+            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
+            weeklyBuilding: `週次 ${BUILDING_TYPE}`, // Added space
             resourcePerHour: `${RESOURCE_NAME}/時:`,
-            resourceHeld: `所持${RESOURCE_NAME}:`,
-            totalResource: `合計${RESOURCE_NAME}:`,
-            resourceNeeded: `必要な${RESOURCE_NAME}:`,
+            resourceHeld: `所持${RESOURCE_NAME}:`, // No space here as per common Japanese
+            totalResource: `合計${RESOURCE_NAME}:`, // No space here
+            resourceNeeded: `必要な${RESOURCE_NAME}:`, // No space here
             timeToComplete: '完了までの時間:',
             completionTime: '完了時刻:',
             displayTimeZone: '表示タイムゾーン:',
@@ -500,66 +500,8 @@
             langToUse = navigator.language.split('-')[0];
         }
 
+        // Ensure the language code exists in our translations, fallback to 'en'
         const currentTranslations = translations[langToUse] || translations['en'];
-
-        // Dynamically update the translation strings for all languages based on constants
-        // This is necessary because the base translation definitions are fixed,
-        // but the constants (BUILDING_NAME, RESOURCE_NAME, BUILDING_TYPE) can change.
-        currentTranslations.title = `Time Until ${BUILDING_NAME} Can Be Upgraded`;
-        currentTranslations.resourceBuilding1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
-        currentTranslations.resourceBuilding2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
-        currentTranslations.resourceBuilding3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
-        currentTranslations.resourceBuilding4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
-        currentTranslations.weeklyBuilding = `Weekly ${BUILDING_TYPE}`; // Ensure this is dynamic for all languages.
-        currentTranslations.resourcePerHour = `${RESOURCE_NAME}/hr:`;
-        currentTranslations.resourceHeld = `${RESOURCE_NAME} Held:`;
-        currentTranslations.totalResource = `Total ${RESOURCE_NAME}:`;
-        currentTranslations.resourceNeeded = `${RESOURCE_NAME} Needed:`;
-
-
-        // Adjusting specific language translations to use BUILDING_TYPE where relevant:
-        if (langToUse === 'es') {
-            currentTranslations.resourceBuilding1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
-            currentTranslations.resourceBuilding2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
-            currentTranslations.resourceBuilding3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
-            currentTranslations.resourceBuilding4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
-            currentTranslations.weeklyBuilding = `Semanal ${BUILDING_TYPE}`;
-            currentTranslations.resourcePerHour = `${RESOURCE_NAME}/hora:`;
-            currentTranslations.resourceHeld = `${RESOURCE_NAME} Actual:`;
-            currentTranslations.totalResource = `${RESOURCE_NAME} Total:`;
-            currentTranslations.resourceNeeded = `${RESOURCE_NAME} Necesario:`;
-        } else if (langToUse === 'pt') {
-            currentTranslations.resourceBuilding1 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 1`; // Example of different order
-            currentTranslations.resourceBuilding2 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 2`;
-            currentTranslations.resourceBuilding3 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 3`;
-            currentTranslations.resourceBuilding4 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 4`;
-            currentTranslations.weeklyBuilding = `${BUILDING_TYPE} Semanal`;
-            currentTranslations.resourcePerHour = `${RESOURCE_NAME}/hr:`;
-            currentTranslations.resourceHeld = `${RESOURCE_NAME} Atual:`;
-            currentTranslations.totalResource = `${RESOURCE_NAME} Total:`;
-            currentTranslations.resourceNeeded = `${RESOURCE_NAME} Necessário:`;
-        } else if (langToUse === 'ko') {
-            currentTranslations.resourceBuilding1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
-            currentTranslations.resourceBuilding2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
-            currentTranslations.resourceBuilding3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
-            currentTranslations.resourceBuilding4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
-            currentTranslations.weeklyBuilding = `주간 ${BUILDING_TYPE}`;
-            currentTranslations.resourcePerHour = `시간당 ${RESOURCE_NAME}:`;
-            currentTranslations.resourceHeld = `보유 ${RESOURCE_NAME}:`;
-            currentTranslations.totalResource = `총 ${RESOURCE_NAME}:`;
-            currentTranslations.resourceNeeded = `필요한 ${RESOURCE_NAME}:`;
-        } else if (langToUse === 'ja') {
-            currentTranslations.resourceBuilding1 = `${RESOURCE_NAME}${BUILDING_TYPE} 1`; // No space for Japanese
-            currentTranslations.resourceBuilding2 = `${RESOURCE_NAME}${BUILDING_TYPE} 2`;
-            currentTranslations.resourceBuilding3 = `${RESOURCE_NAME}${BUILDING_TYPE} 3`;
-            currentTranslations.resourceBuilding4 = `${RESOURCE_NAME}${BUILDING_TYPE} 4`;
-            currentTranslations.weeklyBuilding = `週次${BUILDING_TYPE}`;
-            currentTranslations.resourcePerHour = `${RESOURCE_NAME}/時:`;
-            currentTranslations.resourceHeld = `所持${RESOURCE_NAME}:`;
-            currentTranslations.totalResource = `合計${RESOURCE_NAME}:`;
-            currentTranslations.resourceNeeded = `必要な${RESOURCE_NAME}:`;
-        }
-
 
         const languageSelect = document.getElementById('languageSelect');
         if (languageSelect && languageSelect.value !== langToUse) {
@@ -579,6 +521,7 @@
         });
 
         // Ensure the h2 element is updated (it also has data-i18n="title")
+        // This is a redundant but safe way to ensure the main title is updated.
         const h2Element = document.querySelector('h2[data-i18n="title"]');
         if (h2Element && currentTranslations.title) {
             h2Element.textContent = currentTranslations.title;
