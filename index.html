@@ -56,7 +56,7 @@
         flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         padding: 8px;
         border: 1px solid #ddd;
-        border-radius: 4px;
+        border-radius: 44px;
         box-sizing: border-box;
         text-align: right; /* Keep numbers aligned to the right */
         max-width: var(--held-input-width); /* Ensure it doesn't grow if flex: 1 was somehow applied */
@@ -213,21 +213,21 @@
             justify-content: space-between; /* Space out label and input */
         }
         .row .display-label,
-    .row label {
-        flex: 0 1 auto; /* Allow label to shrink if needed (flex-shrink: 1), but prefer content size */
-        min-width: 0; /* Allow content to shrink below its intrinsic width */
-        margin-right: 10px; /* Keep a small gap */
-        font-size: 1em; /* Adjust relative to new body font-size */
-    }
+        .row label {
+            flex: 0 1 auto; /* Allow label to shrink if needed (flex-shrink: 1), but prefer content size */
+            min-width: 0; /* Allow content to shrink below its intrinsic width */
+            margin-right: 10px; /* Keep a small gap */
+            font-size: 1em; /* Adjust relative to new body font-size */
+        }
         /* Inputs and display values for general rows on mobile */
         .row input[type="tel"],
-    .display-value {
-        flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
-        min-width: 0; /* Allow input to shrink below its intrinsic width */
-        text-align: right !important; /* Force right justification on mobile */
-        font-size: 1em; /* Adjust relative to new body font-size */
-        max-width: 120px; /* Adjusted from 85px to better fit large numbers */
-    }
+        .display-value {
+            flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
+            min-width: 0; /* Allow input to shrink below its intrinsic width */
+            text-align: right !important; /* Force right justification on mobile */
+            font-size: 1em; /* Adjust relative to new body font-size */
+            max-width: 120px; /* Adjusted from 85px to better fit large numbers */
+        }
         /* Specific overrides for timezoneSelect on mobile */
         #timezoneSelect {
             flex: 1; /* Takes available space */
@@ -361,7 +361,7 @@
 </div>
 
 <div class="version-info">
-    Version 4.1.5 - Last Updated: June 12, 2025, 04:58 AM EDT
+    Version 4.1.6 - Last Updated: June 12, 2025, 05:11 AM EDT
 </div>
 
 <script>
@@ -931,62 +931,65 @@
 
         // Get selected time zone for formatting
         const selectedTimeZone = document.getElementById('timezoneSelect').value;
-        if (!selectedTimeZone) {
-            console.error("No time zone selected in dropdown. Cannot display completion time.");
-            timeDisplay.textContent = "N/A";
-            completionTimeDisplay.textContent = "N/A (Select TZ)";
-            return; // Exit early if no timezone
-        }
+        const resourceNeededInput = document.getElementById('resourceNeededText');
 
-        // Get current language for time display format strings
-        const currentLangCode = document.getElementById('languageSelect').value;
-        const currentTranslations = translations[currentLangCode] || translations['en'];
 
-        let completionDateTime;
-        let hoursValue;
-        let timeFormatKey; // Key for translation string ('timeRemainingFormat' or 'timeAgoFormat')
+        // Only calculate and display time if resourceNeeded is filled and non-zero
+        if (resourceNeeded > 0 && selectedTimeZone) {
+            // Get current language for time display format strings
+            const currentLangCode = document.getElementById('languageSelect').value;
+            const currentTranslations = translations[currentLangCode] || translations['en'];
 
-        if (resourcePerHour > 0) {
-            if (totalCurrentResource < resourceNeeded) {
-                // Still need resources (positive time remaining)
-                hoursValue = (resourceNeeded - totalCurrentResource) / resourcePerHour;
-                completionDateTime = new Date(Date.now() + hoursValue * 60 * 60 * 1000);
-                timeFormatKey = 'timeRemainingFormat';
+            let completionDateTime;
+            let hoursValue;
+            let timeFormatKey; // Key for translation string ('timeRemainingFormat' or 'timeAgoFormat')
+
+            if (resourcePerHour > 0) {
+                if (totalCurrentResource < resourceNeeded) {
+                    // Still need resources (positive time remaining)
+                    hoursValue = (resourceNeeded - totalCurrentResource) / resourcePerHour;
+                    completionDateTime = new Date(Date.now() + hoursValue * 60 * 60 * 1000);
+                    timeFormatKey = 'timeRemainingFormat';
+                } else {
+                    // Have more than needed (overshot, negative time)
+                    hoursValue = (totalCurrentResource - resourceNeeded) / resourcePerHour;
+                    completionDateTime = new Date(Date.now() - hoursValue * 60 * 60 * 1000);
+                    timeFormatKey = 'timeAgoFormat';
+                }
+
+                // Update Time to Complete display
+                const formattedHours = hoursValue.toFixed(2);
+                timeDisplay.textContent = currentTranslations[timeFormatKey].replace('{hours}', formattedHours);
+
+                // Update Completion Time display
+                try {
+                    const formatter = new Intl.DateTimeFormat('en-US', {
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        hour12: true,
+                        timeZone: selectedTimeZone,
+                        timeZoneName: 'short'
+                    });
+                    completionTimeDisplay.textContent = formatter.format(completionDateTime);
+                } catch (e) {
+                    console.error(`Error formatting completion time for '${selectedTimeZone}'. Displaying UTC.`, e);
+                    const utcFormatter = new Intl.DateTimeFormat('en-US', {
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        hour12: true,
+                        timeZone: 'UTC',
+                        timeZoneName: 'short'
+                    });
+                    completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTime)}`;
+                }
+
             } else {
-                // Have more than needed (overshot, negative time)
-                hoursValue = (totalCurrentResource - resourceNeeded) / resourcePerHour;
-                completionDateTime = new Date(Date.now() - hoursValue * 60 * 60 * 1000);
-                timeFormatKey = 'timeAgoFormat';
+                // No production rate or other issue
+                timeDisplay.textContent = "N/A";
+                completionTimeDisplay.textContent = "N/A";
             }
-
-            // Update Time to Complete display
-            const formattedHours = hoursValue.toFixed(2);
-            timeDisplay.textContent = currentTranslations[timeFormatKey].replace('{hours}', formattedHours);
-
-            // Update Completion Time display
-            try {
-                const formatter = new Intl.DateTimeFormat('en-US', {
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                    timeZone: selectedTimeZone,
-                    timeZoneName: 'short'
-                });
-                completionTimeDisplay.textContent = formatter.format(completionDateTime);
-            } catch (e) {
-                console.error(`Error formatting completion time for '${selectedTimeZone}'. Displaying UTC.`, e);
-                const utcFormatter = new Intl.DateTimeFormat('en-US', {
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                    timeZone: 'UTC',
-                    timeZoneName: 'short'
-                });
-                completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTime)}`;
-            }
-
         } else {
-            // No production rate
+            // resourceNeeded is 0 or not filled, or no timezone selected
             timeDisplay.textContent = "N/A";
             completionTimeDisplay.textContent = "N/A";
         }
@@ -995,7 +998,7 @@
         // Re-format the main resourceHeldText and resourceNeededText after calculations,
         // as they are not part of the auto-population loop for buildings.
         if (document.getElementById('resourceHeldText').value !== '') formatInput(document.getElementById('resourceHeldText'));
-        if (document.getElementById('resourceNeededText').value !== '') formatInput(document.getElementById('resourceNeededText'));
+        if (resourceNeededInput.value !== '') formatInput(resourceNeededInput); // Use resourceNeededInput here for clarity
         // Re-format level fields if the triggering element was a level input
         if (triggeringElement && triggeringElement.id.startsWith('level') && triggeringElement.value !== '') {
             formatInput(triggeringElement);
