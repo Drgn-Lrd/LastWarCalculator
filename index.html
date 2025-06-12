@@ -42,12 +42,12 @@
         font-family: Arial, sans-serif;
         margin: 20px;
         background-color: var(--bg-color); /* Use variable */
+        color: var(--text-color); /* Use variable */
         display: flex;
-        flex-direction: column; /* Stack children (language selector, container, version) vertically */
+        flex-direction: column; /* Stack children (container, bottom-controls, version) vertically */
         justify-content: flex-start; /* Align content from the top */
         align-items: center; /* Center items horizontally */
         min-height: 90vh;
-        color: var(--text-color); /* Use variable */
         transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
     }
     .container {
@@ -178,16 +178,15 @@
         margin: 15px 0;
     }
 
-    /* --- Language Selector Container Styling --- */
-    #top-controls {
+    /* --- Bottom Controls Styling --- */
+    #bottom-controls {
         display: flex;
-        justify-content: flex-end; /* Push to right */
+        justify-content: space-between; /* Pushes items to opposite ends */
         align-items: center;
-        gap: 15px; /* Space between language and theme */
-        margin-top: 10px;
-        margin-right: 20px;
-        width: 100%; /* Occupy full width to align right */
-        max-width: 590px; /* Match container width + padding for alignment */
+        width: 100%;
+        max-width: 550px; /* Match container width for alignment */
+        margin-top: 20px; /* Space above version info */
+        padding: 0 20px; /* Horizontal padding to match container if needed, or adjust */
     }
 
     #language-selector-container {
@@ -228,7 +227,7 @@
 
     /* --- Version Info Styling --- */
     .version-info {
-        margin-top: 20px;
+        margin-top: 15px; /* Small margin after bottom-controls */
         font-size: 0.8em;
         color: var(--text-color); /* Use variable */
         text-align: center;
@@ -238,40 +237,6 @@
     @media (max-width: 480px) {
         body {
             font-size: 15px; /* Reduced base font size for better mobile fit */
-        }
-
-        /* Top Controls Stacking */
-        #top-controls {
-            flex-direction: column; /* Stack language and theme selector vertically */
-            align-items: flex-end; /* Keep aligned right if stacked */
-            gap: 10px; /* Space between stacked elements */
-            margin-top: 10px;
-            margin-right: 10px;
-            padding: 0;
-            max-width: 95%; /* Adjust max-width for mobile */
-        }
-
-        #language-selector-container {
-            flex-direction: row; /* Keep label and dropdown horizontal */
-            align-items: center;
-            gap: 5px;
-            width: 100%; /* Take full width of top-controls */
-            justify-content: flex-end; /* Push content to right */
-        }
-        #language-selector-container label {
-            font-size: 0.9em; /* Slightly larger for readability */
-        }
-        #languageSelect {
-            padding: 5px 8px;
-            font-size: 1em; /* Adjusted relative to new body font-size */
-            min-width: unset; /* Allow it to shrink if needed */
-        }
-
-        #theme-toggle {
-            width: fit-content; /* Adjust width */
-            align-self: flex-end; /* Align button to the right */
-            padding: 6px 10px; /* Smaller padding for mobile */
-            font-size: 0.85em;
         }
 
         /* Main Container */
@@ -350,833 +315,852 @@
             font-size: 0.9em; /* Match building row labels */
         }
 
+        /* Bottom controls on mobile */
+        #bottom-controls {
+            flex-direction: column; /* Stack language and theme selector vertically */
+            align-items: center; /* Center horizontally */
+            gap: 10px; /* Space between stacked elements */
+            margin-top: 15px;
+            padding: 0 10px; /* Reduce horizontal padding */
+            max-width: 95%; /* Adjust max-width for mobile */
+        }
+        #language-selector-container {
+            justify-content: center; /* Center language selector on mobile */
+            width: 100%;
+        }
+        #theme-toggle {
+            width: fit-content; /* Adjust width */
+            align-self: center; /* Center button on mobile */
+            padding: 6px 10px; /* Smaller padding for mobile */
+            font-size: 0.85em;
+        }
+
         .version-info {
             font-size: 0.65em; /* Slightly smaller for mobile */
             margin-top: 15px;
         }
-    }
-</style>
+    </style>
 </head>
 <body>
 
-<div id="top-controls">
-    <div id="language-selector-container">
-        <label for="languageSelect">Language:</label>
-        <select id="languageSelect" tabindex="1">
-            </select>
-    </div>
-    <button id="theme-toggle" tabindex="15">Toggle Theme</button>
-</div>
+    <div class="container">
+        <h2 data-i18n="title">Time Until Optoelectronic Lab Can Be Upgraded</h2>
 
-<div class="container">
-    <h2 data-i18n="title">Time Until Optoelectronic Lab Can Be Upgraded</h2>
+        <div class="header-row">
+            <span></span>
+            <strong id="header-level" data-i18n="headerLevel">Level</strong>
+            <strong id="header-held" data-i18n="headerHeld">Held</strong>
+        </div>
 
-    <div class="header-row">
-        <span></span>
-        <strong id="header-level" data-i18n="headerLevel">Level</strong>
-        <strong id="header-held" data-i18n="headerHeld">Held</strong>
-    </div>
+        <div class="building-row">
+            <label id="building1-name" data-i18n="resourceBuilding1">Quartz Workshop 1</label>
+            <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
+            <input type="tel" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
+        </div>
+        <div class="building-row">
+            <label id="building2-name" data-i18n="resourceBuilding2">Quartz Workshop 2</label>
+            <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
+            <input type="tel" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
+        </div>
+        <div class="building-row">
+            <label id="building3-name" data-i18n="resourceBuilding3">Quartz Workshop 3</label>
+            <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
+            <input type="tel" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
+        </div>
+        <div class="building-row">
+            <label id="building4-name" data-i18n="resourceBuilding4">Quartz Workshop 4</label>
+            <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
+            <input type="tel" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
+        </div>
+        <div class="building-row">
+            <label id="weeklyBuilding-name" data-i18n="weeklyBuilding">Weekly Workshop</label>
+            <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
+            <input type="tel" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
+        </div>
 
-    <div class="building-row">
-        <label id="building1-name" data-i18n="resourceBuilding1">Quartz Workshop 1</label>
-        <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
-        <input type="tel" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
-    </div>
-    <div class="building-row">
-        <label id="building2-name" data-i18n="resourceBuilding2">Quartz Workshop 2</label>
-        <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
-        <input type="tel" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
-    </div>
-    <div class="building-row">
-        <label id="building3-name" data-i18n="resourceBuilding3">Quartz Workshop 3</label>
-        <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
-        <input type="tel" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
-    </div>
-    <div class="building-row">
-        <label id="building4-name" data-i18n="resourceBuilding4">Quartz Workshop 4</label>
-        <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
-        <input type="tel" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
-    </div>
-    <div class="building-row">
-        <label id="weeklyBuilding-name" data-i18n="weeklyBuilding">Weekly Workshop</label>
-        <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
-        <input type="tel" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
-    </div>
+        <hr>
 
-    <hr>
+        <div class="row">
+            <span class="display-label" data-i18n="resourcePerHour">Quartz/hr:</span>
+            <span id="resourceHrDisplay" class="display-value">0</span>
+        </div>
 
-    <div class="row">
-        <span class="display-label" data-i18n="resourcePerHour">Quartz/hr:</span>
-        <span id="resourceHrDisplay" class="display-value">0</span>
-    </div>
+        <div class="row">
+            <label for="resourceHeldText" data-i18n="resourceHeld">Quartz Held:</label>
+            <input type="tel" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
+        </div>
 
-    <div class="row">
-        <label for="resourceHeldText" data-i18n="resourceHeld">Quartz Held:</label>
-        <input type="tel" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
-    </div>
+        <div class="row">
+            <span class="display-label" data-i18n="totalResource">Total Quartz:</span>
+            <span id="totalResourceDisplay" class="display-value">0</span>
+        </div>
 
-    <div class="row">
-        <span class="display-label" data-i18n="totalResource">Total Quartz:</span>
-        <span id="totalResourceDisplay" class="display-value">0</span>
-    </div>
+        <div class="row">
+            <label for="resourceNeededText" data-i18n="resourceNeeded">Quartz Needed:</label>
+            <input type="tel" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
+        </div>
 
-    <div class="row">
-        <label for="resourceNeededText" data-i18n="resourceNeeded">Quartz Needed:</label>
-        <input type="tel" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
-    </div>
+        <div class="row">
+            <span class="display-label" data-i18n="timeToComplete">Time to Complete:</span>
+            <span id="timeDisplay" class="display-value">N/A</span>
+        </div>
 
-    <div class="row">
-        <span class="display-label" data-i18n="timeToComplete">Time to Complete:</span>
-        <span id="timeDisplay" class="display-value">N/A</span>
-    </div>
+        <div class="row">
+            <span class="display-label" data-i18n="completionTime">Completion Time:</span>
+            <span id="completionTimeDisplay" class="display-value">N/A</span>
+        </div>
 
-    <div class="row">
-        <span class="display-label" data-i18n="completionTime">Completion Time:</span>
-        <span id="completionTimeDisplay" class="display-value">N/A</span>
+        <div class="row">
+            <label for="timezoneSelect" data-i18n="displayTimeZone">Display Time Zone:</label>
+            <select id="timezoneSelect" onchange="updateCalculations()" tabindex="14">
+                </select>
+        </div>
     </div>
 
-    <div class="row">
-        <label for="timezoneSelect" data-i18n="displayTimeZone">Display Time Zone:</label>
-        <select id="timezoneSelect" onchange="updateCalculations()" tabindex="14">
-            </select>
+    <div id="bottom-controls">
+        <button id="theme-toggle" tabindex="15">Toggle Theme</button>
+        <div id="language-selector-container">
+            <label for="languageSelect">Language:</label>
+            <select id="languageSelect" tabindex="1">
+                </select>
+        </div>
     </div>
-</div>
 
-<div class="version-info">
-    Version 4.2.0 - Last Updated: June 12, 2025, 07:56 AM EDT
-</div>
+    <div class="version-info">
+        Version 4.2.1 - Last Updated: June 12, 2025, 08:35 AM EDT
+    </div>
 
-<script>
-    // These constants will be dynamically set by setGlobalConstantsForLanguage()
-    let BUILDING_NAME = '';
-    let RESOURCE_NAME = '';
-    let BUILDING_TYPE = '';
+    <script>
+        // These constants will be dynamically set by setGlobalConstantsForLanguage()
+        let BUILDING_NAME = '';
+        let RESOURCE_NAME = '';
+        let BUILDING_TYPE = '';
 
-    // Define your translations
-    const translations = {
-        'en': { // English (default fallback)
-            buildingName: 'Optoelectronic Lab',
-            resourceName: 'Quartz',
-            buildingType: 'Workshop',
-            title: `Time Until {buildingName} Can Be Upgraded`, // Placeholder to be replaced
-            headerLevel: 'Level',
-            headerHeld: 'Held',
-            resourceBuilding1: `{resourceName} {buildingType} 1`,
-            resourceBuilding2: `{resourceName} {buildingType} 2`,
-            resourceBuilding3: `{resourceName} {buildingType} 3`,
-            resourceBuilding4: `{resourceName} {buildingType} 4`,
-            weeklyBuilding: `Weekly {buildingType}`,
-            resourcePerHour: `{resourceName}/hr:`,
-            resourceHeld: `{resourceName} Held:`,
-            totalResource: `Total {resourceName}:`,
-            resourceNeeded: `{resourceName} Needed:`,
-            timeToComplete: 'Time to Complete:',
-            timeRemainingFormat: '{hours} hrs', // New: "X hrs"
-            timeAgoFormat: '{hours} hrs ago',    // New: "X hrs ago"
-            completionTime: 'Completion Time:',
-            displayTimeZone: 'Display Time Zone:',
-            toggleTheme: 'Toggle Theme' // New translation for the button
-        },
-        'es': { // Spanish
-            buildingName: 'Laboratorio Optoelectrónico',
-            resourceName: 'Cuarzo',
-            buildingType: 'Taller',
-            title: `Tiempo hasta que el {buildingName} pueda ser mejorado`,
-            headerLevel: 'Nivel',
-            headerHeld: 'Obtenido',
-            resourceBuilding1: `{resourceName} {buildingType} 1`,
-            resourceBuilding2: `{resourceName} {buildingType} 2`,
-            resourceBuilding3: `{resourceName} {buildingType} 3`,
-            resourceBuilding4: `{resourceName} {buildingType} 4`,
-            weeklyBuilding: `Semanal {buildingType}`,
-            resourcePerHour: `Cuarzo/hora:`,
-            resourceHeld: `{resourceName} Actual:`,
-            totalResource: `{resourceName} Total:`,
-            resourceNeeded: `{resourceName} Necesario:`,
-            timeToComplete: 'Tiempo Restante:',
-            timeRemainingFormat: '{hours} h', // New: "X h"
-            timeAgoFormat: 'hace {hours} h',    // New: "hace X h"
-            completionTime: 'Hora de Finalización:',
-            displayTimeZone: 'Zona Horaria:',
-            toggleTheme: 'Cambiar Tema'
-        },
-        'pt': { // Portuguese
-            buildingName: 'Laboratório Optoeletrônico',
-            resourceName: 'Quartzo',
-            buildingType: 'Oficina',
-            title: `Tempo até o {buildingName} Poder Ser Atualizado`,
-            headerLevel: 'Nível',
-            headerHeld: 'Tido',
-            resourceBuilding1: `{buildingType} de {resourceName} 1`,
-            resourceBuilding2: `{buildingType} de {resourceName} 2`,
-            resourceBuilding3: `{buildingType} de {resourceName} 3`,
-            resourceBuilding4: `{buildingType} de {resourceName} 4`,
-            weeklyBuilding: `{buildingType} Semanal`,
-            resourcePerHour: `Quartzo/hr:`,
-            resourceHeld: `Quartzo Atual:`,
-            totalResource: `Quartzo Total:`,
-            resourceNeeded: `Quartzo Necessário:`,
-            timeToComplete: 'Tempo para Concluir:',
-            timeRemainingFormat: '{hours} h', // New: "X h"
-            timeAgoFormat: 'há {hours} h',    // New: "há X h"
-            completionTime: 'Hora de Conclusão:',
-            displayTimeZone: 'Fuso Horário:',
-            toggleTheme: 'Alternar Tema'
-        },
-        'ko': { // Korean
-            buildingName: '광전자 연구소',
-            resourceName: '석영',
-            buildingType: '작업장',
-            title: `{buildingName} 업그레이드까지 남은 시간`,
-            headerLevel: '레벨',
-            headerHeld: '보유',
-            resourceBuilding1: `{resourceName} {buildingType} 1`,
-            resourceBuilding2: `{resourceName} {buildingType} 2`,
-            resourceBuilding3: `{resourceName} {buildingType} 3`,
-            resourceBuilding4: `{resourceName} {buildingType} 4`,
-            weeklyBuilding: `주간 {buildingType}`,
-            resourcePerHour: `시간당 {resourceName}:`,
-            resourceHeld: `보유 {resourceName}:`,
-            totalResource: `총 {resourceName}:`,
-            resourceNeeded: `필요한 {resourceName}:`,
-            timeToComplete: '완료까지 남은 시간:',
-            timeRemainingFormat: '{hours}시간', // New: "X시간"
-            timeAgoFormat: '{hours}시간 전',    // New: "X시간 전"
-            completionTime: '완료 시간:',
-            displayTimeZone: '표시 시간대:',
-            toggleTheme: '테마 전환'
-        },
-        'ja': { // Japanese
-            buildingName: '光電子研究所',
-            resourceName: '石英',
-            buildingType: '作業場',
-            title: `{buildingName} アップグレードまでの時間`,
-            headerLevel: 'レベル',
-            headerHeld: '所持',
-            resourceBuilding1: `{resourceName} {buildingType} 1`,
-            resourceBuilding2: `{resourceName} {buildingType} 2`,
-            resourceBuilding3: `{resourceName} {buildingType} 3`,
-            resourceBuilding4: `{resourceName} {buildingType} 4`,
-            weeklyBuilding: `週次 {buildingType}`,
-            resourcePerHour: `{resourceName}/時:`,
-            resourceHeld: `所持{resourceName}:`,
-            totalResource: `合計{resourceName}:`,
-            resourceNeeded: `必要な{resourceName}:`,
-            timeToComplete: '完了までの時間:',
-            timeRemainingFormat: '{hours}時間', // New: "X時間"
-            timeAgoFormat: '{hours}時間前',    // New: "X時間前"
-            completionTime: '完了時刻:',
-            displayTimeZone: '表示タイムゾーン:',
-            toggleTheme: 'テーマ切り替え'
-        }
-    };
-
-
-    /**
-     * Dynamically sets the global constants (BUILDING_NAME, RESOURCE_NAME, BUILDING_TYPE)
-     * based on the currently selected or detected language.
-     * This must run BEFORE applyTranslations to ensure template literals are correctly resolved.
-     */
-    function setGlobalConstantsForLanguage(langToUse) {
-        const currentTranslations = translations[langToUse] || translations['en'];
-        BUILDING_NAME = currentTranslations.buildingName;
-        RESOURCE_NAME = currentTranslations.resourceName;
-        BUILDING_TYPE = currentTranslations.buildingType;
-    }
-
-    // Function to apply translations based on a specified language or auto-detect
-    function applyTranslations(langOverride = null) {
-        let langToUse;
-
-        if (langOverride) {
-            langToUse = langOverride;
-        } else if (document.getElementById('languageSelect') && document.getElementById('languageSelect').value) {
-            langToUse = document.getElementById('languageSelect').value;
-        } else {
-            langToUse = navigator.language.split('-')[0];
-        }
-
-        // Ensure the language code exists in our translations, fallback to 'en'
-        langToUse = translations[langToUse] ? langToUse : 'en';
-
-        // Set global constants for the chosen language BEFORE applying translations
-        setGlobalConstantsForLanguage(langToUse);
-
-        // Now, get the translations for the chosen language.
-        // We'll create a temporary object to hold the fully processed strings.
-        const processedTranslations = {};
-        const currentTranslationsSource = translations[langToUse];
-
-        // Process each translation string to replace placeholders with dynamic global constants
-        for (const key in currentTranslationsSource) {
-            if (currentTranslationsSource.hasOwnProperty(key)) {
-                let value = currentTranslationsSource[key];
-                if (typeof value === 'string') {
-                    value = value.replace(/{buildingName}/g, BUILDING_NAME);
-                    value = value.replace(/{resourceName}/g, RESOURCE_NAME);
-                    value = value.replace(/{buildingType}/g, BUILDING_TYPE);
-                }
-                processedTranslations[key] = value;
+        // Define your translations
+        const translations = {
+            'en': { // English (default fallback)
+                buildingName: 'Optoelectronic Lab',
+                resourceName: 'Quartz',
+                buildingType: 'Workshop',
+                title: `Time Until {buildingName} Can Be Upgraded`, // Placeholder to be replaced
+                headerLevel: 'Level',
+                headerHeld: 'Held',
+                resourceBuilding1: `{resourceName} {buildingType} 1`,
+                resourceBuilding2: `{resourceName} {buildingType} 2`,
+                resourceBuilding3: `{resourceName} {buildingType} 3`,
+                resourceBuilding4: `{resourceName} {buildingType} 4`,
+                weeklyBuilding: `Weekly {buildingType}`,
+                resourcePerHour: `{resourceName}/hr:`,
+                resourceHeld: `{resourceName} Held:`,
+                totalResource: `Total {resourceName}:`,
+                resourceNeeded: `{resourceName} Needed:`,
+                timeToComplete: 'Time to Complete:',
+                timeRemainingFormat: '{hours} hrs', // New: "X hrs"
+                timeAgoFormat: '{hours} hrs ago',    // New: "X hrs ago"
+                completionTime: 'Completion Time:',
+                displayTimeZone: 'Display Time Zone:',
+                toggleTheme: 'Toggle Theme' // New translation for the button
+            },
+            'es': { // Spanish
+                buildingName: 'Laboratorio Optoelectrónico',
+                resourceName: 'Cuarzo',
+                buildingType: 'Taller',
+                title: `Tiempo hasta que el {buildingName} pueda ser mejorado`,
+                headerLevel: 'Nivel',
+                headerHeld: 'Obtenido',
+                resourceBuilding1: `{resourceName} {buildingType} 1`,
+                resourceBuilding2: `{resourceName} {buildingType} 2`,
+                resourceBuilding3: `{resourceName} {buildingType} 3`,
+                resourceBuilding4: `{resourceName} {buildingType} 4`,
+                weeklyBuilding: `Semanal {buildingType}`,
+                resourcePerHour: `Cuarzo/hora:`,
+                resourceHeld: `Cuarzo Actual:`,
+                totalResource: `Cuarzo Total:`,
+                resourceNeeded: `Cuarzo Necesario:`,
+                timeToComplete: 'Tiempo Restante:',
+                timeRemainingFormat: '{hours} h', // New: "X h"
+                timeAgoFormat: 'hace {hours} h',    // New: "hace X h"
+                completionTime: 'Hora de Finalización:',
+                displayTimeZone: 'Zona Horaria:',
+                toggleTheme: 'Cambiar Tema'
+            },
+            'pt': { // Portuguese
+                buildingName: 'Laboratório Optoeletrônico',
+                resourceName: 'Quartzo',
+                buildingType: 'Oficina',
+                title: `Tempo até o {buildingName} Poder Ser Atualizado`,
+                headerLevel: 'Nível',
+                headerHeld: 'Tido',
+                resourceBuilding1: `{buildingType} de {resourceName} 1`,
+                resourceBuilding2: `{buildingType} de {resourceName} 2`,
+                resourceBuilding3: `{buildingType} de {resourceName} 3`,
+                resourceBuilding4: `{buildingType} de {resourceName} 4`,
+                weeklyBuilding: `{buildingType} Semanal`,
+                resourcePerHour: `Quartzo/hr:`,
+                resourceHeld: `Quartzo Atual:`,
+                totalResource: `Quartzo Total:`,
+                resourceNeeded: `Quartzo Necessário:`,
+                timeToComplete: 'Tempo para Concluir:',
+                timeRemainingFormat: '{hours} h', // New: "X h"
+                timeAgoFormat: 'há {hours} h',    // New: "há X h"
+                completionTime: 'Hora de Conclusão:',
+                displayTimeZone: 'Fuso Horário:',
+                toggleTheme: 'Alternar Tema'
+            },
+            'ko': { // Korean
+                buildingName: '광전자 연구소',
+                resourceName: '석영',
+                buildingType: '작업장',
+                title: `{buildingName} 업그레이드까지 남은 시간`,
+                headerLevel: '레벨',
+                headerHeld: '보유',
+                resourceBuilding1: `{resourceName} {buildingType} 1`,
+                resourceBuilding2: `{resourceName} {buildingType} 2`,
+                resourceBuilding3: `{resourceName} {buildingType} 3`,
+                resourceBuilding4: `{resourceName} {buildingType} 4`,
+                weeklyBuilding: `주간 {buildingType}`,
+                resourcePerHour: `시간당 {resourceName}:`,
+                resourceHeld: `보유 {resourceName}:`,
+                totalResource: `총 {resourceName}:`,
+                resourceNeeded: `필요한 {resourceName}:`,
+                timeToComplete: '완료까지 남은 시간:',
+                timeRemainingFormat: '{hours}시간', // New: "X시간"
+                timeAgoFormat: '{hours}시간 전',    // New: "X시간 전"
+                completionTime: '완료 시간:',
+                displayTimeZone: '표시 시간대:',
+                toggleTheme: '테마 전환'
+            },
+            'ja': { // Japanese
+                buildingName: '光電子研究所',
+                resourceName: '石英',
+                buildingType: '作業場',
+                title: `{buildingName} アップグレードまでの時間`,
+                headerLevel: 'レベル',
+                headerHeld: '所持',
+                resourceBuilding1: `{resourceName} {buildingType} 1`,
+                resourceBuilding2: `{resourceName} {buildingType} 2`,
+                resourceBuilding3: `{resourceName} {buildingType} 3`,
+                resourceBuilding4: `{resourceName} {buildingType} 4`,
+                weeklyBuilding: `週次 {buildingType}`,
+                resourcePerHour: `{resourceName}/時:`,
+                resourceHeld: `所持{resourceName}:`,
+                totalResource: `合計{resourceName}:`,
+                resourceNeeded: `必要な{resourceName}:`,
+                timeToComplete: '完了までの時間:',
+                timeRemainingFormat: '{hours}時間', // New: "X時間"
+                timeAgoFormat: '{hours}時間前',    // New: "X時間前"
+                completionTime: '完了時刻:',
+                displayTimeZone: '表示タイムゾーン:',
+                toggleTheme: 'テーマ切り替え'
             }
-        }
-
-        const languageSelect = document.getElementById('languageSelect');
-        if (languageSelect && languageSelect.value !== langToUse) {
-            languageSelect.value = langToUse;
-        }
-
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-            const key = element.getAttribute('data-i18n');
-            // Do not update dynamic display elements here, as they are updated by updateCalculations
-            // This prevents overwriting of numeric values or 'X hrs ago' text
-            if (key === 'timeRemainingFormat' || key === 'timeAgoFormat') {
-                return; // These are templates used by JS, not direct textContent
-            }
-            if (processedTranslations[key]) {
-                // If the element is the title tag, update document.title
-                if (element.tagName.toLowerCase() === 'title') {
-                    document.title = processedTranslations[key];
-                } else {
-                    element.textContent = processedTranslations[key];
-                }
-            }
-        });
-
-        // Ensure the h2 element is updated (it also has data-i18n="title")
-        const h2Element = document.querySelector('h2[data-i18n="title"]');
-        if (h2Element && processedTranslations.title) {
-            h2Element.textContent = processedTranslations.title;
-        }
-
-        // Update the theme toggle button text
-        const themeToggleButton = document.getElementById('theme-toggle');
-        if (themeToggleButton && processedTranslations.toggleTheme) {
-            themeToggleButton.textContent = processedTranslations.toggleTheme;
-        }
-    }
-
-    // Function to populate the language selection dropdown
-    function populateLanguageSelector() {
-        const languageSelect = document.getElementById('languageSelect');
-        languageSelect.innerHTML = '';
-
-        const languageNames = {
-            'en': 'English',
-            'es': 'Español',
-            'pt': 'Português',
-            'ko': '한국어',
-            'ja': '日本語'
         };
 
-        for (const langCode in translations) {
-            if (translations.hasOwnProperty(langCode)) {
-                const option = document.createElement('option');
-                option.value = langCode;
-                option.textContent = languageNames[langCode] || langCode;
-                languageSelect.appendChild(option);
+
+        /**
+         * Dynamically sets the global constants (BUILDING_NAME, RESOURCE_NAME, BUILDING_TYPE)
+         * based on the currently selected or detected language.
+         * This must run BEFORE applyTranslations to ensure template literals are correctly resolved.
+         */
+        function setGlobalConstantsForLanguage(langToUse) {
+            const currentTranslations = translations[langToUse] || translations['en'];
+            BUILDING_NAME = currentTranslations.buildingName;
+            RESOURCE_NAME = currentTranslations.resourceName;
+            BUILDING_TYPE = currentTranslations.buildingType;
+        }
+
+        // Function to apply translations based on a specified language or auto-detect
+        function applyTranslations(langOverride = null) {
+            let langToUse;
+
+            if (langOverride) {
+                langToUse = langOverride;
+            } else if (document.getElementById('languageSelect') && document.getElementById('languageSelect').value) {
+                langToUse = document.getElementById('languageSelect').value;
+            } else {
+                langToUse = navigator.language.split('-')[0];
             }
-        }
 
-        const userBrowserLang = navigator.language.split('-')[0];
-        if (languageSelect.querySelector(`option[value="${userBrowserLang}"]`)) {
-            languageSelect.value = userBrowserLang;
-        } else {
-            languageSelect.value = 'en';
-        }
+            // Ensure the language code exists in our translations, fallback to 'en'
+            langToUse = translations[langToUse] ? langToUse : 'en';
 
-        languageSelect.addEventListener('change', (event) => {
-            applyTranslations(event.target.value);
-            updateCalculations();
-        });
-    }
+            // Set global constants for the chosen language BEFORE applying translations
+            setGlobalConstantsForLanguage(langToUse);
 
-    // ######################### Helper Functions #########################
-    const MAX_ALLOWED_RESOURCE = 99999999999; // Cap at 99 Billion
+            // Now, get the translations for the chosen language.
+            // We'll create a temporary object to hold the fully processed strings.
+            const processedTranslations = {};
+            const currentTranslationsSource = translations[langToUse];
 
-    /**
-     * Expands a decimal number like 6.8 to 6800 or 102. to 102000 for 'resource' input fields.
-     * Modifies the inputElement.value directly.
-     */
-    function expandDecimal(inputElement) {
-        if (!inputElement.id.startsWith('resource')) {
-            return;
-        }
-
-        let rawValue = inputElement.value.replace(/,/g, ''); // Remove commas
-        let num = parseFloat(rawValue);
-
-        if (isNaN(num)) {
-            return; // Not a valid number, do nothing
-        }
-
-        // Trigger expansion ONLY if a decimal point was explicitly typed by the user
-        if (rawValue.includes('.')) {
-            // Case 1: Number with a non-zero fractional part (e.g., "6.8" -> 6800)
-            if (num % 1 !== 0) {
-                inputElement.value = Math.round(num * 1000).toString();
-            }
-            // Case 2: Decimal point exists, but fractional part is zero or implied zero (e.g., "102." or "102.0" -> 102000)
-            else {
-                inputElement.value = Math.round(num * 1000).toString();
-            }
-        }
-        // If no decimal point is present (e.g., "102"), do NOT expand. It remains "102".
-    }
-
-    /**
-     * Formats a number input with thousands separators and applies max value cap.
-     */
-    function formatInput(inputElement) {
-        let value = inputElement.value.replace(/[^0-9.]/g, ''); // Remove non-numeric except dot
-        if (value === '') {
-            inputElement.value = '';
-            return;
-        }
-        let number = parseFloat(value);
-        if (isNaN(number)) {
-            inputElement.value = '';
-            return;
-        }
-
-        // Apply max value cap
-        if (number > MAX_ALLOWED_RESOURCE) {
-            number = MAX_ALLOWED_RESOURCE;
-            // Update the actual input value if it was truncated
-            // We'll let toLocaleString format it for display
-            inputElement.value = number.toString();
-        }
-
-        // Determine if it should display decimals.
-        // For resource amounts, we typically want no decimals for large numbers after expansion,
-        // but inputs like 'resourceHeldText' can still display decimals for direct input.
-        if (number % 1 === 0) { // It's a whole number
-            inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-        } else { // It has a fractional part
-            // Limit decimals to 2 for display, but keep full number for internal calculations
-            inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        }
-    }
-
-    // Function to get a cleaned number from a textbox (removes commas)
-    function getCleanNumber(id) {
-        const inputElement = document.getElementById(id);
-        if (!inputElement) return 0;
-        const value = inputElement.value.replace(/,/g, ''); // Remove commas for calculation
-        return parseFloat(value) || 0;
-    }
-
-    // ######################### Time Zone Logic #########################
-
-    const curatedTimeZoneIds = [
-        "Etc/UTC",
-        "America/St_Johns",
-        "America/Halifax",
-        "America/New_York",
-        "America/Indiana/Indianapolis",
-        "America/Chicago",
-        "America/Denver",
-        "America/Phoenix",
-        "America/Los_Angeles",
-        "America/Anchorage",
-        "America/Honolulu",
-        "Asia/Tokyo"
-    ];
-
-    function getNumericalOffsetInHours(tzId) {
-        try {
-            const now = new Date();
-            // Using 'en-US' locale to get a consistent offset string format.
-            const offsetFormatter = new Intl.DateTimeFormat('en-US', {
-                timeZone: tzId,
-                timeZoneName: 'shortOffset', // e.g., "GMT-04:00"
-            });
-            const offsetString = offsetFormatter.format(now);
-
-            // Directly parse the timezone offset from the full offset string (e.g., "GMT-04:00")
-            const utcMatch = offsetString.match(/(GMT|UTC)([+-]\d{1,2}(:\d{2})?)/);
-            if (utcMatch && utcMatch[2]) {
-                const offsetPart = utcMatch[2];
-                const sign = offsetPart.startsWith('-') ? -1 : 1;
-                const [hoursStr, minutesStr] = offsetPart.replace(/[+-]/, '').split(':');
-                let totalHours = parseInt(hoursStr, 10);
-                if (minutesStr) {
-                    totalHours += parseInt(minutesStr, 10) / 60;
+            // Process each translation string to replace placeholders with dynamic global constants
+            for (const key in currentTranslationsSource) {
+                if (currentTranslationsSource.hasOwnProperty(key)) {
+                    let value = currentTranslationsSource[key];
+                    if (typeof value === 'string') {
+                        value = value.replace(/{buildingName}/g, BUILDING_NAME);
+                        value = value.replace(/{resourceName}/g, RESOURCE_NAME);
+                        value = value.replace(/{buildingType}/g, BUILDING_TYPE);
+                    }
+                    processedTranslations[key] = value;
                 }
-                return sign * totalHours;
             }
 
-            // Fallback for time zones without a clear GMT/UTC offset string (like 'EST', 'PST' which format as just 'EST' or 'PST')
-            // Calculate offset based on current date's difference from UTC
-            // This is less robust but might be necessary for some browser/locale combinations.
-            const tzDate = new Date(now.toLocaleString('en-US', { timeZone: tzId }));
-            const utcDate = new Date(now.toUTCString());
-            const diffMs = tzDate.getTime() - utcDate.getTime();
-            return diffMs / (1000 * 60 * 60); // Convert milliseconds to hours
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect && languageSelect.value !== langToUse) {
+                languageSelect.value = langToUse;
+            }
 
-        } catch (e) {
-            console.error(`Error calculating offset for '${tzId}':`, e);
-        }
-        return 0; // Default to UTC if any error
-    }
-
-    function populateTimezones() {
-        const timezoneSelect = document.getElementById('timezoneSelect');
-        const now = new Date();
-        const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-        timezoneSelect.innerHTML = '';
-
-        const tempOptions = [];
-
-        curatedTimeZoneIds.forEach(tzId => {
-            let offsetHours = 0;
-            let longTimeZoneName = tzId;
-            let formattedOffset = `UTC+0`;
-
-            try {
-                // Validate if timeZone ID is supported by browser
-                new Intl.DateTimeFormat('en-US', { timeZone: tzId }).format(now);
-
-                offsetHours = getNumericalOffsetInHours(tzId);
-
-                if (offsetHours === 0) {
-                    formattedOffset = `UTC+0`;
-                } else {
-                    const offsetSign = offsetHours > 0 ? '+' : '-';
-                    const absOffsetHours = Math.abs(offsetHours);
-                    const integerHours = Math.floor(absOffsetHours);
-                    const fractionalMinutes = Math.round((absOffsetHours % 1) * 60); // Round to avoid 59.9999
-
-                    if (fractionalMinutes > 0) {
-                        formattedOffset = `UTC${offsetSign}${integerHours.toString()}:${fractionalMinutes.toString().padStart(2, '0')}`; // No padStart for hours
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                // Do not update dynamic display elements here, as they are updated by updateCalculations
+                // This prevents overwriting of numeric values or 'X hrs ago' text
+                if (key === 'timeRemainingFormat' || key === 'timeAgoFormat') {
+                    return; // These are templates used by JS, not direct textContent
+                }
+                if (processedTranslations[key]) {
+                    // If the element is the title tag, update document.title
+                    if (element.tagName.toLowerCase() === 'title') {
+                        document.title = processedTranslations[key];
                     } else {
-                        formattedOffset = `UTC${offsetSign}${integerHours.toString()}`; // No padStart for hours
+                        element.textContent = processedTranslations[key];
                     }
                 }
+            });
 
-                // Get display name, preferring long name if available and not empty
-                const parts = new Intl.DateTimeFormat('en-US', {
+            // Ensure the h2 element is updated (it also has data-i18n="title")
+            const h2Element = document.querySelector('h2[data-i18n="title"]');
+            if (h2Element && processedTranslations.title) {
+                h2Element.textContent = processedTranslations.title;
+            }
+
+            // Update the theme toggle button text
+            const themeToggleButton = document.getElementById('theme-toggle');
+            if (themeToggleButton && processedTranslations.toggleTheme) {
+                themeToggleButton.textContent = processedTranslations.toggleTheme;
+            }
+        }
+
+        // Function to populate the language selection dropdown
+        function populateLanguageSelector() {
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.innerHTML = '';
+
+            const languageNames = {
+                'en': 'English',
+                'es': 'Español',
+                'pt': 'Português',
+                'ko': '한국어',
+                'ja': '日本語'
+            };
+
+            for (const langCode in translations) {
+                if (translations.hasOwnProperty(langCode)) {
+                    const option = document.createElement('option');
+                    option.value = langCode;
+                    option.textContent = languageNames[langCode] || langCode;
+                    languageSelect.appendChild(option);
+                }
+            }
+
+            const userBrowserLang = navigator.language.split('-')[0];
+            if (languageSelect.querySelector(`option[value="${userBrowserLang}"]`)) {
+                languageSelect.value = userBrowserLang;
+            } else {
+                languageSelect.value = 'en';
+            }
+
+            languageSelect.addEventListener('change', (event) => {
+                applyTranslations(event.target.value);
+                updateCalculations();
+            });
+        }
+
+        // ######################### Helper Functions #########################
+        const MAX_ALLOWED_RESOURCE = 99999999999; // Cap at 99 Billion
+
+        /**
+         * Expands a decimal number like 6.8 to 6800 or 102. to 102000 for 'resource' input fields.
+         * Modifies the inputElement.value directly.
+         */
+        function expandDecimal(inputElement) {
+            if (!inputElement.id.startsWith('resource')) {
+                return;
+            }
+
+            let rawValue = inputElement.value.replace(/,/g, ''); // Remove commas
+            let num = parseFloat(rawValue);
+
+            if (isNaN(num)) {
+                return; // Not a valid number, do nothing
+            }
+
+            // Trigger expansion ONLY if a decimal point was explicitly typed by the user
+            if (rawValue.includes('.')) {
+                // Case 1: Number with a non-zero fractional part (e.g., "6.8" -> 6800)
+                if (num % 1 !== 0) {
+                    inputElement.value = Math.round(num * 1000).toString();
+                }
+                // Case 2: Decimal point exists, but fractional part is zero or implied zero (e.g., "102." or "102.0" -> 102000)
+                else {
+                    inputElement.value = Math.round(num * 1000).toString();
+                }
+            }
+            // If no decimal point is present (e.g., "102"), do NOT expand. It remains "102".
+        }
+
+        /**
+         * Formats a number input with thousands separators and applies max value cap.
+         */
+        function formatInput(inputElement) {
+            let value = inputElement.value.replace(/[^0-9.]/g, ''); // Remove non-numeric except dot
+            if (value === '') {
+                inputElement.value = '';
+                return;
+            }
+            let number = parseFloat(value);
+            if (isNaN(number)) {
+                inputElement.value = '';
+                return;
+            }
+
+            // Apply max value cap
+            if (number > MAX_ALLOWED_RESOURCE) {
+                number = MAX_ALLOWED_RESOURCE;
+                // Update the actual input value if it was truncated
+                // We'll let toLocaleString format it for display
+                inputElement.value = number.toString();
+            }
+
+            // Determine if it should display decimals.
+            // For resource amounts, we typically want no decimals for large numbers after expansion,
+            // but inputs like 'resourceHeldText' can still display decimals for direct input.
+            if (number % 1 === 0) { // It's a whole number
+                inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            } else { // It has a fractional part
+                // Limit decimals to 2 for display, but keep full number for internal calculations
+                inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+            }
+        }
+
+        // Function to get a cleaned number from a textbox (removes commas)
+        function getCleanNumber(id) {
+            const inputElement = document.getElementById(id);
+            if (!inputElement) return 0;
+            const value = inputElement.value.replace(/,/g, ''); // Remove commas for calculation
+            return parseFloat(value) || 0;
+        }
+
+        // ######################### Time Zone Logic #########################
+
+        const curatedTimeZoneIds = [
+            "Etc/UTC",
+            "America/St_Johns",
+            "America/Halifax",
+            "America/New_York",
+            "America/Indiana/Indianapolis",
+            "America/Chicago",
+            "America/Denver",
+            "America/Phoenix",
+            "America/Los_Angeles",
+            "America/Anchorage",
+            "America/Honolulu",
+            "Asia/Tokyo"
+        ];
+
+        function getNumericalOffsetInHours(tzId) {
+            try {
+                const now = new Date();
+                // Using 'en-US' locale to get a consistent offset string format.
+                const offsetFormatter = new Intl.DateTimeFormat('en-US', {
                     timeZone: tzId,
-                    timeZoneName: 'long',
-                    year: 'numeric', month: 'numeric', day: 'numeric', // Required for timeZoneName to be reliable in some browsers
-                    hour: 'numeric', minute: 'numeric', second: 'numeric'
-                }).formatToParts(now);
+                    timeZoneName: 'shortOffset', // e.g., "GMT-04:00"
+                });
+                const offsetString = offsetFormatter.format(now);
 
-                let foundTimeZoneNamePart = parts.find(part => part.type === 'timeZoneName');
-                if (foundTimeZoneNamePart && typeof foundTimeZoneNamePart.value === 'string' && foundTimeZoneNamePart.value.trim() !== '') {
-                    longTimeZoneName = foundTimeZoneNamePart.value;
-                } else {
-                    // Fallback to specific names if browser name is generic or missing
-                    if (tzId === "America/Phoenix") {
-                        longTimeZoneName = "Arizona (Mountain)";
-                    } else if (tzId === "America/Indiana/Indianapolis") {
-                        longTimeZoneName = "Indiana (East)";
+                // Directly parse the timezone offset from the full offset string (e.g., "GMT-04:00")
+                const utcMatch = offsetString.match(/(GMT|UTC)([+-]\d{1,2}(:\d{2})?)/);
+                if (utcMatch && utcMatch[2]) {
+                    const offsetPart = utcMatch[2];
+                    const sign = offsetPart.startsWith('-') ? -1 : 1;
+                    const [hoursStr, minutesStr] = offsetPart.replace(/[+-]/, '').split(':');
+                    let totalHours = parseInt(hoursStr, 10);
+                    if (minutesStr) {
+                        totalHours += parseInt(minutesStr, 10) / 60;
+                    }
+                    return sign * totalHours;
+                }
+
+                // Fallback for time zones without a clear GMT/UTC offset string (like 'EST', 'PST' which format as just 'EST' or 'PST')
+                // Calculate offset based on current date's difference from UTC
+                // This is less robust but might be necessary for some browser/locale combinations.
+                const tzDate = new Date(now.toLocaleString('en-US', { timeZone: tzId }));
+                const utcDate = new Date(now.toUTCString());
+                const diffMs = tzDate.getTime() - utcDate.getTime();
+                return diffMs / (1000 * 60 * 60); // Convert milliseconds to hours
+
+            } catch (e) {
+                console.error(`Error calculating offset for '${tzId}':`, e);
+            }
+            return 0; // Default to UTC if any error
+        }
+
+        function populateTimezones() {
+            const timezoneSelect = document.getElementById('timezoneSelect');
+            const now = new Date();
+            const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+            timezoneSelect.innerHTML = '';
+
+            const tempOptions = [];
+
+            curatedTimeZoneIds.forEach(tzId => {
+                let offsetHours = 0;
+                let longTimeZoneName = tzId;
+                let formattedOffset = `UTC+0`;
+
+                try {
+                    // Validate if timeZone ID is supported by browser
+                    new Intl.DateTimeFormat('en-US', { timeZone: tzId }).format(now);
+
+                    offsetHours = getNumericalOffsetInHours(tzId);
+
+                    if (offsetHours === 0) {
+                        formattedOffset = `UTC+0`;
+                    } else {
+                        const offsetSign = offsetHours > 0 ? '+' : '-';
+                        const absOffsetHours = Math.abs(offsetHours);
+                        const integerHours = Math.floor(absOffsetHours);
+                        const fractionalMinutes = Math.round((absOffsetHours % 1) * 60); // Round to avoid 59.9999
+
+                        if (fractionalMinutes > 0) {
+                            formattedOffset = `UTC${offsetSign}${integerHours.toString()}:${fractionalMinutes.toString().padStart(2, '0')}`; // No padStart for hours
+                        } else {
+                            formattedOffset = `UTC${offsetSign}${integerHours.toString()}`; // No padStart for hours
+                        }
+                    }
+
+                    // Get display name, preferring long name if available and not empty
+                    const parts = new Intl.DateTimeFormat('en-US', {
+                        timeZone: tzId,
+                        timeZoneName: 'long',
+                        year: 'numeric', month: 'numeric', day: 'numeric', // Required for timeZoneName to be reliable in some browsers
+                        hour: 'numeric', minute: 'numeric', second: 'numeric'
+                    }).formatToParts(now);
+
+                    let foundTimeZoneNamePart = parts.find(part => part.type === 'timeZoneName');
+                    if (foundTimeZoneNamePart && typeof foundTimeZoneNamePart.value === 'string' && foundTimeZoneNamePart.value.trim() !== '') {
+                        longTimeZoneName = foundTimeZoneNamePart.value;
+                    } else {
+                        // Fallback to specific names if browser name is generic or missing
+                        if (tzId === "America/Phoenix") {
+                            longTimeZoneName = "Arizona (Mountain)";
+                        } else if (tzId === "America/Indiana/Indianapolis") {
+                            longTimeZoneName = "Indiana (East)";
+                        } else if (tzId === "Etc/UTC") {
+                            longTimeZoneName = "Coordinated Universal Time";
+                        } else {
+                            longTimeZoneName = tzId.replace(/_/g, ' ').replace('America/', ''); // Clean up ID
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`Time zone '${tzId}' unsupported by browser or error occurred. Using static fallback.`, e.message);
+                    // Static fallbacks for explicitly unsupported or problematic IDs
+                    if (tzId === "America/Honolulu") {
+                        longTimeZoneName = "Hawaii";
+                        formattedOffset = "UTC-10";
+                        offsetHours = -10;
                     } else if (tzId === "Etc/UTC") {
                         longTimeZoneName = "Coordinated Universal Time";
+                        formattedOffset = "UTC+0";
+                        offsetHours = 0;
                     } else {
-                        longTimeZoneName = tzId.replace(/_/g, ' ').replace('America/', ''); // Clean up ID
+                        longTimeZoneName = `${tzId} (Unsupported)`;
+                        formattedOffset = `UTC+0`;
+                        offsetHours = 0;
                     }
                 }
-            } catch (e) {
-                console.warn(`Time zone '${tzId}' unsupported by browser or error occurred. Using static fallback.`, e.message);
-                // Static fallbacks for explicitly unsupported or problematic IDs
-                if (tzId === "America/Honolulu") {
-                    longTimeZoneName = "Hawaii";
-                    formattedOffset = "UTC-10";
-                    offsetHours = -10;
-                } else if (tzId === "Etc/UTC") {
-                    longTimeZoneName = "Coordinated Universal Time";
-                    formattedOffset = "UTC+0";
-                    offsetHours = 0;
-                } else {
-                    longTimeZoneName = `${tzId} (Unsupported)`;
-                    formattedOffset = `UTC+0`;
-                    offsetHours = 0;
-                }
-            }
 
-            tempOptions.push({
-                id: tzId,
-                name: `${longTimeZoneName} (${formattedOffset})`,
-                offset: offsetHours
+                tempOptions.push({
+                    id: tzId,
+                    name: `${longTimeZoneName} (${formattedOffset})`,
+                    offset: offsetHours
+                });
             });
-        });
 
-        tempOptions.sort((a, b) => {
-            if (a.offset !== b.offset) {
-                return a.offset - b.offset;
-            }
-            return a.name.localeCompare(b.name);
-        });
-
-        tempOptions.forEach(tzData => {
-            const option = document.createElement('option');
-            option.value = tzData.id;
-            option.textContent = tzData.name;
-            timezoneSelect.appendChild(option);
-        });
-
-        // Set default to local time zone, or closest match if not in curated list
-        timezoneSelect.value = localTimeZone;
-        if (timezoneSelect.value !== localTimeZone && tempOptions.length > 0) {
-            const localOffset = getNumericalOffsetInHours(localTimeZone);
-            let bestMatchIndex = 0;
-            let minDiff = Infinity;
-
-            for (let i = 0; i < tempOptions.length; i++) {
-                const diff = Math.abs(tempOptions[i].offset - localOffset);
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    bestMatchIndex = i;
+            tempOptions.sort((a, b) => {
+                if (a.offset !== b.offset) {
+                    return a.offset - b.offset;
                 }
+                return a.name.localeCompare(b.name);
+            });
+
+            tempOptions.forEach(tzData => {
+                const option = document.createElement('option');
+                option.value = tzData.id;
+                option.textContent = tzData.name;
+                timezoneSelect.appendChild(option);
+            });
+
+            // Set default to local time zone, or closest match if not in curated list
+            timezoneSelect.value = localTimeZone;
+            if (timezoneSelect.value !== localTimeZone && tempOptions.length > 0) {
+                const localOffset = getNumericalOffsetInHours(localTimeZone);
+                let bestMatchIndex = 0;
+                let minDiff = Infinity;
+
+                for (let i = 0; i < tempOptions.length; i++) {
+                    const diff = Math.abs(tempOptions[i].offset - localOffset);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        bestMatchIndex = i;
+                    }
+                }
+                timezoneSelect.selectedIndex = bestMatchIndex;
+                console.log(`Local timezone '${localTimeZone}' not directly in curated list. Defaulting to closest offset: '${tempOptions[bestMatchIndex].name}'.`);
             }
-            timezoneSelect.selectedIndex = bestMatchIndex;
-            console.log(`Local timezone '${localTimeZone}' not directly in curated list. Defaulting to closest offset: '${tempOptions[bestMatchIndex].name}'.`);
         }
-    }
 
 
-    // ######################### Main Calculation Logic #########################
-    /**
-     * Performs calculations and handles auto-population of resource held values.
-     * @param {HTMLElement} [triggeringElement=null] - The input element that triggered the update (e.g., onblur).
-     */
-    function updateCalculations(triggeringElement = null) {
-        let totalResourcesFromBuildings = 0;
-        let totalBuildingRate = 0;
+        // ######################### Main Calculation Logic #########################
+        /**
+         * Performs calculations and handles auto-population of resource held values.
+         * @param {HTMLElement} [triggeringElement=null] - The input element that triggered the update (e.g., onblur).
+         */
+        function updateCalculations(triggeringElement = null) {
+            let totalResourcesFromBuildings = 0;
+            let totalBuildingRate = 0;
 
-        const buildingLevels = [
-            document.getElementById('level1'),
-            document.getElementById('level2'),
-            document.getElementById('level3'),
-            document.getElementById('level4'),
-            document.getElementById('levelWeekly')
-        ];
-        const resourceBuildings = [
-            document.getElementById('resource1'),
-            document.getElementById('resource2'),
-            document.getElementById('resource3'),
-            document.getElementById('resource4'),
-            document.getElementById('resourceWeekly')
-        ];
+            const buildingLevels = [
+                document.getElementById('level1'),
+                document.getElementById('level2'),
+                document.getElementById('level3'),
+                document.getElementById('level4'),
+                document.getElementById('levelWeekly')
+            ];
+            const resourceBuildings = [
+                document.getElementById('resource1'),
+                document.getElementById('resource2'),
+                document.getElementById('resource3'),
+                document.getElementById('resource4'),
+                document.getElementById('resourceWeekly')
+            ];
 
-        // --- Auto-population Logic ---
-        // Only trigger auto-population if a 'resource' input was the triggering element
-        if (triggeringElement && triggeringElement.id.startsWith('resource')) {
-            const triggeredLevelId = 'level' + triggeringElement.id.replace('resource', '');
-            const triggeredLevelElement = document.getElementById(triggeredLevelId);
+            // --- Auto-population Logic ---
+            // Only trigger auto-population if a 'resource' input was the triggering element
+            if (triggeringElement && triggeringElement.id.startsWith('resource')) {
+                const triggeredLevelId = 'level' + triggeringElement.id.replace('resource', '');
+                const triggeredLevelElement = document.getElementById(triggeredLevelId);
 
-            // Ensure triggeredLevelElement exists before trying to read its value
-            if (triggeredLevelElement) {
-                const triggeredLevel = parseInt(triggeredLevelElement.value) || 0;
-                const triggeredResourceValue = getCleanNumber(triggeringElement.id);
+                // Ensure triggeredLevelElement exists before trying to read its value
+                if (triggeredLevelElement) {
+                    const triggeredLevel = parseInt(triggeredLevelElement.value) || 0;
+                    const triggeredResourceValue = getCleanNumber(triggeringElement.id);
 
-                // Only auto-populate if source level is valid (greater than 0) and resource value is also valid
-                if (triggeredLevel > 0 && triggeredResourceValue > 0) {
-                    for (let i = 0; i < resourceBuildings.length; i++) {
-                        const currentResourceElement = resourceBuildings[i];
-                        const currentLevelElement = buildingLevels[i];
+                    // Only auto-populate if source level is valid (greater than 0) and resource value is also valid
+                    if (triggeredLevel > 0 && triggeredResourceValue > 0) {
+                        for (let i = 0; i < resourceBuildings.length; i++) {
+                            const currentResourceElement = resourceBuildings[i];
+                            const currentLevelElement = buildingLevels[i];
 
-                        // Don't auto-populate the element that just triggered the update
-                        if (currentResourceElement.id === triggeringElement.id) {
-                            continue;
-                        }
+                            // Don't auto-populate the element that just triggered the update
+                            if (currentResourceElement.id === triggeringElement.id) {
+                                continue;
+                            }
 
-                        const currentLevel = parseInt(currentLevelElement.value) || 0; // Correctly get level value
-                        const currentResourceValue = getCleanNumber(currentResourceElement.id);
+                            const currentLevel = parseInt(currentLevelElement.value) || 0; // Correctly get level value
+                            const currentResourceValue = getCleanNumber(currentResourceElement.id);
 
-                        // Auto-populate if levels match AND (target field is empty OR target field has the same value as source)
-                        // The "same value as source" check allows subsequent auto-fills to overwrite
-                        // previous auto-fills, but not manually changed values.
-                        if (currentLevel > 0 && currentLevel === triggeredLevel &&
-                            (currentResourceValue === 0 || currentResourceValue === triggeredResourceValue)) {
+                            // Auto-populate if levels match AND (target field is empty OR target field has the same value as source)
+                            // The "same value as source" check allows subsequent auto-fills to overwrite
+                            // previous auto-fills, but not manually changed values.
+                            if (currentLevel > 0 && currentLevel === triggeredLevel &&
+                                (currentResourceValue === 0 || currentResourceValue === triggeredResourceValue)) {
 
-                            currentResourceElement.value = triggeredResourceValue.toString(); // Set the raw value
-                            formatInput(currentResourceElement); // Immediately format the auto-populated field
+                                currentResourceElement.value = triggeredResourceValue.toString(); // Set the raw value
+                                formatInput(currentResourceElement); // Immediately format the auto-populated field
+                            }
                         }
                     }
                 }
             }
-        }
-        // --- End Auto-population Logic ---
+            // --- End Auto-population Logic ---
 
-        // --- Standard Calculations ---
-        for (let i = 0; i < 5; i++) {
-            let level = parseInt(buildingLevels[i].value) || 0; // Get level value for rate calculation
-            if (level <= 30) { // Only levels up to 30 contribute to rate
-                totalBuildingRate += level;
+            // --- Standard Calculations ---
+            for (let i = 0; i < 5; i++) {
+                let level = parseInt(buildingLevels[i].value) || 0; // Get level value for rate calculation
+                if (level <= 30) { // Only levels up to 30 contribute to rate
+                    totalBuildingRate += level;
+                }
+                let resource = getCleanNumber(resourceBuildings[i].id);
+                totalResourcesFromBuildings += resource;
             }
-            let resource = getCleanNumber(resourceBuildings[i].id);
-            totalResourcesFromBuildings += resource;
-        }
 
-        const resourceHeld = getCleanNumber('resourceHeldText');
-        const resourceNeeded = getCleanNumber('resourceNeededText');
+            const resourceHeld = getCleanNumber('resourceHeldText');
+            const resourceNeeded = getCleanNumber('resourceNeededText');
 
-        const resourcePerHour = totalBuildingRate * 720;
-        document.getElementById('resourceHrDisplay').textContent = resourcePerHour.toLocaleString('en-US');
+            const resourcePerHour = totalBuildingRate * 720;
+            document.getElementById('resourceHrDisplay').textContent = resourcePerHour.toLocaleString('en-US');
 
-        const totalCurrentResource = resourceHeld + totalResourcesFromBuildings;
-        document.getElementById('totalResourceDisplay').textContent = totalCurrentResource.toLocaleString('en-US');
+            const totalCurrentResource = resourceHeld + totalResourcesFromBuildings;
+            document.getElementById('totalResourceDisplay').textContent = totalCurrentResource.toLocaleString('en-US');
 
-        const timeDisplay = document.getElementById('timeDisplay');
-        const completionTimeDisplay = document.getElementById('completionTimeDisplay');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const completionTimeDisplay = document.getElementById('completionTimeDisplay');
 
-        // Get selected time zone for formatting
-        const selectedTimeZone = document.getElementById('timezoneSelect').value;
-        const resourceNeededInput = document.getElementById('resourceNeededText');
+            // Get selected time zone for formatting
+            const selectedTimeZone = document.getElementById('timezoneSelect').value;
+            const resourceNeededInput = document.getElementById('resourceNeededText');
 
 
-        // Only calculate and display time if resourceNeeded is filled and non-zero
-        if (resourceNeeded > 0 && selectedTimeZone) {
-            // Get current language for time display format strings
-            const currentLangCode = document.getElementById('languageSelect').value;
-            const currentTranslations = translations[currentLangCode] || translations['en'];
+            // Only calculate and display time if resourceNeeded is filled and non-zero
+            if (resourceNeeded > 0 && selectedTimeZone) {
+                // Get current language for time display format strings
+                const currentLangCode = document.getElementById('languageSelect').value;
+                const currentTranslations = translations[currentLangCode] || translations['en'];
 
-            let completionDateTime;
-            let hoursValue;
-            let timeFormatKey; // Key for translation string ('timeRemainingFormat' or 'timeAgoFormat')
+                let completionDateTime;
+                let hoursValue;
+                let timeFormatKey; // Key for translation string ('timeRemainingFormat' or 'timeAgoFormat')
 
-            if (resourcePerHour > 0) {
-                if (totalCurrentResource < resourceNeeded) {
-                    // Still need resources (positive time remaining)
-                    hoursValue = (resourceNeeded - totalCurrentResource) / resourcePerHour;
-                    completionDateTime = new Date(Date.now() + hoursValue * 60 * 60 * 1000);
-                    timeFormatKey = 'timeRemainingFormat';
+                if (resourcePerHour > 0) {
+                    if (totalCurrentResource < resourceNeeded) {
+                        // Still need resources (positive time remaining)
+                        hoursValue = (resourceNeeded - totalCurrentResource) / resourcePerHour;
+                        completionDateTime = new Date(Date.now() + hoursValue * 60 * 60 * 1000);
+                        timeFormatKey = 'timeRemainingFormat';
+                    } else {
+                        // Have more than needed (overshot, negative time)
+                        hoursValue = (totalCurrentResource - resourceNeeded) / resourcePerHour;
+                        completionDateTime = new Date(Date.now() - hoursValue * 60 * 60 * 1000);
+                        timeFormatKey = 'timeAgoFormat';
+                    }
+
+                    // Update Time to Complete display
+                    const formattedHours = hoursValue.toFixed(2);
+                    timeDisplay.textContent = currentTranslations[timeFormatKey].replace('{hours}', formattedHours);
+
+                    // Update Completion Time display
+                    try {
+                        const formatter = new Intl.DateTimeFormat('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true,
+                            timeZone: selectedTimeZone,
+                            timeZoneName: 'short'
+                        });
+                        completionTimeDisplay.textContent = formatter.format(completionDateTime);
+                    } catch (e) {
+                        console.error(`Error formatting completion time for '${selectedTimeZone}'. Displaying UTC.`, e);
+                        const utcFormatter = new Intl.DateTimeFormat('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true,
+                            timeZone: 'UTC',
+                            timeZoneName: 'short'
+                        });
+                        completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTime)}`;
+                    }
+
                 } else {
-                    // Have more than needed (overshot, negative time)
-                    hoursValue = (totalCurrentResource - resourceNeeded) / resourcePerHour;
-                    completionDateTime = new Date(Date.now() - hoursValue * 60 * 60 * 1000);
-                    timeFormatKey = 'timeAgoFormat';
+                    // No production rate or other issue
+                    timeDisplay.textContent = "N/A";
+                    completionTimeDisplay.textContent = "N/A";
                 }
-
-                // Update Time to Complete display
-                const formattedHours = hoursValue.toFixed(2);
-                timeDisplay.textContent = currentTranslations[timeFormatKey].replace('{hours}', formattedHours);
-
-                // Update Completion Time display
-                try {
-                    const formatter = new Intl.DateTimeFormat('en-US', {
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: true,
-                        timeZone: selectedTimeZone,
-                        timeZoneName: 'short'
-                    });
-                    completionTimeDisplay.textContent = formatter.format(completionDateTime);
-                } catch (e) {
-                    console.error(`Error formatting completion time for '${selectedTimeZone}'. Displaying UTC.`, e);
-                    const utcFormatter = new Intl.DateTimeFormat('en-US', {
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: true,
-                        timeZone: 'UTC',
-                        timeZoneName: 'short'
-                    });
-                    completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTime)}`;
-                }
-
             } else {
-                // No production rate or other issue
+                // resourceNeeded is 0 or not filled, or no timezone selected
                 timeDisplay.textContent = "N/A";
                 completionTimeDisplay.textContent = "N/A";
             }
-        } else {
-            // resourceNeeded is 0 or not filled, or no timezone selected
-            timeDisplay.textContent = "N/A";
-            completionTimeDisplay.textContent = "N/A";
-        }
-        // --- End Standard Calculations ---
+            // --- End Standard Calculations ---
 
-        // Re-format the main resourceHeldText and resourceNeededText after calculations,
-        // as they are not part of the auto-population loop for buildings.
-        if (document.getElementById('resourceHeldText').value !== '') formatInput(document.getElementById('resourceHeldText'));
-        if (resourceNeededInput.value !== '') formatInput(resourceNeededInput); // Use resourceNeededInput here for clarity
-        // Re-format level fields if the triggering element was a level input
-        if (triggeringElement && triggeringElement.id.startsWith('level') && triggeringElement.value !== '') {
-            formatInput(triggeringElement);
-        }
-    }
-
-    // ######################### Theme Logic #########################
-
-    // Function to apply the theme (light, dark, or system)
-    function applyTheme(theme) {
-        const body = document.body;
-        // Remove existing theme classes/attributes first
-        body.removeAttribute('data-theme');
-
-        if (theme === 'dark') {
-            body.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else if (theme === 'light') {
-            localStorage.setItem('theme', 'light');
-        } else { // 'system'
-            localStorage.removeItem('theme'); // Remove preference to default to system
-            updateThemeFromSystemPreference(); // Immediately apply system preference
-        }
-    }
-
-    // Function to get the theme preference (from localStorage or system)
-    function getStoredTheme() {
-        return localStorage.getItem('theme'); // 'light', 'dark', or null
-    }
-
-    // Function to update the theme based on system preference
-    function updateThemeFromSystemPreference() {
-        const body = document.body;
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDark) {
-            body.setAttribute('data-theme', 'dark');
-        } else {
-            body.removeAttribute('data-theme'); // Ensure light mode is default
-        }
-    }
-
-    // Event listener for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        // Only react to system changes if no manual preference is set
-        if (!getStoredTheme()) {
-            updateThemeFromSystemPreference();
-        }
-    });
-
-    // ######################### Initial Load #########################
-    window.onload = () => {
-        // 1. Populate language selector and apply translations.
-        populateLanguageSelector();
-        applyTranslations(); // This needs to run before the theme toggle text is set
-
-        // 2. Populate timezone dropdowns.
-        populateTimezones();
-
-        // 3. Apply stored theme or system preference
-        const storedTheme = getStoredTheme();
-        if (storedTheme) {
-            applyTheme(storedTheme);
-        } else {
-            updateThemeFromSystemPreference();
+            // Re-format the main resourceHeldText and resourceNeededText after calculations,
+            // as they are not part of the auto-population loop for buildings.
+            if (document.getElementById('resourceHeldText').value !== '') formatInput(document.getElementById('resourceHeldText'));
+            if (resourceNeededInput.value !== '') formatInput(resourceNeededInput); // Use resourceNeededInput here for clarity
+            // Re-format level fields if the triggering element was a level input
+            if (triggeringElement && triggeringElement.id.startsWith('level') && triggeringElement.value !== '') {
+                formatInput(triggeringElement);
+            }
         }
 
-        // 4. Set up theme toggle button
-        const themeToggleButton = document.getElementById('theme-toggle');
-        themeToggleButton.addEventListener('click', () => {
-            const currentTheme = getStoredTheme(); // Get the currently applied manual preference
-            if (currentTheme === 'dark') {
-                applyTheme('light');
-            } else if (currentTheme === 'light') {
-                applyTheme('system'); // Next click goes to system default
-            } else { // Currently 'system' or no preference saved (so system default is active)
-                applyTheme('dark');
+        // ######################### Theme Logic #########################
+
+        // Function to apply the theme (light, dark, or system)
+        function applyTheme(theme) {
+            const body = document.body;
+            // Remove existing theme classes/attributes first
+            body.removeAttribute('data-theme');
+
+            if (theme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                localStorage.setItem('theme', 'light');
+            } else { // 'system'
+                localStorage.removeItem('theme'); // Remove preference to default to system
+                updateThemeFromSystemPreference(); // Immediately apply system preference
+            }
+        }
+
+        // Function to get the theme preference (from localStorage or system)
+        function getStoredTheme() {
+            return localStorage.getItem('theme'); // 'light', 'dark', or null
+        }
+
+        // Function to update the theme based on system preference
+        function updateThemeFromSystemPreference() {
+            const body = document.body;
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                body.setAttribute('data-theme', 'dark');
+            } else {
+                body.removeAttribute('data-theme'); // Ensure light mode is default
+            }
+        }
+
+        // Event listener for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // Only react to system changes if no manual preference is set
+            if (!getStoredTheme()) {
+                updateThemeFromSystemPreference();
             }
         });
 
-        // 5. Run initial calculations
-        updateCalculations();
-    };
+        // ######################### Initial Load #########################
+        window.onload = () => {
+            // 1. Populate language selector and apply translations.
+            populateLanguageSelector();
+            applyTranslations(); // This needs to run before the theme toggle text is set
 
-    // Version 4.2.0 - Last Updated: June 12, 2025, 08:01 AM EDT
-</script>
+            // 2. Populate timezone dropdowns.
+            populateTimezones();
+
+            // 3. Apply stored theme or system preference
+            const storedTheme = getStoredTheme();
+            if (storedTheme) {
+                applyTheme(storedTheme);
+            } else {
+                updateThemeFromSystemPreference();
+            }
+
+            // 4. Set up theme toggle button
+            const themeToggleButton = document.getElementById('theme-toggle');
+            themeToggleButton.addEventListener('click', () => {
+                const currentTheme = getStoredTheme(); // Get the currently applied manual preference
+                if (currentTheme === 'dark') {
+                    applyTheme('light');
+                } else if (currentTheme === 'light') {
+                    applyTheme('system'); // Next click goes to system default
+                } else { // Currently 'system' or no preference saved (so system default is active)
+                    applyTheme('dark');
+                }
+            });
+
+            // 5. Run initial calculations
+            updateCalculations();
+        };
+
+        // Version 4.2.1 - Last Updated: June 12, 2025, 08:35 AM EDT
+    </script>
 
 </body>
 </html>
