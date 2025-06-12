@@ -2,21 +2,22 @@
 <html>
 <head>
 <title>Optoelectronic Lab Upgrade Calculator</title>
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <style>
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
         background-color: #f4f4f4;
         display: flex;
+        flex-direction: column; /* Changed to column to stack container and version info */
         justify-content: center; /* Center the container horizontally */
-        align-items: flex-start; /* Align to the top */
+        align-items: center; /* Center items horizontally in the column */
         min-height: 90vh; /* Ensure body takes up most of the viewport height */
         position: relative; /* Needed for absolute positioning of the language selector */
     }
     .container {
         max-width: 550px; /* Increased max-width for more room for wider elements */
         width: 100%; /* Ensure it uses available width up to max-width */
-        margin: 20px; /* Added some margin around the container */
+        margin: 20px 0; /* Adjusted margin to allow space for version info */
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -162,8 +163,21 @@
         min-width: 100px; /* Give it some minimum width */
     }
 
-    /* --- Media Queries for Mobile Responsiveness (New CSS) --- */
+    /* --- Version Info Styling --- */
+    .version-info {
+        margin-top: 20px;
+        font-size: 0.8em;
+        color: #777;
+        text-align: center;
+    }
+
+    /* --- Media Queries for Mobile Responsiveness --- */
     @media (max-width: 480px) { /* Styles for screens up to 480px wide (typical phone portrait) */
+        /* Overall size adjustment for mobile - approximately 25% larger base */
+        body {
+            font-size: 20px; /* Base font size, will scale all 'em' units */
+        }
+
         /* Language Selector Stacking */
         #language-selector-container {
             flex-direction: column; /* Stack label and dropdown vertically */
@@ -173,59 +187,62 @@
             right: 10px; /* Bring closer to right edge */
         }
         #language-selector-container label {
-            font-size: 0.9em; /* Slightly smaller for mobile */
+            font-size: 0.8em; /* Slightly smaller relative to new body size (20px * 0.8 = 16px) */
         }
         #languageSelect {
-            padding: 3px 6px; /* Smaller padding */
-            font-size: 0.9em; /* Smaller font */
+            padding: 5px 8px; /* Slightly larger padding and font for better touch target */
+            font-size: 0.9em; /* (20px * 0.9 = 18px) */
+            min-width: unset; /* Allow it to shrink if needed */
         }
 
         /* Main Container (Zoomed In / Less Whitespace) */
         .container {
             max-width: 95%; /* Make it wider on small screens, reducing side whitespace */
             margin: 10px auto; /* Reduce top/bottom margin, keep auto for horizontal centering */
-            padding: 10px; /* Reduce padding inside the container to make content larger */
+            padding: 15px; /* Increase padding inside the container for more breathing room */
         }
 
-        /* Adjust font sizes for better mobile readability */
-        body {
-            font-size: 15px; /* Slightly increase base font size for better legibility */
-        }
         h2 {
-            font-size: 1.3em; /* Make title slightly larger on mobile */
+            font-size: 1.5em; /* Make title larger (20px * 1.5 = 30px) */
             margin-bottom: 15px;
         }
 
         /* Adjust specific input row spacing and padding for mobile */
         .workshop-row {
-            gap: 5px; /* Reduce gap between columns in workshop rows */
-            margin-bottom: 5px; /* Reduce row margin */
+            grid-template-columns: 2.5fr 0.8fr 1.7fr; /* Adjust column ratios for better fit with larger text */
+            gap: 8px; /* Slightly more gap between columns */
+            margin-bottom: 8px; /* Consistent row margin */
         }
         .workshop-row label {
-            font-size: 0.95em; /* Slightly smaller workshop labels */
+            font-size: 0.9em; /* Scales to 18px */
         }
         .workshop-row input {
-            padding: 6px; /* Slightly smaller input padding */
-            font-size: 0.95em; /* Slightly smaller input font */
+            padding: 8px; /* Larger input padding */
+            font-size: 0.9em; /* Scales to 18px */
         }
 
         .row {
-            margin-bottom: 5px; /* Reduce general row margin */
+            margin-bottom: 8px; /* Consistent general row margin */
         }
         .row input[type="tel"], /* Apply to tel type inputs */
         .row select {
-            padding: 6px;
-            font-size: 0.95em;
+            padding: 8px;
+            font-size: 0.9em;
         }
         .display-label, .display-value {
-            padding: 6px;
-            font-size: 0.95em;
+            padding: 8px;
+            font-size: 0.9em;
         }
 
         button {
-            padding: 8px; /* Smaller button padding */
-            font-size: 1em; /* Adjust button font size for mobile */
-            margin-top: 10px;
+            padding: 12px; /* Larger button padding */
+            font-size: 1.1em; /* Larger button font (20px * 1.1 = 22px) */
+            margin-top: 15px;
+        }
+
+        .version-info {
+            font-size: 0.7em; /* Smaller font for version info relative to new body size (14px) */
+            margin-top: 15px;
         }
     }
 </style>
@@ -314,6 +331,10 @@
     <button onclick="updateCalculations()" tabindex="15" data-i18n="calculateButton">Calculate</button>
 </div>
 
+<div class="version-info">
+    Version 1.6 - Last Updated: June 12, 2025, 02:30 AM EDT
+</div>
+
 <script>
     // Define your translations
     const translations = {
@@ -377,7 +398,7 @@
             headerHeld: '보유',
             quartzWorkshop1: '석영 작업장 1',
             quartzWorkshop2: '석영 작업장 2',
-            석영Workshop3: '석영 작업장 3',
+            quartzWorkshop3: '석영 작업장 3',
             quartzWorkshop4: '석영 작업장 4',
             weeklyWorkshop: '주간 작업장',
             quartzPerHour: '시간당 석영:',
@@ -497,7 +518,6 @@
         const parsed = parseFloat(value);
 
         // Check if it's a number, contains a decimal, and has a fractional part (e.g., 6.0 is not 6.000)
-        // Also ensure it's not a very long decimal that might be an actual large number
         // This condition `parsed % 1 !== 0` ensures it has a non-zero fractional part
         if (!isNaN(parsed) && value.includes('.') && parsed % 1 !== 0) {
             // Apply the specific expansion logic (e.g., 6.8 becomes 6800, 12.5 becomes 12500)
@@ -656,13 +676,9 @@
                     longTimeZoneName = "Hawaii";
                     formattedOffset = "UTC-10:00";
                     offsetHours = -10;
-                } else if (tzId === "Etc/UTC") { 
-                    longTimeZoneName = "Coordinated Universal Time";
-                    formattedOffset = "UTC+0";
-                    offsetHours = 0;
-                } else {
+                } else { // Generic fallback for any other problematic ID
                     longTimeZoneName = `${tzId} (Unsupported)`;
-                    formattedOffset = `UTC+0`;
+                    formattedOffset = `UTC+0`; // Default to UTC+0 for unsupported
                     offsetHours = 0;
                 }
             }
