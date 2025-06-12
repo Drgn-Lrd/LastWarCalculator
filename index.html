@@ -45,7 +45,7 @@
         margin-right: 10px;
         min-width: 120px;
     }
-    .row input[type="text"],
+    .row input[type="tel"], /* Changed to type="tel" */
     .row select {
         flex: 3; /* Give inputs more space */
         padding: 8px;
@@ -69,7 +69,7 @@
         margin-right: 0; /* Remove flex margin */
         min-width: unset; /* Override general label min-width */
     }
-    .workshop-row input {
+    .workshop-row input { /* Changed to type="tel" */
         text-align: right;
         max-width: unset; /* Allow grid to manage width */
     }
@@ -145,7 +145,7 @@
         top: 20px; /* Distance from top */
         right: 20px; /* Distance from right */
         z-index: 1000; /* Ensure it's on top */
-        display: flex; /* To align label and select horizontally */
+        display: flex; /* To align label and select horizontally by default */
         align-items: center;
         gap: 5px;
     }
@@ -160,6 +160,73 @@
         background-color: #fff;
         cursor: pointer;
         min-width: 100px; /* Give it some minimum width */
+    }
+
+    /* --- Media Queries for Mobile Responsiveness (New CSS) --- */
+    @media (max-width: 480px) { /* Styles for screens up to 480px wide (typical phone portrait) */
+        /* Language Selector Stacking */
+        #language-selector-container {
+            flex-direction: column; /* Stack label and dropdown vertically */
+            align-items: flex-end; /* Keep dropdown aligned to the right within its new column */
+            gap: 2px; /* Reduce space between label and dropdown */
+            top: 10px; /* Bring closer to top edge */
+            right: 10px; /* Bring closer to right edge */
+        }
+        #language-selector-container label {
+            font-size: 0.9em; /* Slightly smaller for mobile */
+        }
+        #languageSelect {
+            padding: 3px 6px; /* Smaller padding */
+            font-size: 0.9em; /* Smaller font */
+        }
+
+        /* Main Container (Zoomed In / Less Whitespace) */
+        .container {
+            max-width: 95%; /* Make it wider on small screens, reducing side whitespace */
+            margin: 10px auto; /* Reduce top/bottom margin, keep auto for horizontal centering */
+            padding: 10px; /* Reduce padding inside the container to make content larger */
+        }
+
+        /* Adjust font sizes for better mobile readability */
+        body {
+            font-size: 15px; /* Slightly increase base font size for better legibility */
+        }
+        h2 {
+            font-size: 1.3em; /* Make title slightly larger on mobile */
+            margin-bottom: 15px;
+        }
+
+        /* Adjust specific input row spacing and padding for mobile */
+        .workshop-row {
+            gap: 5px; /* Reduce gap between columns in workshop rows */
+            margin-bottom: 5px; /* Reduce row margin */
+        }
+        .workshop-row label {
+            font-size: 0.95em; /* Slightly smaller workshop labels */
+        }
+        .workshop-row input {
+            padding: 6px; /* Slightly smaller input padding */
+            font-size: 0.95em; /* Slightly smaller input font */
+        }
+
+        .row {
+            margin-bottom: 5px; /* Reduce general row margin */
+        }
+        .row input[type="tel"], /* Apply to tel type inputs */
+        .row select {
+            padding: 6px;
+            font-size: 0.95em;
+        }
+        .display-label, .display-value {
+            padding: 6px;
+            font-size: 0.95em;
+        }
+
+        button {
+            padding: 8px; /* Smaller button padding */
+            font-size: 1em; /* Adjust button font size for mobile */
+            margin-top: 10px;
+        }
     }
 </style>
 </head>
@@ -182,28 +249,28 @@
 
     <div class="workshop-row">
         <label id="workshop1-name" data-i18n="quartzWorkshop1">Quartz Workshop 1</label>
-        <input type="text" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="workshop1-name header-level" maxlength="2">
-        <input type="text" id="quartz1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="workshop1-name header-held">
+        <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="workshop1-name header-level" maxlength="2">
+        <input type="tel" id="quartz1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="workshop1-name header-held">
     </div>
     <div class="workshop-row">
         <label id="workshop2-name" data-i18n="quartzWorkshop2">Quartz Workshop 2</label>
-        <input type="text" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="workshop2-name header-level" maxlength="2">
-        <input type="text" id="quartz2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="workshop2-name header-held">
+        <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="workshop2-name header-level" maxlength="2">
+        <input type="tel" id="quartz2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="workshop2-name header-held">
     </div>
     <div class="workshop-row">
         <label id="workshop3-name" data-i18n="quartzWorkshop3">Quartz Workshop 3</label>
-        <input type="text" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="workshop3-name header-level" maxlength="2">
-        <input type="text" id="quartz3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="workshop3-name header-held">
+        <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="workshop3-name header-level" maxlength="2">
+        <input type="tel" id="quartz3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="workshop3-name header-held">
     </div>
     <div class="workshop-row">
         <label id="workshop4-name" data-i18n="quartzWorkshop4">Quartz Workshop 4</label>
-        <input type="text" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="workshop4-name header-level" maxlength="2">
-        <input type="text" id="quartz4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="workshop4-name header-held">
+        <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="workshop4-name header-level" maxlength="2">
+        <input type="tel" id="quartz4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="workshop4-name header-held">
     </div>
     <div class="workshop-row">
         <label id="weekly-name" data-i18n="weeklyWorkshop">Weekly Workshop</label>
-        <input type="text" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="weekly-name header-level" maxlength="2">
-        <input type="text" id="quartzWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weekly-name header-held">
+        <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="weekly-name header-level" maxlength="2">
+        <input type="tel" id="quartzWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weekly-name header-held">
     </div>
 
     <hr>
@@ -215,7 +282,7 @@
 
     <div class="row">
         <label for="quartzHeldText" data-i18n="quartzHeld">Quartz Held:</label>
-        <input type="text" id="quartzHeldText" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
+        <input type="tel" id="quartzHeldText" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
     </div>
 
     <div class="row">
@@ -225,7 +292,7 @@
 
     <div class="row">
         <label for="quartzNeededText" data-i18n="quartzNeeded">Quartz Needed:</label>
-        <input type="text" id="quartzNeededText" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
+        <input type="tel" id="quartzNeededText" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
     </div>
 
     <div class="row">
@@ -310,7 +377,7 @@
             headerHeld: '보유',
             quartzWorkshop1: '석영 작업장 1',
             quartzWorkshop2: '석영 작업장 2',
-            quartzWorkshop3: '석영 작업장 3',
+            석영Workshop3: '석영 작업장 3',
             quartzWorkshop4: '석영 작업장 4',
             weeklyWorkshop: '주간 작업장',
             quartzPerHour: '시간당 석영:',
@@ -430,9 +497,12 @@
         const parsed = parseFloat(value);
 
         // Check if it's a number, contains a decimal, and has a fractional part (e.g., 6.0 is not 6.000)
+        // Also ensure it's not a very long decimal that might be an actual large number
+        // This condition `parsed % 1 !== 0` ensures it has a non-zero fractional part
         if (!isNaN(parsed) && value.includes('.') && parsed % 1 !== 0) {
             // Apply the specific expansion logic (e.g., 6.8 becomes 6800, 12.5 becomes 12500)
             // This implies multiplying by 1000 if a decimal is present and has a fractional part.
+            // Using Math.round to avoid potential floating point inaccuracies before conversion to string.
             inputElement.value = Math.round(parsed * 1000).toString();
         }
     }
@@ -453,14 +523,12 @@
             return;
         }
 
-        // Determine if it should display decimals based on original input or if it's a whole number
-        // After expandDecimal, most will be whole numbers, so default to 0 decimals for consistency.
-        if (value.includes('.') || number % 1 !== 0) {
-             // If original input contained a decimal or it's a floating point number after expansion,
-             // allow 0-2 decimal places. This handles cases where user might enter 6.85 which becomes 6850.
-            inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        } else {
+        // Determine if it should display decimals. If the number is an integer, display as integer.
+        // If it's a float, display with appropriate decimals.
+        if (number % 1 === 0) { // It's a whole number
             inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        } else { // It has a fractional part
+            inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); // Allow up to 2 decimals for display
         }
     }
 
@@ -665,13 +733,15 @@
         ];
 
         // --- Auto-population Logic ---
+        // Only trigger auto-population if a 'quartz' input was the triggering element
         if (triggeringElement && triggeringElement.id.startsWith('quartz')) {
             const triggeredLevelId = 'level' + triggeringElement.id.replace('quartz', '');
             const triggeredLevelElement = document.getElementById(triggeredLevelId);
             const triggeredLevel = getCleanNumber(triggeredLevelId);
             const triggeredQuartzValue = getCleanNumber(triggeringElement.id);
 
-            if (triggeredLevel > 0 && triggeredQuartzValue > 0) { // Only auto-populate if source level and quartz are valid
+            // Only auto-populate if source level is valid (greater than 0) and quartz value is also valid
+            if (triggeredLevel > 0 && triggeredQuartzValue > 0) {
                 for (let i = 0; i < quartzWorkshops.length; i++) {
                     const currentQuartzElement = quartzWorkshops[i];
                     const currentLevelElement = workshopLevels[i];
@@ -684,7 +754,9 @@
                     const currentLevel = getCleanNumber(currentLevelElement.id);
                     const currentQuartzValue = getCleanNumber(currentQuartzElement.id);
 
-                    // If levels match AND (target field is empty OR target field has the same value as source)
+                    // Auto-populate if levels match AND (target field is empty OR target field has the same value as source)
+                    // The "same value as source" check allows subsequent auto-fills to overwrite
+                    // previous auto-fills, but not manually changed values.
                     if (currentLevel > 0 && currentLevel === triggeredLevel &&
                         (currentQuartzValue === 0 || currentQuartzValue === triggeredQuartzValue)) {
                         
@@ -761,10 +833,10 @@
 
         // Re-format the main quartzHeldText and quartzNeededText after calculations,
         // as they are not part of the auto-population loop for workshops.
-        // Workshop quartz fields are formatted within the auto-population loop or by their own onblur.
+        // Workshop quartz fields are formatted within the auto-population loop or by their own onblur handler.
         if (document.getElementById('quartzHeldText').value !== '') formatInput(document.getElementById('quartzHeldText'));
         if (document.getElementById('quartzNeededText').value !== '') formatInput(document.getElementById('quartzNeededText'));
-        // Re-format level fields as well, if they were edited
+        // Re-format level fields if the triggering element was a level input
         if (triggeringElement && triggeringElement.id.startsWith('level') && triggeringElement.value !== '') {
             formatInput(triggeringElement);
         }
