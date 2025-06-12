@@ -82,12 +82,15 @@ This version introduces a highly requested visual enhancement, offering a more p
 
 ---
 
-## Version 4.2.1: UI Control Repositioning
+## Version 4.2.1: UI Control Repositioning & Mobile Alignment Refinement
 
-This version focuses on enhancing the user interface layout by repositioning key interactive controls for improved usability and visual balance.
+This version focuses on enhancing the user interface layout by repositioning key interactive controls and refining their display for improved usability and visual balance across all devices.
 
 * **UI Control Relocation:**
     * The Language Selector dropdown and Theme Toggle button have been moved from the top-right of the page to the bottom.
     * **Bottom-Left Alignment:** The Theme Toggle button is now justified to the bottom-left of the page.
     * **Bottom-Right Alignment:** The Language Selector is now justified to the bottom-right of the page.
     * These controls are positioned strategically below the main calculator content but above the version number, providing a consistent and intuitive placement for global settings.
+* **Mobile Alignment Refinement:**
+    * Addressed an issue where the theme toggle and language selector would stack vertically on smaller screens.
+    * Implemented CSS adjustments to ensure both controls remain on the same horizontal line on mobile devices, maintaining their left and right justification for a polished and consistent appearance across all screen sizes.
