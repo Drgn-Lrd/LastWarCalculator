@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Optoelectronic Lab Upgrade Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="title">Resistance Level Upgrade Calculator</title> <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     /* Define CSS variables for consistent sizing */
     :root {
@@ -240,7 +239,7 @@
             min-width: 0; /* Allow input to shrink below its intrinsic width */
             text-align: right !important; /* Force right justification on mobile */
             font-size: 1em; /* Adjust relative to new body font-size */
-            max-width: 85px; /* Match mobile workshop held fields */
+            max-width: 120px; /* Adjusted from 85px to better fit large numbers */
         }
         /* Specific overrides for timezoneSelect on mobile */
         #timezoneSelect {
@@ -254,7 +253,7 @@
         .workshop-row {
             display: grid; /* Keep grid */
             /* Precise mobile column widths for strict alignment and consistent sizing */
-            grid-template-columns: minmax(80px, 1fr) 40px 85px; /* label col | level col | held col */
+            grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
             gap: 8px; /* Slightly reduced gap on mobile */
             align-items: center; /* Ensure vertical alignment */
         }
@@ -280,7 +279,7 @@
 
         .header-row {
             /* Match workshop-row on mobile for perfect alignment */
-            grid-template-columns: minmax(80px, 1fr) 40px 85px;
+            grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
             gap: 8px;
             font-size: 0.9em; /* Match workshop row labels */
         }
@@ -383,97 +382,103 @@
 </div>
 
 <div class="version-info">
-    Version 2.1 - Last Updated: June 12, 2025, 03:15 AM EDT
+    Version 4.0.2 - Last Updated: June 12, 2025, 03:39 AM EDT
 </div>
 
 <script>
+    // ######################### Configuration Variables #########################
+    // Easily change these values to adapt the calculator for different buildings or resources
+    const BUILDING_NAME = 'Optoelectronic Lab';
+    const RESOURCE_NAME = 'Quartz';
+    // ###########################################################################
+
     // Define your translations
     const translations = {
         'en': { // English (default fallback)
-            title: 'Time Until Optoelectronic Lab Can Be Upgraded',
+            title: `Time Until ${BUILDING_NAME} Can Be Upgraded`,
             headerLevel: 'Level',
             headerHeld: 'Held',
-            quartzWorkshop1: 'Quartz Workshop 1',
-            quartzWorkshop2: 'Quartz Workshop 2',
-            quartzWorkshop3: 'Quartz Workshop 3',
-            quartzWorkshop4: 'Quartz Workshop 4',
+            quartzWorkshop1: `${RESOURCE_NAME} Workshop 1`,
+            quartzWorkshop2: `${RESOURCE_NAME} Workshop 2`,
+            quartzWorkshop3: `${RESOURCE_NAME} Workshop 3`,
+            quartzWorkshop4: `${RESOURCE_NAME} Workshop 4`,
             weeklyWorkshop: 'Weekly Workshop',
-            quartzPerHour: 'Quartz/hr:',
-            quartzHeld: 'Quartz Held:',
-            totalQuartz: 'Total Quartz:',
-            quartzNeeded: 'Quartz Needed:',
+            quartzPerHour: `${RESOURCE_NAME}/hr:`,
+            quartzHeld: `${RESOURCE_NAME} Held:`,
+            totalQuartz: `Total ${RESOURCE_NAME}:`,
+            quartzNeeded: `${RESOURCE_NAME} Needed:`,
             timeToComplete: 'Time to Complete:',
             completionTime: 'Completion Time:',
             displayTimeZone: 'Display Time Zone:',
             calculateButton: 'Calculate'
         },
         'es': { // Spanish
-            title: 'Tiempo hasta que el Laboratorio Optoelectrónico pueda ser mejorado',
+            title: `Tiempo hasta que el ${BUILDING_NAME} pueda ser mejorado`,
             headerLevel: 'Nivel',
             headerHeld: 'Obtenido',
-            quartzWorkshop1: 'Taller de Cuarzo 1',
-            quartzWorkshop2: 'Taller de Cuarzo 2',
-            quartzWorkshop3: 'Taller de Cuarzo 3',
-            quartzWorkshop4: 'Taller de Cuarzo 4',
+            quartzWorkshop1: `Taller de ${RESOURCE_NAME} 1`,
+            quartzWorkshop2: `Taller de ${RESOURCE_NAME} 2`,
+            quartzWorkshop3: `Taller de ${RESOURCE_NAME} 3`,
+            quartzWorkshop4: `Taller de ${RESOURCE_NAME} 4`,
             weeklyWorkshop: 'Taller Semanal',
-            quartzPerHour: 'Cuarzo/hora:',
-            quartzHeld: 'Cuarzo Actual:',
-            totalQuartz: 'Cuarzo Total:',
-            quartzNeeded: 'Cuarzo Necesario:',
+            quartzPerHour: `${RESOURCE_NAME}/hora:`,
+            quartzHeld: `${RESOURCE_NAME} Actual:`,
+            totalQuartz: `${RESOURCE_NAME} Total:`,
+            quartzNeeded: `${RESOURCE_NAME} Necesario:`,
             timeToComplete: 'Tiempo Restante:',
             completionTime: 'Hora de Finalización:',
             displayTimeZone: 'Zona Horaria:',
             calculateButton: 'Calcular'
         },
         'pt': { // Portuguese (Placeholder translations)
-            title: 'Tempo até o Laboratório Optoeletrônico Poder Ser Atualizado',
+            title: `Tempo até o ${BUILDING_NAME} Poder Ser Atualizado`,
             headerLevel: 'Nível',
             headerHeld: 'Tido',
-            quartzWorkshop1: 'Oficina de Quartzo 1',
-            quartzWorkshop2: 'Oficina de Quartzo 2',
-            quartzWorkshop3: 'Oficina de Quartzo 3',
-            quartzWorkshop4: 'Oficina de Quartzo 4',
+            quartzWorkshop1: `Oficina de ${RESOURCE_NAME} 1`,
+            quartzWorkshop2: `Oficina de ${RESOURCE_NAME} 2`,
+            quartzWorkshop3: `Oficina de ${RESOURCE_NAME} 3`,
+            quartzWorkshop4: `Oficina de ${RESOURCE_NAME} 4`,
             weeklyWorkshop: 'Oficina Semanal',
-            quartzPerHour: 'Quartzo/hr:',
-            quartzHeld: 'Quartzo Atual:',
-            totalQuartz: 'Quartzo Total:',
-            quartzNeeded: 'Quartzo Necessário:',
+            quartzPerHour: `${RESOURCE_NAME}/hr:`,
+            quartzHeld: `${RESOURCE_NAME} Atual:`,
+            totalQuartz: `${RESOURCE_NAME} Total:`,
+            quartzNeeded: `${RESOURCE_NAME} Necessário:`,
             timeToComplete: 'Tempo para Concluir:',
             completionTime: 'Hora de Conclusão:',
             displayTimeZone: 'Fuso Horário:',
             calculateButton: 'Calcular'
         },
         'ko': { // Korean (Placeholder translations)
-            title: '광전자 연구실 업그레이드까지 남은 시간',
+            title: `${BUILDING_NAME} 업그레이드까지 남은 시간`,
             headerLevel: '레벨',
             headerHeld: '보유',
-            quartzWorkshop1: '석영 작업장 1',
-            quartzWorkshop2: '석영 작업장 2',
-            quartzWorkshop3: '석영 작업장 3',
-            quartzWorkshop4: '석영 작업장 4',
+            quartzWorkshop1: `${RESOURCE_NAME} 작업장 1`,
+            quartzWorkshop2: `${RESOURCE_NAME} 작업장 2`,
+            quartzWorkshop3: `${RESOURCE_NAME} 작업장 3`,
+            quartzWorkshop4: `${RESOURCE_NAME} 작업장 4`,
             weeklyWorkshop: '주간 작업장',
-            quartzPerHour: '시간당 석영:',
-            quartzHeld: '보유 석영:',
-            totalQuartz: '총 석영:',
-            quartzNeeded: '필요한 석영:',
+            quartzPerHour: `시간당 ${RESOURCE_NAME}:`,
+            quartzHeld: `보유 ${RESOURCE_NAME}:`,
+            totalQuartz: `총 ${RESOURCE_NAME}:`,
+            quartzNeeded: `필요한 ${RESOURCE_NAME}:`,
             timeToComplete: '완료까지 남은 시간:',
             completionTime: '완료 시간:',
             displayTimeZone: '표시 시간대:',
             calculateButton: '계산'
         },
         'ja': { // Japanese (Placeholder translations)
-            title: '光電子ラボアップグレードまでの時間',
+            title: `${BUILDING_NAME} アップグレードまでの時間`,
             headerLevel: 'レベル',
             headerHeld: '所持',
-            quartzWorkshop1: 'クォーツワークショップ 1',
-            quartzWorkshop2: 'クォーツワークショップ 2',
-            クォーツワークショップ3: 'クォーツワークショップ 3',
-            quartzWorkshop4: 'クォーツワークショップ 4',
+            quartzWorkshop1: `${RESOURCE_NAME}ワークショップ 1`,
+            quartzWorkshop2: `${RESOURCE_NAME}ワークショップ 2`,
+            quartzWorkshop3: `${RESOURCE_NAME}ワークショップ 3`,
+            quartzWorkshop4: `${RESOURCE_NAME}ワークショップ 4`,
             weeklyWorkshop: '週次ワークショップ',
-            quartzPerHour: 'クォーツ/時:',
-            quartzHeld: '所持クォーツ:',
-            totalQuartz: '合計クォーツ:',
-            quartzNeeded: '必要なクォーツ:',
+            quartzPerHour: `${RESOURCE_NAME}/時:`,
+            quartzHeld: `所持${RESOURCE_NAME}:`,
+            totalQuartz: `合計${RESOURCE_NAME}:`,
+            quartzNeeded: `必要な${RESOURCE_NAME}:`,
             timeToComplete: '完了までの時間:',
             completionTime: '完了時刻:',
             displayTimeZone: '表示タイムゾーン:',
@@ -503,13 +508,19 @@
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
             if (currentTranslations[key]) {
-                element.textContent = currentTranslations[key];
+                // If the element is the title tag, update document.title
+                if (element.tagName.toLowerCase() === 'title') {
+                    document.title = currentTranslations[key];
+                } else {
+                    element.textContent = currentTranslations[key];
+                }
             }
         });
 
-        const titleElement = document.querySelector('h2');
-        if (titleElement && currentTranslations.title) {
-            titleElement.textContent = currentTranslations.title;
+        // Ensure the h2 element is updated (it also has data-i18n="title")
+        const h2Element = document.querySelector('h2[data-i18n="title"]');
+        if (h2Element && currentTranslations.title) {
+            h2Element.textContent = currentTranslations.title;
         }
 
         const buttonElement = document.querySelector('button');
@@ -636,16 +647,14 @@
     function getNumericalOffsetInHours(tzId) {
         try {
             const now = new Date();
-            // Using 'America/New_York' as a reference to get a consistent offset string,
-            // as some locales might not produce 'GMT+/-X' directly.
+            // Using 'en-US' locale to get a consistent offset string format.
             const offsetFormatter = new Intl.DateTimeFormat('en-US', {
                 timeZone: tzId,
-                timeZoneName: 'shortOffset',
+                timeZoneName: 'shortOffset', // e.g., "GMT-04:00"
             });
             const offsetString = offsetFormatter.format(now);
 
-            // Directly parse the timezone offset from the full offset string
-            // Example: "EST", "GMT-04:00", "PST", "UTC+0"
+            // Directly parse the timezone offset from the full offset string (e.g., "GMT-04:00")
             const utcMatch = offsetString.match(/(GMT|UTC)([+-]\d{1,2}(:\d{2})?)/);
             if (utcMatch && utcMatch[2]) {
                 const offsetPart = utcMatch[2];
@@ -658,8 +667,9 @@
                 return sign * totalHours;
             }
 
-            // Fallback for time zones without a clear GMT/UTC offset string (like 'EST', 'PST')
+            // Fallback for time zones without a clear GMT/UTC offset string (like 'EST', 'PST' which format as just 'EST' or 'PST')
             // Calculate offset based on current date's difference from UTC
+            // This is less robust but might be necessary for some browser/locale combinations.
             const tzDate = new Date(now.toLocaleString('en-US', { timeZone: tzId }));
             const utcDate = new Date(now.toUTCString());
             const diffMs = tzDate.getTime() - utcDate.getTime();
@@ -710,7 +720,7 @@
                 const parts = new Intl.DateTimeFormat('en-US', {
                     timeZone: tzId,
                     timeZoneName: 'long',
-                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    year: 'numeric', month: 'numeric', day: 'numeric', // Required for timeZoneName to be reliable in some browsers
                     hour: 'numeric', minute: 'numeric', second: 'numeric'
                 }).formatToParts(now);
 
@@ -749,7 +759,7 @@
 
             tempOptions.push({
                 id: tzId,
-                name: `${longTimeZoneName} (${formattedOffset})`, // CORRECTED TEMPLATE LITERAL
+                name: `${longTimeZoneName} (${formattedOffset})`,
                 offset: offsetHours
             });
         });
@@ -926,7 +936,7 @@
     window.onload = () => {
         populateLanguageSelector();
         populateTimezones();
-        applyTranslations();
+        applyTranslations(); // Initial translation application, including for title
         updateCalculations(); // Initial calculation and display update
     };
 </script>
