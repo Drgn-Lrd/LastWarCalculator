@@ -316,17 +316,17 @@
             font-size: 0.9em; /* Match building row labels */
         }
 
-        /* Bottom controls on mobile - REVISED */
+        /* Bottom controls on mobile - REVISED for alignment */
         #bottom-controls {
             flex-direction: row; /* Keep them in a row */
             justify-content: space-between; /* Push to left and right */
             align-items: center; /* Vertically align them */
             gap: 10px; /* Space between them */
             margin-top: 15px;
-            padding: 0 10px; /* Horizontal padding */
+            padding: 0 15px; /* Adjust padding to match container's inner padding */
             max-width: 95%; /* Limit overall width */
             box-sizing: border-box; /* Ensure padding is included in width */
-            flex-wrap: wrap; /* Allow wrapping if content is too wide */
+            flex-wrap: nowrap; /* Prevent wrapping on mobile */
         }
         #language-selector-container {
             justify-content: flex-end; /* Push language selector to the right */
@@ -334,7 +334,7 @@
             flex-shrink: 0; /* Prevent shrinking */
         }
         #theme-toggle {
-            align-self: flex-start; /* Align theme button to the left */
+            align-self: center; /* Ensure vertical alignment to center */
             width: fit-content;
             padding: 6px 10px;
             font-size: 0.85em;
@@ -434,7 +434,7 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.1 - Last Updated: June 12, 2025, 08:35 AM EDT
+        Version 4.2.1 - Last Updated: June 12, 2025, 08:44 AM EDT
     </div>
 
     <script>
@@ -496,7 +496,7 @@
                 resourceName: 'Quartzo',
                 buildingType: 'Oficina',
                 title: `Tempo até o {buildingName} Poder Ser Atualizado`,
-                headerLevel: 'Nível',
+                headerLevel: 'Nivel',
                 headerHeld: 'Tido',
                 resourceBuilding1: `{buildingType} de {resourceName} 1`,
                 resourceBuilding2: `{buildingType} de {resourceName} 2`,
@@ -1166,7 +1166,7 @@
             updateCalculations();
         };
 
-        // Version 4.2.1 - Last Updated: June 12, 2025, 08:35 AM EDT
+        // Version 4.2.1 - Last Updated: June 12, 2025, 08:44 AM EDT
     </script>
 
 </body>
