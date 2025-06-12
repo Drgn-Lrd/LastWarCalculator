@@ -4,21 +4,27 @@
 <title>Optoelectronic Lab Upgrade Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+    /* Define CSS variables for consistent sizing */
+    :root {
+        --level-input-width: 45px; /* Enough for "Level" text + padding (max 2 digits) */
+        --held-input-width: 160px; /* Enough for "1,000,000,000,000" */
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
         background-color: #f4f4f4;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column; /* Stack children (language selector, container, version) vertically */
+        justify-content: flex-start; /* Align content from the top */
+        align-items: center; /* Center items horizontally */
         min-height: 90vh;
-        position: relative;
+        /* Removed position: relative; as language selector is no longer absolutely positioned */
     }
     .container {
         max-width: 550px;
         width: 100%;
-        margin: 20px 0;
+        margin: 20px 0; /* Adjusted margin to allow space for language selector above */
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -35,8 +41,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 8px;
-        /* Default: don't wrap, let labels and inputs stay on one line */
-        flex-wrap: nowrap;
+        flex-wrap: nowrap; /* Prevent wrapping on desktop by default */
     }
     /* Labels and display spans for general rows */
     .row .display-label,
@@ -55,7 +60,12 @@
         border-radius: 4px;
         box-sizing: border-box;
         text-align: right; /* Keep numbers aligned to the right */
-        max-width: unset; /* Ensure no conflicting max-width */
+        max-width: var(--held-input-width); /* Apply same max-width as held fields */
+    }
+    /* Specific override for timezoneSelect - allow it to be wider */
+    #timezoneSelect {
+        max-width: unset; /* Override max-width to allow it to be wider */
+        width: 100%; /* Fill available space as it is flex:1 */
     }
     /* Display values for general rows */
     .display-value {
@@ -66,13 +76,22 @@
         padding: 8px; /* Match input padding for alignment */
         min-width: unset; /* Remove previous min-width that was causing large gaps */
         box-sizing: border-box;
+        max-width: var(--held-input-width); /* Apply same max-width for consistency */
     }
+    /* Explicitly apply consistent max-width to specific display values */
+    #quartzHrDisplay,
+    #totalQuartzDisplay,
+    #timeDisplay,
+    #completionTimeDisplay {
+        max-width: var(--held-input-width);
+    }
+
 
     /* Specific styling for workshop input rows to create columns */
     .workshop-row {
         display: grid;
-        /* First column (labels) now takes only 'auto' space, others use fractions */
-        grid-template-columns: auto 0.6fr 1.6fr;
+        /* First column (labels) takes 'auto' space (content width), others use fixed widths */
+        grid-template-columns: auto var(--level-input-width) var(--held-input-width);
         gap: 15px; /* Increased gap for better visual separation */
         align-items: center;
         margin-bottom: 8px;
@@ -83,17 +102,26 @@
         margin-right: 0;
         min-width: unset;
     }
-    .workshop-row input { /* Changed to type="tel" */
-        text-align: right;
-        max-width: unset;
-    }
+    /* Workshop input fields - now strictly adhere to defined widths */
     .workshop-row input[id^="level"] {
         grid-column: 2;
         width: 100%; /* Fill its grid cell */
+        max-width: var(--level-input-width); /* Ensure it doesn't exceed its defined width */
+        padding: 8px; /* Consistent padding */
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        text-align: right;
     }
     .workshop-row input[id^="quartz"] {
         grid-column: 3;
         width: 100%; /* Fill its grid cell */
+        max-width: var(--held-input-width); /* Ensure it doesn't exceed its defined width */
+        padding: 8px; /* Consistent padding */
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        text-align: right;
     }
 
     button {
@@ -114,8 +142,8 @@
         font-weight: bold;
         margin-bottom: 5px;
         display: grid;
-        /* Match workshop-row columns */
-        grid-template-columns: auto 0.6fr 1.6fr; /* Match the new grid for labels */
+        /* Match workshop-row columns exactly */
+        grid-template-columns: auto var(--level-input-width) var(--held-input-width);
         gap: 15px; /* Match workshop-row gap */
     }
     .header-row span:first-child { /* The empty span for layout */
@@ -135,13 +163,14 @@
 
     /* --- Language Selector Container Styling --- */
     #language-selector-container {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
+        /* No longer absolutely positioned, relies on body flexbox */
         display: flex;
         align-items: center;
         gap: 5px;
+        margin-top: 10px; /* Space from the top of the body */
+        margin-left: auto; /* Push to the right */
+        margin-right: 20px; /* Distance from right edge */
+        padding: 5px 0; /* Add some vertical padding for distinctness */
     }
     #language-selector-container label {
         margin: 0;
@@ -164,7 +193,7 @@
         text-align: center;
     }
 
-    /* --- Media Queries for Mobile Responsiveness --- */
+    /* --- Media Queries for Mobile Responsiveness (max-width: 480px) --- */
     @media (max-width: 480px) {
         body {
             font-size: 20px; /* Base font size, will scale all 'em' units */
@@ -172,11 +201,13 @@
 
         /* Language Selector Stacking */
         #language-selector-container {
-            flex-direction: column;
-            align-items: flex-end;
+            flex-direction: column; /* Stack label and dropdown vertically */
+            align-items: flex-end; /* Keep aligned right if stacked */
             gap: 2px;
-            top: 10px;
-            right: 10px;
+            margin-top: 10px;
+            margin-right: 10px;
+            /* No bottom margin needed here as it will be stacked by body flex */
+            padding: 0; /* Remove padding if not needed on mobile */
         }
         #language-selector-container label {
             font-size: 0.8em;
@@ -184,7 +215,7 @@
         #languageSelect {
             padding: 5px 8px;
             font-size: 0.9em;
-            min-width: unset;
+            min-width: unset; /* Allow it to shrink if needed */
         }
 
         /* Main Container */
@@ -214,18 +245,37 @@
         .row select,
         .display-value {
             flex: 1 1 100%; /* Inputs/values take full width on mobile */
-            text-align: right; /* Keep input text aligned right */
+            text-align: right;
+            max-width: 100%; /* Ensure they don't exceed 100% of parent width */
         }
+        /* Specific overrides for timezoneSelect on mobile */
+        #timezoneSelect {
+            max-width: 100%;
+            width: 100%;
+        }
+
 
         /* Workshop rows on mobile */
         .workshop-row {
-            grid-template-columns: auto 0.8fr 1.2fr; /* Adjust grid for better mobile fit */
+            /* Retain grid, but use more relative sizing for columns */
+            grid-template-columns: auto 0.8fr 1.2fr;
             gap: 8px; /* Slightly reduced gap on mobile */
+        }
+        /* Make inputs fill their grid columns on mobile and remove desktop max-width */
+        .workshop-row input[id^="level"],
+        .workshop-row input[id^="quartz"] {
+            width: 100%;
+            max-width: unset; /* Crucial: Remove desktop fixed width constraints */
         }
         .workshop-row label,
         .workshop-row input {
             font-size: 0.9em;
             padding: 8px;
+        }
+
+        .header-row {
+            grid-template-columns: auto 0.8fr 1.2fr; /* Match workshop-row on mobile */
+            gap: 8px;
         }
 
         button {
@@ -326,7 +376,7 @@
 </div>
 
 <div class="version-info">
-    Version 1.7 - Last Updated: June 12, 2025, 02:34 AM EDT
+    Version 1.8 - Last Updated: June 12, 2025, 02:44 AM EDT
 </div>
 
 <script>
@@ -410,7 +460,7 @@
             headerHeld: '所持',
             quartzWorkshop1: 'クォーツワークショップ 1',
             quartzWorkshop2: 'クォーツワークショップ 2',
-            quartzWorkshop3: 'クォーツワークショップ 3',
+            クォーツワークショップ3: 'クォーツワークショップ 3',
             quartzWorkshop4: 'クォーツワークショップ 4',
             weeklyWorkshop: '週次ワークショップ',
             quartzPerHour: 'クォーツ/時:',
