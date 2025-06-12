@@ -2,22 +2,23 @@
 <html>
 <head>
 <title>Optoelectronic Lab Upgrade Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
         background-color: #f4f4f4;
         display: flex;
-        flex-direction: column; /* Changed to column to stack container and version info */
-        justify-content: center; /* Center the container horizontally */
-        align-items: center; /* Center items horizontally in the column */
-        min-height: 90vh; /* Ensure body takes up most of the viewport height */
-        position: relative; /* Needed for absolute positioning of the language selector */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        position: relative;
     }
     .container {
-        max-width: 550px; /* Increased max-width for more room for wider elements */
-        width: 100%; /* Ensure it uses available width up to max-width */
-        margin: 20px 0; /* Adjusted margin to allow space for version info */
+        max-width: 550px;
+        width: 100%;
+        margin: 20px 0;
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -27,52 +28,64 @@
     h2 {
         text-align: center;
         margin-top: 0;
-        margin-bottom: 20px; /* Adjusted margin for title */
-        line-height: 1.2; /* Allow title to wrap gracefully */
+        margin-bottom: 20px;
+        line-height: 1.2;
     }
     .row {
         display: flex;
         align-items: center;
-        margin-bottom: 8px; /* Reduced margin-bottom for tighter spacing */
+        margin-bottom: 8px;
+        /* Default: don't wrap, let labels and inputs stay on one line */
+        flex-wrap: nowrap;
     }
-    /* Changed display labels to span to avoid label errors */
-    .row .display-label { /* New class for labels for display spans */
-        flex: 2;
-        margin-right: 10px;
-        min-width: 120px;
+    /* Labels and display spans for general rows */
+    .row .display-label,
+    .row label {
+        flex: 0 0 auto; /* Labels take only content width, don't grow/shrink */
+        margin-right: 15px; /* Controlled space between label and input */
+        min-width: unset; /* Remove previous min-width that was causing large gaps */
+        text-align: left; /* Align text to the left within its own space */
     }
-    .row label { /* Original label for form fields */
-        flex: 2;
-        margin-right: 10px;
-        min-width: 120px;
-    }
-    .row input[type="tel"], /* Changed to type="tel" */
+    /* Inputs and select for general rows */
+    .row input[type="tel"],
     .row select {
-        flex: 3; /* Give inputs more space */
+        flex: 1; /* Inputs/selects take remaining space, can grow/shrink */
         padding: 8px;
         border: 1px solid #ddd;
         border-radius: 4px;
-        box-sizing: border-box; /* Include padding and border in the element's total width */
-        text-align: right; /* Align numbers to the right */
+        box-sizing: border-box;
+        text-align: right; /* Keep numbers aligned to the right */
+        max-width: unset; /* Ensure no conflicting max-width */
     }
+    /* Display values for general rows */
+    .display-value {
+        font-weight: bold;
+        color: #333;
+        flex: 1; /* Display values take remaining space, can grow/shrink */
+        text-align: right;
+        padding: 8px; /* Match input padding for alignment */
+        min-width: unset; /* Remove previous min-width that was causing large gaps */
+        box-sizing: border-box;
+    }
+
     /* Specific styling for workshop input rows to create columns */
     .workshop-row {
         display: grid;
-        /* Adjusted grid columns: Name | Level (narrow) | Held (wider) */
-        grid-template-columns: 2.2fr 0.6fr 1.6fr; /* Total 4.4fr */
-        gap: 10px; /* Space between columns */
+        /* First column (labels) now takes only 'auto' space, others use fractions */
+        grid-template-columns: auto 0.6fr 1.6fr;
+        gap: 15px; /* Increased gap for better visual separation */
         align-items: center;
-        margin-bottom: 8px; /* Reduced margin-bottom for tighter spacing */
+        margin-bottom: 8px;
     }
     .workshop-row label { /* Label for workshop names (e.g., Quartz Workshop 1) */
         grid-column: 1;
         text-align: left;
-        margin-right: 0; /* Remove flex margin */
-        min-width: unset; /* Override general label min-width */
+        margin-right: 0;
+        min-width: unset;
     }
     .workshop-row input { /* Changed to type="tel" */
         text-align: right;
-        max-width: unset; /* Allow grid to manage width */
+        max-width: unset;
     }
     .workshop-row input[id^="level"] {
         grid-column: 2;
@@ -81,17 +94,6 @@
     .workshop-row input[id^="quartz"] {
         grid-column: 3;
         width: 100%; /* Fill its grid cell */
-    }
-
-    /* Specific width for the Time Zone Select dropdown */
-    #timezoneSelect {
-        max-width: 280px; /* Increased width to prevent text cutoff */
-    }
-
-    /* Specific width for Quartz Held and Quartz Needed inputs */
-    #quartzHeldText,
-    #quartzNeededText {
-        max-width: 200px; /* Consistent width for both */
     }
 
     button {
@@ -113,46 +115,37 @@
         margin-bottom: 5px;
         display: grid;
         /* Match workshop-row columns */
-        grid-template-columns: 2.2fr 0.6fr 1.6fr;
-        gap: 10px;
+        grid-template-columns: auto 0.6fr 1.6fr; /* Match the new grid for labels */
+        gap: 15px; /* Match workshop-row gap */
     }
     .header-row span:first-child { /* The empty span for layout */
         text-align: left;
         grid-column: 1;
     }
     .header-row strong { /* Changed labels to strong for header semantic */
-        grid-column: auto; /* Let grid handle positioning */
+        grid-column: auto;
         text-align: center;
-    }
-    .display-value {
-        font-weight: bold;
-        color: #333;
-        flex: 2; /* Give display values space */
-        text-align: right; /* Align to the right */
-        padding: 8px; /* Match input padding for alignment */
-        min-width: 150px; /* Ensure it doesn't wrap too much */
-        box-sizing: border-box;
     }
     hr {
         border: 0;
         height: 1px;
         background: #eee;
-        margin: 15px 0; /* Reduced margin for the horizontal rule */
+        margin: 15px 0;
     }
 
     /* --- Language Selector Container Styling --- */
     #language-selector-container {
         position: absolute;
-        top: 20px; /* Distance from top */
-        right: 20px; /* Distance from right */
-        z-index: 1000; /* Ensure it's on top */
-        display: flex; /* To align label and select horizontally by default */
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
         align-items: center;
         gap: 5px;
     }
     #language-selector-container label {
-        margin: 0; /* Remove default label margin */
-        flex: none; /* Don't let it grow/shrink */
+        margin: 0;
+        flex: none;
     }
     #languageSelect {
         padding: 5px 8px;
@@ -160,7 +153,7 @@
         border-radius: 4px;
         background-color: #fff;
         cursor: pointer;
-        min-width: 100px; /* Give it some minimum width */
+        min-width: 100px;
     }
 
     /* --- Version Info Styling --- */
@@ -172,76 +165,77 @@
     }
 
     /* --- Media Queries for Mobile Responsiveness --- */
-    @media (max-width: 480px) { /* Styles for screens up to 480px wide (typical phone portrait) */
-        /* Overall size adjustment for mobile - approximately 25% larger base */
+    @media (max-width: 480px) {
         body {
             font-size: 20px; /* Base font size, will scale all 'em' units */
         }
 
         /* Language Selector Stacking */
         #language-selector-container {
-            flex-direction: column; /* Stack label and dropdown vertically */
-            align-items: flex-end; /* Keep dropdown aligned to the right within its new column */
-            gap: 2px; /* Reduce space between label and dropdown */
-            top: 10px; /* Bring closer to top edge */
-            right: 10px; /* Bring closer to right edge */
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+            top: 10px;
+            right: 10px;
         }
         #language-selector-container label {
-            font-size: 0.8em; /* Slightly smaller relative to new body size (20px * 0.8 = 16px) */
+            font-size: 0.8em;
         }
         #languageSelect {
-            padding: 5px 8px; /* Slightly larger padding and font for better touch target */
-            font-size: 0.9em; /* (20px * 0.9 = 18px) */
-            min-width: unset; /* Allow it to shrink if needed */
+            padding: 5px 8px;
+            font-size: 0.9em;
+            min-width: unset;
         }
 
-        /* Main Container (Zoomed In / Less Whitespace) */
+        /* Main Container */
         .container {
-            max-width: 95%; /* Make it wider on small screens, reducing side whitespace */
-            margin: 10px auto; /* Reduce top/bottom margin, keep auto for horizontal centering */
-            padding: 15px; /* Increase padding inside the container for more breathing room */
+            max-width: 95%;
+            margin: 10px auto;
+            padding: 15px;
         }
 
         h2 {
-            font-size: 1.5em; /* Make title larger (20px * 1.5 = 30px) */
+            font-size: 1.5em;
             margin-bottom: 15px;
         }
 
-        /* Adjust specific input row spacing and padding for mobile */
-        .workshop-row {
-            grid-template-columns: 2.5fr 0.8fr 1.7fr; /* Adjust column ratios for better fit with larger text */
-            gap: 8px; /* Slightly more gap between columns */
-            margin-bottom: 8px; /* Consistent row margin */
+        /* General rows on mobile (e.g., Quartz Held) */
+        .row {
+            flex-wrap: wrap; /* Allow labels to wrap to a new line */
         }
-        .workshop-row label {
-            font-size: 0.9em; /* Scales to 18px */
+        .row .display-label,
+        .row label {
+            flex: 1 1 100%; /* Labels take full width on mobile, pushing inputs below */
+            margin-right: 0; /* No right margin when stacked */
+            margin-bottom: 5px; /* Add space below label when stacked */
+            text-align: left; /* Align labels left when stacked */
         }
-        .workshop-row input {
-            padding: 8px; /* Larger input padding */
-            font-size: 0.9em; /* Scales to 18px */
+        .row input[type="tel"],
+        .row select,
+        .display-value {
+            flex: 1 1 100%; /* Inputs/values take full width on mobile */
+            text-align: right; /* Keep input text aligned right */
         }
 
-        .row {
-            margin-bottom: 8px; /* Consistent general row margin */
+        /* Workshop rows on mobile */
+        .workshop-row {
+            grid-template-columns: auto 0.8fr 1.2fr; /* Adjust grid for better mobile fit */
+            gap: 8px; /* Slightly reduced gap on mobile */
         }
-        .row input[type="tel"], /* Apply to tel type inputs */
-        .row select {
-            padding: 8px;
+        .workshop-row label,
+        .workshop-row input {
             font-size: 0.9em;
-        }
-        .display-label, .display-value {
             padding: 8px;
-            font-size: 0.9em;
         }
 
         button {
-            padding: 12px; /* Larger button padding */
-            font-size: 1.1em; /* Larger button font (20px * 1.1 = 22px) */
+            padding: 12px;
+            font-size: 1.1em;
             margin-top: 15px;
         }
 
         .version-info {
-            font-size: 0.7em; /* Smaller font for version info relative to new body size (14px) */
+            font-size: 0.7em;
             margin-top: 15px;
         }
     }
@@ -332,7 +326,7 @@
 </div>
 
 <div class="version-info">
-    Version 1.6 - Last Updated: June 12, 2025, 02:30 AM EDT
+    Version 1.7 - Last Updated: June 12, 2025, 02:34 AM EDT
 </div>
 
 <script>
