@@ -80,8 +80,8 @@
     }
 
 
-    /* Specific styling for workshop input rows to create columns */
-    .workshop-row {
+    /* Specific styling for building input rows to create columns */
+    .building-row {
         display: grid;
         /* First column (labels) takes 'auto' space (content width), others use fixed widths */
         grid-template-columns: auto var(--level-input-width) var(--held-input-width);
@@ -89,14 +89,14 @@
         align-items: center;
         margin-bottom: 8px;
     }
-    .workshop-row label { /* Label for workshop names (e.g., Quartz Workshop 1) */
+    .building-row label { /* Label for building names (e.g., Quartz Building 1) */
         grid-column: 1;
         text-align: left;
         margin-right: 0;
         min-width: unset;
     }
-    /* Workshop input fields - now strictly adhere to defined widths */
-    .workshop-row input[id^="level"] {
+    /* Building input fields - now strictly adhere to defined widths */
+    .building-row input[id^="level"] {
         grid-column: 2;
         width: 100%; /* Fill its grid cell */
         max-width: var(--level-input-width); /* Ensure it doesn't exceed its defined width */
@@ -106,7 +106,7 @@
         box-sizing: border-box;
         text-align: right;
     }
-    .workshop-row input[id^="quartz"] {
+    .building-row input[id^="resource"] {
         grid-column: 3;
         width: 100%; /* Fill its grid cell */
         max-width: var(--held-input-width); /* Ensure it doesn't exceed its defined width */
@@ -135,9 +135,9 @@
         font-weight: bold;
         margin-bottom: 5px;
         display: grid;
-        /* Match workshop-row columns exactly */
+        /* Match building-row columns exactly */
         grid-template-columns: auto var(--level-input-width) var(--held-input-width);
-        gap: 15px; /* Match workshop-row gap */
+        gap: 15px; /* Match building-row gap */
     }
     .header-row span:first-child { /* The empty span for layout */
         text-align: left;
@@ -221,7 +221,7 @@
             margin-bottom: 15px;
         }
 
-        /* General rows on mobile (e.g., Quartz Held) */
+        /* General rows on mobile (e.g., Resource Held) */
         .row {
             flex-wrap: nowrap; /* IMPORTANT: Prevent wrapping labels/inputs onto new line */
             justify-content: space-between; /* Space out label and input */
@@ -250,8 +250,8 @@
         }
 
 
-        /* Workshop rows on mobile */
-        .workshop-row {
+        /* Building rows on mobile */
+        .building-row {
             display: grid; /* Keep grid */
             /* Precise mobile column widths for strict alignment and consistent sizing */
             grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
@@ -259,30 +259,30 @@
             align-items: center; /* Ensure vertical alignment */
         }
         /* Make inputs fill their grid columns on mobile and remove desktop max-width */
-        .workshop-row input[id^="level"] {
+        .building-row input[id^="level"] {
             width: 100%;
             max-width: unset; /* Remove desktop fixed width constraints */
             font-size: 0.9em;
             padding: 5px; /* Smaller padding for mobile */
             text-align: right !important; /* Force right justification on mobile */
         }
-        .workshop-row input[id^="quartz"] {
+        .building-row input[id^="resource"] {
             width: 100%;
             max-width: unset; /* Remove desktop fixed width constraints */
             font-size: 0.9em;
             padding: 5px; /* Smaller padding for mobile */
             text-align: right !important; /* Force right justification on mobile */
         }
-        .workshop-row label {
+        .building-row label {
             font-size: 0.9em;
             padding: 0; /* Remove padding if not needed */
         }
 
         .header-row {
-            /* Match workshop-row on mobile for perfect alignment */
+            /* Match building-row on mobile for perfect alignment */
             grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
             gap: 8px;
-            font-size: 0.9em; /* Match workshop row labels */
+            font-size: 0.9em; /* Match building row labels */
         }
 
         button {
@@ -315,52 +315,52 @@
         <strong id="header-held" data-i18n="headerHeld">Held</strong>
     </div>
 
-    <div class="workshop-row">
-        <label id="workshop1-name" data-i18n="quartzWorkshop1">Quartz Workshop 1</label>
-        <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="workshop1-name header-level" maxlength="2">
-        <input type="tel" id="quartz1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="workshop1-name header-held">
+    <div class="building-row">
+        <label id="building1-name" data-i18n="resourceBuilding1">Quartz Workshop 1</label>
+        <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
+        <input type="tel" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
     </div>
-    <div class="workshop-row">
-        <label id="workshop2-name" data-i18n="quartzWorkshop2">Quartz Workshop 2</label>
-        <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="workshop2-name header-level" maxlength="2">
-        <input type="tel" id="quartz2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="workshop2-name header-held">
+    <div class="building-row">
+        <label id="building2-name" data-i18n="resourceBuilding2">Quartz Workshop 2</label>
+        <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
+        <input type="tel" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
     </div>
-    <div class="workshop-row">
-        <label id="workshop3-name" data-i18n="quartzWorkshop3">Quartz Workshop 3</label>
-        <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="workshop3-name header-level" maxlength="2">
-        <input type="tel" id="quartz3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="workshop3-name header-held">
+    <div class="building-row">
+        <label id="building3-name" data-i18n="resourceBuilding3">Quartz Workshop 3</label>
+        <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
+        <input type="tel" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
     </div>
-    <div class="workshop-row">
-        <label id="workshop4-name" data-i18n="quartzWorkshop4">Quartz Workshop 4</label>
-        <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="workshop4-name header-level" maxlength="2">
-        <input type="tel" id="quartz4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="workshop4-name header-held">
+    <div class="building-row">
+        <label id="building4-name" data-i18n="resourceBuilding4">Quartz Workshop 4</label>
+        <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
+        <input type="tel" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
     </div>
-    <div class="workshop-row">
-        <label id="weekly-name" data-i18n="weeklyWorkshop">Weekly Workshop</label>
-        <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weekly-name header-level" maxlength="2">
-        <input type="tel" id="quartzWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weekly-name header-held">
+    <div class="building-row">
+        <label id="weeklyBuilding-name" data-i18n="weeklyBuilding">Weekly Workshop</label>
+        <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
+        <input type="tel" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
     </div>
 
     <hr>
 
     <div class="row">
-        <span class="display-label" data-i18n="quartzPerHour">Quartz/hr:</span>
-        <span id="quartzHrDisplay" class="display-value">0</span>
+        <span class="display-label" data-i18n="resourcePerHour">Quartz/hr:</span>
+        <span id="resourceHrDisplay" class="display-value">0</span>
     </div>
 
     <div class="row">
-        <label for="quartzHeldText" data-i18n="quartzHeld">Quartz Held:</label>
-        <input type="tel" id="quartzHeldText" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
+        <label for="resourceHeldText" data-i18n="resourceHeld">Quartz Held:</label>
+        <input type="tel" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
     </div>
 
     <div class="row">
-        <span class="display-label" data-i18n="totalQuartz">Total Quartz:</span>
-        <span id="totalQuartzDisplay" class="display-value">0</span>
+        <span class="display-label" data-i18n="totalResource">Total Quartz:</span>
+        <span id="totalResourceDisplay" class="display-value">0</span>
     </div>
 
     <div class="row">
-        <label for="quartzNeededText" data-i18n="quartzNeeded">Quartz Needed:</label>
-        <input type="tel" id="quartzNeededText" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
+        <label for="resourceNeededText" data-i18n="resourceNeeded">Quartz Needed:</label>
+        <input type="tel" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
     </div>
 
     <div class="row">
@@ -383,7 +383,7 @@
 </div>
 
 <div class="version-info">
-    Version 4.0.3 - Last Updated: June 12, 2025, 03:52 AM EDT
+    Version 4.1.0 - Last Updated: June 12, 2025, 04:08 AM EDT
 </div>
 
 <script>
@@ -400,15 +400,15 @@
             title: `Time Until ${BUILDING_NAME} Can Be Upgraded`,
             headerLevel: 'Level',
             headerHeld: 'Held',
-            quartzWorkshop1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
-            quartzWorkshop2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
-            quartzWorkshop3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
-            quartzWorkshop4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
-            weeklyWorkshop: `Weekly ${BUILDING_TYPE}`,
-            quartzPerHour: `${RESOURCE_NAME}/hr:`,
-            quartzHeld: `${RESOURCE_NAME} Held:`,
-            totalQuartz: `Total ${RESOURCE_NAME}:`,
-            quartzNeeded: `${RESOURCE_NAME} Needed:`,
+            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
+            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
+            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
+            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
+            weeklyBuilding: `Weekly ${BUILDING_TYPE}`,
+            resourcePerHour: `${RESOURCE_NAME}/hr:`,
+            resourceHeld: `${RESOURCE_NAME} Held:`,
+            totalResource: `Total ${RESOURCE_NAME}:`,
+            resourceNeeded: `${RESOURCE_NAME} Needed:`,
             timeToComplete: 'Time to Complete:',
             completionTime: 'Completion Time:',
             displayTimeZone: 'Display Time Zone:',
@@ -418,69 +418,69 @@
             title: `Tiempo hasta que el ${BUILDING_NAME} pueda ser mejorado`,
             headerLevel: 'Nivel',
             headerHeld: 'Obtenido',
-            quartzWorkshop1: `Taller de ${RESOURCE_NAME} 1`, // Needs to be updated
-            quartzWorkshop2: `Taller de ${RESOURCE_NAME} 2`, // Needs to be updated
-            quartzWorkshop3: `Taller de ${RESOURCE_NAME} 3`, // Needs to be updated
-            quartzWorkshop4: `Taller de ${RESOURCE_NAME} 4`, // Needs to be updated
-            weeklyWorkshop: 'Taller Semanal', // Needs to be updated
-            quartzPerHour: `${RESOURCE_NAME}/hora:`,
-            quartzHeld: `${RESOURCE_NAME} Actual:`,
-            totalQuartz: `${RESOURCE_NAME} Total:`,
-            quartzNeeded: `${RESOURCE_NAME} Necesario:`,
+            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
+            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
+            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
+            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
+            weeklyBuilding: `Semanal ${BUILDING_TYPE}`, // Changed to use variable
+            resourcePerHour: `${RESOURCE_NAME}/hora:`,
+            resourceHeld: `${RESOURCE_NAME} Actual:`,
+            totalResource: `${RESOURCE_NAME} Total:`,
+            resourceNeeded: `${RESOURCE_NAME} Necesario:`,
             timeToComplete: 'Tiempo Restante:',
             completionTime: 'Hora de Finalización:',
             displayTimeZone: 'Zona Horaria:',
             calculateButton: 'Calcular'
         },
-        'pt': { // Portuguese (Placeholder translations)
+        'pt': { // Portuguese
             title: `Tempo até o ${BUILDING_NAME} Poder Ser Atualizado`,
             headerLevel: 'Nível',
             headerHeld: 'Tido',
-            quartzWorkshop1: `Oficina de ${RESOURCE_NAME} 1`, // Needs to be updated
-            quartzWorkshop2: `Oficina de ${RESOURCE_NAME} 2`, // Needs to be updated
-            quartzWorkshop3: `Oficina de ${RESOURCE_NAME} 3`, // Needs to be updated
-            quartzWorkshop4: `Oficina de ${RESOURCE_NAME} 4`, // Needs to be updated
-            weeklyWorkshop: 'Oficina Semanal', // Needs to be updated
-            quartzPerHour: `${RESOURCE_NAME}/hr:`,
-            quartzHeld: `${RESOURCE_NAME} Atual:`,
-            totalQuartz: `${RESOURCE_NAME} Total:`,
-            quartzNeeded: `${RESOURCE_NAME} Necesário:`,
+            resourceBuilding1: `Oficina de ${RESOURCE_NAME} 1`, // Needs to be updated
+            resourceBuilding2: `Oficina de ${RESOURCE_NAME} 2`, // Needs to be updated
+            resourceBuilding3: `Oficina de ${RESOURCE_NAME} 3`, // Needs to be updated
+            resourceBuilding4: `Oficina de ${RESOURCE_NAME} 4`, // Needs to be updated
+            weeklyBuilding: `Oficina Semanal`, // Needs to be updated
+            resourcePerHour: `${RESOURCE_NAME}/hr:`,
+            resourceHeld: `${RESOURCE_NAME} Atual:`,
+            totalResource: `${RESOURCE_NAME} Total:`,
+            resourceNeeded: `${RESOURCE_NAME} Necessário:`,
             timeToComplete: 'Tempo para Concluir:',
             completionTime: 'Hora de Conclusão:',
             displayTimeZone: 'Fuso Horário:',
             calculateButton: 'Calcular'
         },
-        'ko': { // Korean (Placeholder translations)
+        'ko': { // Korean
             title: `${BUILDING_NAME} 업그레이드까지 남은 시간`,
             headerLevel: '레벨',
             headerHeld: '보유',
-            quartzWorkshop1: `${RESOURCE_NAME} 작업장 1`, // Needs to be updated
-            quartzWorkshop2: `${RESOURCE_NAME} 작업장 2`, // Needs to be updated
-            quartzWorkshop3: `${RESOURCE_NAME} 작업장 3`, // Needs to be updated
-            quartzWorkshop4: `${RESOURCE_NAME} 작업장 4`, // Needs to be updated
-            weeklyWorkshop: '주간 작업장', // Needs to be updated
-            quartzPerHour: `시간당 ${RESOURCE_NAME}:`,
-            quartzHeld: `보유 ${RESOURCE_NAME}:`,
-            totalQuartz: `총 ${RESOURCE_NAME}:`,
-            quartzNeeded: `필요한 ${RESOURCE_NAME}:`,
+            resourceBuilding1: `${RESOURCE_NAME} 작업장 1`, // Needs to be updated
+            resourceBuilding2: `${RESOURCE_NAME} 작업장 2`, // Needs to be updated
+            resourceBuilding3: `${RESOURCE_NAME} 작업장 3`, // Needs to be updated
+            resourceBuilding4: `${RESOURCE_NAME} 작업장 4`, // Needs to be updated
+            weeklyBuilding: '주간 작업장', // Needs to be updated
+            resourcePerHour: `시간당 ${RESOURCE_NAME}:`,
+            resourceHeld: `보유 ${RESOURCE_NAME}:`,
+            totalResource: `총 ${RESOURCE_NAME}:`,
+            resourceNeeded: `필요한 ${RESOURCE_NAME}:`,
             timeToComplete: '완료까지 남은 시간:',
             completionTime: '완료 시간:',
             displayTimeZone: '표시 시간대:',
             calculateButton: '계산'
         },
-        'ja': { // Japanese (Placeholder translations)
+        'ja': { // Japanese
             title: `${BUILDING_NAME} アップグレードまでの時間`,
             headerLevel: 'レベル',
             headerHeld: '所持',
-            quartzWorkshop1: `${RESOURCE_NAME}ワークショップ 1`, // Needs to be updated
-            quartzWorkshop2: `${RESOURCE_NAME}ワークショップ 2`, // Needs to be updated
-            quartzWorkshop3: `${RESOURCE_NAME}ワークショップ 3`, // Needs to be updated
-            quartzWorkshop4: `${RESOURCE_NAME}ワークショップ 4`, // Needs to be updated
-            weeklyWorkshop: '週次ワークショップ', // Needs to be updated
-            quartzPerHour: `${RESOURCE_NAME}/時:`,
-            quartzHeld: `所持${RESOURCE_NAME}:`,
-            totalQuartz: `合計${RESOURCE_NAME}:`,
-            quartzNeeded: `必要な${RESOURCE_NAME}:`,
+            resourceBuilding1: `${RESOURCE_NAME}ワークショップ 1`, // Needs to be updated
+            resourceBuilding2: `${RESOURCE_NAME}ワークショップ 2`, // Needs to be updated
+            resourceBuilding3: `${RESOURCE_NAME}ワークショップ 3`, // Needs to be updated
+            resourceBuilding4: `${RESOURCE_NAME}ワークショップ 4`, // Needs to be updated
+            weeklyBuilding: '週次ワークショップ', // Needs to be updated
+            resourcePerHour: `${RESOURCE_NAME}/時:`,
+            resourceHeld: `所持${RESOURCE_NAME}:`,
+            totalResource: `合計${RESOURCE_NAME}:`,
+            resourceNeeded: `必要な${RESOURCE_NAME}:`,
             timeToComplete: '完了までの時間:',
             completionTime: '完了時刻:',
             displayTimeZone: '表示タイムゾーン:',
@@ -502,21 +502,63 @@
 
         const currentTranslations = translations[langToUse] || translations['en'];
 
-        // Correctly apply BUILDING_TYPE for all workshop related labels
-        // This must be done BEFORE the translations are applied to textContent
-        // because the translation strings themselves need to be constructed.
-        // It would be cleaner to pre-process the translation strings based on variables
-        // in a separate function or at the top of applyTranslations.
-        // For simplicity, let's update the translation object on the fly for dynamic parts.
+        // Dynamically update the translation strings for all languages based on constants
+        // This is necessary because the base translation definitions are fixed,
+        // but the constants (BUILDING_NAME, RESOURCE_NAME, BUILDING_TYPE) can change.
+        currentTranslations.title = `Time Until ${BUILDING_NAME} Can Be Upgraded`;
+        currentTranslations.resourceBuilding1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
+        currentTranslations.resourceBuilding2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
+        currentTranslations.resourceBuilding3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
+        currentTranslations.resourceBuilding4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
+        currentTranslations.weeklyBuilding = `Weekly ${BUILDING_TYPE}`; // Ensure this is dynamic for all languages.
+        currentTranslations.resourcePerHour = `${RESOURCE_NAME}/hr:`;
+        currentTranslations.resourceHeld = `${RESOURCE_NAME} Held:`;
+        currentTranslations.totalResource = `Total ${RESOURCE_NAME}:`;
+        currentTranslations.resourceNeeded = `${RESOURCE_NAME} Needed:`;
 
-        // Dynamically update the translation strings based on constants
-        // This is safe because `currentTranslations` is a copy or reference that
-        // will be used for this `applyTranslations` call.
-        currentTranslations.quartzWorkshop1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
-        currentTranslations.quartzWorkshop2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
-        currentTranslations.quartzWorkshop3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
-        currentTranslations.quartzWorkshop4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
-        currentTranslations.weeklyWorkshop = `Weekly ${BUILDING_TYPE}`;
+
+        // Adjusting specific language translations to use BUILDING_TYPE where relevant:
+        if (langToUse === 'es') {
+            currentTranslations.resourceBuilding1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
+            currentTranslations.resourceBuilding2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
+            currentTranslations.resourceBuilding3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
+            currentTranslations.resourceBuilding4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
+            currentTranslations.weeklyBuilding = `Semanal ${BUILDING_TYPE}`;
+            currentTranslations.resourcePerHour = `${RESOURCE_NAME}/hora:`;
+            currentTranslations.resourceHeld = `${RESOURCE_NAME} Actual:`;
+            currentTranslations.totalResource = `${RESOURCE_NAME} Total:`;
+            currentTranslations.resourceNeeded = `${RESOURCE_NAME} Necesario:`;
+        } else if (langToUse === 'pt') {
+            currentTranslations.resourceBuilding1 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 1`; // Example of different order
+            currentTranslations.resourceBuilding2 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 2`;
+            currentTranslations.resourceBuilding3 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 3`;
+            currentTranslations.resourceBuilding4 = `${BUILDING_TYPE} de ${RESOURCE_NAME} 4`;
+            currentTranslations.weeklyBuilding = `${BUILDING_TYPE} Semanal`;
+            currentTranslations.resourcePerHour = `${RESOURCE_NAME}/hr:`;
+            currentTranslations.resourceHeld = `${RESOURCE_NAME} Atual:`;
+            currentTranslations.totalResource = `${RESOURCE_NAME} Total:`;
+            currentTranslations.resourceNeeded = `${RESOURCE_NAME} Necessário:`;
+        } else if (langToUse === 'ko') {
+            currentTranslations.resourceBuilding1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
+            currentTranslations.resourceBuilding2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
+            currentTranslations.resourceBuilding3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
+            currentTranslations.resourceBuilding4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
+            currentTranslations.weeklyBuilding = `주간 ${BUILDING_TYPE}`;
+            currentTranslations.resourcePerHour = `시간당 ${RESOURCE_NAME}:`;
+            currentTranslations.resourceHeld = `보유 ${RESOURCE_NAME}:`;
+            currentTranslations.totalResource = `총 ${RESOURCE_NAME}:`;
+            currentTranslations.resourceNeeded = `필요한 ${RESOURCE_NAME}:`;
+        } else if (langToUse === 'ja') {
+            currentTranslations.resourceBuilding1 = `${RESOURCE_NAME}${BUILDING_TYPE} 1`; // No space for Japanese
+            currentTranslations.resourceBuilding2 = `${RESOURCE_NAME}${BUILDING_TYPE} 2`;
+            currentTranslations.resourceBuilding3 = `${RESOURCE_NAME}${BUILDING_TYPE} 3`;
+            currentTranslations.resourceBuilding4 = `${RESOURCE_NAME}${BUILDING_TYPE} 4`;
+            currentTranslations.weeklyBuilding = `週次${BUILDING_TYPE}`;
+            currentTranslations.resourcePerHour = `${RESOURCE_NAME}/時:`;
+            currentTranslations.resourceHeld = `所持${RESOURCE_NAME}:`;
+            currentTranslations.totalResource = `合計${RESOURCE_NAME}:`;
+            currentTranslations.resourceNeeded = `必要な${RESOURCE_NAME}:`;
+        }
 
 
         const languageSelect = document.getElementById('languageSelect');
@@ -584,15 +626,15 @@
     }
 
     // ######################### Helper Functions #########################
-    const MAX_ALLOWED_QUARTZ = 99999999999; // Cap at 99 Billion
+    const MAX_ALLOWED_RESOURCE = 99999999999; // Cap at 99 Billion
 
     /**
-     * Expands a decimal number like 6.8 to 6800 for 'quartz' input fields.
+     * Expands a decimal number like 6.8 to 6800 for 'resource' input fields.
      * Modifies the inputElement.value directly.
      */
     function expandDecimal(inputElement) {
-        // Only apply to quartz inputs (quartz1-4, quartzWeekly, quartzHeldText)
-        if (!inputElement.id.startsWith('quartz')) {
+        // Only apply to resource inputs (resource1-4, resourceWeekly, resourceHeldText, resourceNeededText)
+        if (!inputElement.id.startsWith('resource')) {
             return;
         }
 
@@ -621,8 +663,8 @@
         }
 
         // Apply max value cap
-        if (number > MAX_ALLOWED_QUARTZ) {
-            number = MAX_ALLOWED_QUARTZ;
+        if (number > MAX_ALLOWED_RESOURCE) {
+            number = MAX_ALLOWED_RESOURCE;
             // Update the actual input value if it was truncated
             // We'll let toLocaleString format it for display
             inputElement.value = number.toString();
@@ -638,7 +680,7 @@
 
     // Function to get a cleaned number from a textbox (removes commas)
     // This function now assumes expandDecimal has already transformed the value if necessary,
-    // and formatInput has applied the MAX_ALLOWED_QUARTZ cap.
+    // and formatInput has applied the MAX_ALLOWED_RESOURCE cap.
     function getCleanNumber(id) {
         const inputElement = document.getElementById(id);
         if (!inputElement) return 0;
@@ -819,58 +861,58 @@
 
     // ######################### Main Calculation Logic #########################
     /**
-     * Performs calculations and handles auto-population of quartz held values.
+     * Performs calculations and handles auto-population of resource held values.
      * @param {HTMLElement} [triggeringElement=null] - The input element that triggered the update (e.g., onblur).
      */
     function updateCalculations(triggeringElement = null) {
-        let totalQuartzFromWorkshops = 0;
-        let totalWorkshopRate = 0;
+        let totalResourcesFromBuildings = 0;
+        let totalBuildingRate = 0;
 
-        const workshopLevels = [
+        const buildingLevels = [
             document.getElementById('level1'),
             document.getElementById('level2'),
             document.getElementById('level3'),
             document.getElementById('level4'),
             document.getElementById('levelWeekly')
         ];
-        const quartzWorkshops = [
-            document.getElementById('quartz1'),
-            document.getElementById('quartz2'),
-            document.getElementById('quartz3'),
-            document.getElementById('quartz4'),
-            document.getElementById('quartzWeekly')
+        const resourceBuildings = [
+            document.getElementById('resource1'),
+            document.getElementById('resource2'),
+            document.getElementById('resource3'),
+            document.getElementById('resource4'),
+            document.getElementById('resourceWeekly')
         ];
 
         // --- Auto-population Logic ---
-        // Only trigger auto-population if a 'quartz' input was the triggering element
-        if (triggeringElement && triggeringElement.id.startsWith('quartz')) {
-            const triggeredLevelId = 'level' + triggeringElement.id.replace('quartz', '');
+        // Only trigger auto-population if a 'resource' input was the triggering element
+        if (triggeringElement && triggeringElement.id.startsWith('resource')) {
+            const triggeredLevelId = 'level' + triggeringElement.id.replace('resource', '');
             const triggeredLevelElement = document.getElementById(triggeredLevelId);
             const triggeredLevel = getCleanNumber(triggeredLevelId);
-            const triggeredQuartzValue = getCleanNumber(triggeringElement.id);
+            const triggeredResourceValue = getCleanNumber(triggeringElement.id);
 
-            // Only auto-populate if source level is valid (greater than 0) and quartz value is also valid
-            if (triggeredLevel > 0 && triggeredQuartzValue > 0) {
-                for (let i = 0; i < quartzWorkshops.length; i++) {
-                    const currentQuartzElement = quartzWorkshops[i];
-                    const currentLevelElement = workshopLevels[i];
+            // Only auto-populate if source level is valid (greater than 0) and resource value is also valid
+            if (triggeredLevel > 0 && triggeredResourceValue > 0) {
+                for (let i = 0; i < resourceBuildings.length; i++) {
+                    const currentResourceElement = resourceBuildings[i];
+                    const currentLevelElement = buildingLevels[i];
 
                     // Don't auto-populate the element that just triggered the update
-                    if (currentQuartzElement.id === triggeringElement.id) {
+                    if (currentResourceElement.id === triggeringElement.id) {
                         continue;
                     }
 
                     const currentLevel = getCleanNumber(currentLevelElement.id);
-                    const currentQuartzValue = getCleanNumber(currentQuartzElement.id);
+                    const currentResourceValue = getCleanNumber(currentResourceElement.id);
 
                     // Auto-populate if levels match AND (target field is empty OR target field has the same value as source)
                     // The "same value as source" check allows subsequent auto-fills to overwrite
                     // previous auto-fills, but not manually changed values.
                     if (currentLevel > 0 && currentLevel === triggeredLevel &&
-                        (currentQuartzValue === 0 || currentQuartzValue === triggeredQuartzValue)) {
+                        (currentResourceValue === 0 || currentResourceValue === triggeredResourceValue)) {
 
-                        currentQuartzElement.value = triggeredQuartzValue.toString(); // Set the raw value
-                        formatInput(currentQuartzElement); // Immediately format the auto-populated field
+                        currentResourceElement.value = triggeredResourceValue.toString(); // Set the raw value
+                        formatInput(currentResourceElement); // Immediately format the auto-populated field
                     }
                 }
             }
@@ -879,28 +921,28 @@
 
         // --- Standard Calculations ---
         for (let i = 0; i < 5; i++) {
-            let level = getCleanNumber(workshopLevels[i].id);
+            let level = getCleanNumber(buildingLevels[i].id);
             if (level <= 30) { // Only levels up to 30 contribute to rate
-                totalWorkshopRate += level;
+                totalBuildingRate += level;
             }
-            let quartz = getCleanNumber(quartzWorkshops[i].id);
-            totalQuartzFromWorkshops += quartz;
+            let resource = getCleanNumber(resourceBuildings[i].id);
+            totalResourcesFromBuildings += resource;
         }
 
-        const quartzHeld = getCleanNumber('quartzHeldText');
-        const quartzNeeded = getCleanNumber('quartzNeededText');
+        const resourceHeld = getCleanNumber('resourceHeldText');
+        const resourceNeeded = getCleanNumber('resourceNeededText');
 
-        const quartzPerHour = totalWorkshopRate * 720;
-        document.getElementById('quartzHrDisplay').textContent = quartzPerHour.toLocaleString('en-US');
+        const resourcePerHour = totalBuildingRate * 720;
+        document.getElementById('resourceHrDisplay').textContent = resourcePerHour.toLocaleString('en-US');
 
-        const totalCurrentQuartz = quartzHeld + totalQuartzFromWorkshops;
-        document.getElementById('totalQuartzDisplay').textContent = totalCurrentQuartz.toLocaleString('en-US');
+        const totalCurrentResource = resourceHeld + totalResourcesFromBuildings;
+        document.getElementById('totalResourceDisplay').textContent = totalCurrentResource.toLocaleString('en-US');
 
         const timeDisplay = document.getElementById('timeDisplay');
         const completionTimeDisplay = document.getElementById('completionTimeDisplay');
 
-        if (quartzPerHour > 0 && totalCurrentQuartz < quartzNeeded) {
-            const hoursRequired = (quartzNeeded - totalCurrentQuartz) / quartzPerHour;
+        if (resourcePerHour > 0 && totalCurrentResource < resourceNeeded) {
+            const hoursRequired = (resourceNeeded - totalCurrentResource) / resourcePerHour;
             timeDisplay.textContent = `${hoursRequired.toFixed(2)} hrs`;
 
             const completionDateTimeUtc = new Date(Date.now() + hoursRequired * 60 * 60 * 1000);
@@ -940,11 +982,11 @@
         }
         // --- End Standard Calculations ---
 
-        // Re-format the main quartzHeldText and quartzNeededText after calculations,
-        // as they are not part of the auto-population loop for workshops.
-        // Workshop quartz fields are formatted within the auto-population loop or by their own onblur handler.
-        if (document.getElementById('quartzHeldText').value !== '') formatInput(document.getElementById('quartzHeldText'));
-        if (document.getElementById('quartzNeededText').value !== '') formatInput(document.getElementById('quartzNeededText'));
+        // Re-format the main resourceHeldText and resourceNeededText after calculations,
+        // as they are not part of the auto-population loop for buildings.
+        // Building resource fields are formatted within the auto-population loop or by their own onblur handler.
+        if (document.getElementById('resourceHeldText').value !== '') formatInput(document.getElementById('resourceHeldText'));
+        if (document.getElementById('resourceNeededText').value !== '') formatInput(document.getElementById('resourceNeededText'));
         // Re-format level fields if the triggering element was a level input
         if (triggeringElement && triggeringElement.id.startsWith('level') && triggeringElement.value !== '') {
             formatInput(triggeringElement);
