@@ -7,7 +7,7 @@
     /* Define CSS variables for consistent sizing */
     :root {
         --level-input-width: 45px; /* Enough for "Level" text + padding (max 2 digits) */
-        --held-input-width: 145px; /* Comfortably fits "99,999,999,999" plus padding */
+        --held-input-width: 130px; /* Comfortably fits "99,999,999,999" plus padding (16 chars) */
     }
 
     body {
@@ -45,44 +45,38 @@
     /* Labels and display spans for general rows */
     .row .display-label,
     .row label {
-        flex: 0 0 auto; /* Labels take only content width, don't grow/shrink */
+        flex: 1; /* Labels take available space, can grow/shrink but prefer content size */
         margin-right: 15px; /* Controlled space between label and input */
         min-width: unset; /* Remove previous min-width that was causing large gaps */
         text-align: left; /* Align text to the left within its own space */
     }
-    /* Inputs and select for general rows */
+    /* Inputs and select for general rows - NOW FIXED WIDTH on desktop */
     .row input[type="tel"],
     .row select {
-        flex: 1; /* Inputs/selects take remaining space, can grow/shrink */
+        flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         padding: 8px;
         border: 1px solid #ddd;
         border-radius: 4px;
         box-sizing: border-box;
         text-align: right; /* Keep numbers aligned to the right */
-        max-width: var(--held-input-width); /* Apply same max-width as held fields */
+        max-width: var(--held-input-width); /* Ensure it doesn't grow if flex: 1 was somehow applied */
     }
     /* Specific override for timezoneSelect - allow it to be wider */
     #timezoneSelect {
-        max-width: unset; /* Override max-width to allow it to be wider */
+        flex: 1; /* Allows timezone select to take available space */
+        max-width: unset; /* Override max-width to allow it to be wider than other inputs */
         width: 100%; /* Fill available space as it is flex:1 */
     }
-    /* Display values for general rows */
+    /* Display values for general rows - NOW FIXED WIDTH on desktop */
     .display-value {
         font-weight: bold;
         color: #333;
-        flex: 1; /* Display values take remaining space, can grow/shrink */
+        flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         text-align: right; /* Ensure right justification */
         padding: 8px; /* Match input padding for alignment */
         min-width: unset; /* Remove previous min-width that was causing large gaps */
         box-sizing: border-box;
         max-width: var(--held-input-width); /* Apply same max-width for consistency */
-    }
-    /* Explicitly apply consistent max-width to specific display values */
-    #quartzHrDisplay,
-    #totalQuartzDisplay,
-    #timeDisplay,
-    #completionTimeDisplay {
-        max-width: var(--held-input-width);
     }
 
 
@@ -162,14 +156,13 @@
 
     /* --- Language Selector Container Styling --- */
     #language-selector-container {
-        /* No longer absolutely positioned, relies on body flexbox */
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-top: 10px; /* Space from the top of the body */
-        margin-left: auto; /* Push to the right */
-        margin-right: 20px; /* Distance from right edge */
-        padding: 5px 0; /* Add some vertical padding for distinctness */
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: 20px;
+        padding: 5px 0;
     }
     #language-selector-container label {
         margin: 0;
@@ -240,18 +233,19 @@
             margin-right: 10px; /* Keep a small gap */
             font-size: 1em; /* Adjust relative to new body font-size */
         }
+        /* Inputs and display values for general rows on mobile */
         .row input[type="tel"],
-        .row select,
         .display-value {
             flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
             min-width: 0; /* Allow input to shrink below its intrinsic width */
-            text-align: right;
+            text-align: right !important; /* Force right justification on mobile */
             font-size: 1em; /* Adjust relative to new body font-size */
-            max-width: unset; /* Remove fixed max-width for mobile, let flex: 1 take over */
+            max-width: 85px; /* Match mobile workshop held fields */
         }
         /* Specific overrides for timezoneSelect on mobile */
         #timezoneSelect {
-            max-width: 100%; /* Ensure it doesn't overflow if flex:1 overstretches */
+            flex: 1; /* Takes available space */
+            max-width: 100%; /* Ensure it doesn't overflow */
             width: 100%;
         }
 
@@ -260,7 +254,7 @@
         .workshop-row {
             display: grid; /* Keep grid */
             /* Precise mobile column widths for strict alignment and consistent sizing */
-            grid-template-columns: minmax(80px, 1fr) 40px 95px; /* label col | level col | held col */
+            grid-template-columns: minmax(80px, 1fr) 40px 85px; /* label col | level col | held col */
             gap: 8px; /* Slightly reduced gap on mobile */
             align-items: center; /* Ensure vertical alignment */
         }
@@ -270,12 +264,14 @@
             max-width: unset; /* Remove desktop fixed width constraints */
             font-size: 0.9em;
             padding: 5px; /* Smaller padding for mobile */
+            text-align: right !important; /* Force right justification on mobile */
         }
         .workshop-row input[id^="quartz"] {
             width: 100%;
             max-width: unset; /* Remove desktop fixed width constraints */
             font-size: 0.9em;
             padding: 5px; /* Smaller padding for mobile */
+            text-align: right !important; /* Force right justification on mobile */
         }
         .workshop-row label {
             font-size: 0.9em;
@@ -284,7 +280,7 @@
 
         .header-row {
             /* Match workshop-row on mobile for perfect alignment */
-            grid-template-columns: minmax(80px, 1fr) 40px 95px;
+            grid-template-columns: minmax(80px, 1fr) 40px 85px;
             gap: 8px;
             font-size: 0.9em; /* Match workshop row labels */
         }
@@ -387,7 +383,7 @@
 </div>
 
 <div class="version-info">
-    Version 2.0 - Last Updated: June 12, 2025, 03:00 AM EDT
+    Version 2.1 - Last Updated: June 12, 2025, 03:15 AM EDT
 </div>
 
 <script>
@@ -558,6 +554,7 @@
     }
 
     // ######################### Helper Functions #########################
+    const MAX_ALLOWED_QUARTZ = 99999999999; // Cap at 99 Billion
 
     /**
      * Expands a decimal number like 6.8 to 6800 for 'quartz' input fields.
@@ -573,18 +570,13 @@
         const parsed = parseFloat(value);
 
         // Check if it's a number, contains a decimal, and has a fractional part (e.g., 6.0 is not 6.000)
-        // This condition `parsed % 1 !== 0` ensures it has a non-zero fractional part
         if (!isNaN(parsed) && value.includes('.') && parsed % 1 !== 0) {
-            // Apply the specific expansion logic (e.g., 6.8 becomes 6800, 12.5 becomes 12500)
-            // This implies multiplying by 1000 if a decimal is present and has a fractional part.
-            // Using Math.round to avoid potential floating point inaccuracies before conversion to string.
             inputElement.value = Math.round(parsed * 1000).toString();
         }
     }
 
     /**
-     * Formats a number input with thousands separators.
-     * Does NOT handle decimal expansion; expandDecimal does that beforehand.
+     * Formats a number input with thousands separators and applies max value cap.
      */
     function formatInput(inputElement) {
         let value = inputElement.value.replace(/[^0-9.]/g, ''); // Remove non-numeric except dot
@@ -598,8 +590,15 @@
             return;
         }
 
-        // Determine if it should display decimals. If the number is an integer, display as integer.
-        // If it's a float, display with appropriate decimals.
+        // Apply max value cap
+        if (number > MAX_ALLOWED_QUARTZ) {
+            number = MAX_ALLOWED_QUARTZ;
+            // Update the actual input value if it was truncated
+            // We'll let toLocaleString format it for display
+            inputElement.value = number.toString();
+        }
+
+        // Determine if it should display decimals.
         if (number % 1 === 0) { // It's a whole number
             inputElement.value = number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         } else { // It has a fractional part
@@ -608,7 +607,8 @@
     }
 
     // Function to get a cleaned number from a textbox (removes commas)
-    // This function now assumes expandDecimal has already transformed the value if necessary.
+    // This function now assumes expandDecimal has already transformed the value if necessary,
+    // and formatInput has applied the MAX_ALLOWED_QUARTZ cap.
     function getCleanNumber(id) {
         const inputElement = document.getElementById(id);
         if (!inputElement) return 0;
@@ -636,19 +636,19 @@
     function getNumericalOffsetInHours(tzId) {
         try {
             const now = new Date();
+            // Using 'America/New_York' as a reference to get a consistent offset string,
+            // as some locales might not produce 'GMT+/-X' directly.
             const offsetFormatter = new Intl.DateTimeFormat('en-US', {
                 timeZone: tzId,
                 timeZoneName: 'shortOffset',
             });
             const offsetString = offsetFormatter.format(now);
 
-            if ((offsetString.includes('GMT') || offsetString.includes('UTC')) && !offsetString.match(/[+-]\d/)) {
-                return 0;
-            }
-
-            const match = offsetString.match(/GMT\s*([+-]\d{1,2}(:\d{2})?)/);
-            if (match && match[1]) {
-                const offsetPart = match[1];
+            // Directly parse the timezone offset from the full offset string
+            // Example: "EST", "GMT-04:00", "PST", "UTC+0"
+            const utcMatch = offsetString.match(/(GMT|UTC)([+-]\d{1,2}(:\d{2})?)/);
+            if (utcMatch && utcMatch[2]) {
+                const offsetPart = utcMatch[2];
                 const sign = offsetPart.startsWith('-') ? -1 : 1;
                 const [hoursStr, minutesStr] = offsetPart.replace(/[+-]/, '').split(':');
                 let totalHours = parseInt(hoursStr, 10);
@@ -656,13 +656,19 @@
                     totalHours += parseInt(minutesStr, 10) / 60;
                 }
                 return sign * totalHours;
-            } else {
-                console.warn(`Could not parse numerical offset from: '<span class="math-inline">\{offsetString\}' for '</span>{tzId}'. No 'GMT+/-X' pattern found.`);
             }
+
+            // Fallback for time zones without a clear GMT/UTC offset string (like 'EST', 'PST')
+            // Calculate offset based on current date's difference from UTC
+            const tzDate = new Date(now.toLocaleString('en-US', { timeZone: tzId }));
+            const utcDate = new Date(now.toUTCString());
+            const diffMs = tzDate.getTime() - utcDate.getTime();
+            return diffMs / (1000 * 60 * 60); // Convert milliseconds to hours
+
         } catch (e) {
             console.error(`Error calculating offset for '${tzId}':`, e);
         }
-        return 0;
+        return 0; // Default to UTC if any error
     }
 
     function populateTimezones() {
@@ -680,25 +686,27 @@
             let formattedOffset = `UTC+0`;
 
             try {
-                new Intl.DateTimeFormat('en-US', { timeZone: tzId }).format(now); 
+                // Validate if timeZone ID is supported by browser
+                new Intl.DateTimeFormat('en-US', { timeZone: tzId }).format(now);
 
                 offsetHours = getNumericalOffsetInHours(tzId);
-                
+
                 if (offsetHours === 0) {
                     formattedOffset = `UTC+0`;
                 } else {
                     const offsetSign = offsetHours > 0 ? '+' : '-';
                     const absOffsetHours = Math.abs(offsetHours);
                     const integerHours = Math.floor(absOffsetHours);
-                    const fractionalMinutes = (absOffsetHours % 1) * 60;
+                    const fractionalMinutes = Math.round((absOffsetHours % 1) * 60); // Round to avoid 59.9999
 
                     if (fractionalMinutes > 0) {
-                        formattedOffset = `UTC${offsetSign}<span class="math-inline">\{integerHours\}\:</span>{String(fractionalMinutes).padStart(2, '0')}`;
+                        formattedOffset = `UTC${offsetSign}${integerHours.toString().padStart(2, '0')}:${fractionalMinutes.toString().padStart(2, '0')}`;
                     } else {
-                        formattedOffset = `UTC${offsetSign}${integerHours}`;
+                        formattedOffset = `UTC${offsetSign}${integerHours.toString().padStart(2, '0')}`;
                     }
                 }
 
+                // Get display name, preferring long name if available and not empty
                 const parts = new Intl.DateTimeFormat('en-US', {
                     timeZone: tzId,
                     timeZoneName: 'long',
@@ -710,37 +718,38 @@
                 if (foundTimeZoneNamePart && typeof foundTimeZoneNamePart.value === 'string' && foundTimeZoneNamePart.value.trim() !== '') {
                     longTimeZoneName = foundTimeZoneNamePart.value;
                 } else {
-                    console.warn(`Could not extract long timeZoneName from parts for '${tzId}'. Falling back to ID.`);
-                    longTimeZoneName = tzId;
+                    // Fallback to specific names if browser name is generic or missing
+                    if (tzId === "America/Phoenix") {
+                        longTimeZoneName = "Arizona (Mountain)";
+                    } else if (tzId === "America/Indiana/Indianapolis") {
+                        longTimeZoneName = "Indiana (East)";
+                    } else if (tzId === "Etc/UTC") {
+                        longTimeZoneName = "Coordinated Universal Time";
+                    } else {
+                        longTimeZoneName = tzId.replace(/_/g, ' ').replace('America/', ''); // Clean up ID
+                    }
                 }
-
-                if (tzId === "America/Phoenix") {
-                    longTimeZoneName = "Arizona (Mountain)";
-                } else if (tzId === "America/Indiana/Indianapolis") {
-                    longTimeZoneName = "Indiana (East)";
-                }
-
             } catch (e) {
-                if (e instanceof RangeError && e.message.includes('Invalid time zone specified')) {
-                    console.warn(`Time zone '${tzId}' is explicitly unsupported by the browser (RangeError). Adding a static fallback entry.`, e.message);
-                } else {
-                    console.error(`Error during dynamic time zone data calculation for '${tzId}'. Adding a static fallback entry.`, e);
-                }
-                
+                console.warn(`Time zone '${tzId}' unsupported by browser or error occurred. Using static fallback.`, e.message);
+                // Static fallbacks for explicitly unsupported or problematic IDs
                 if (tzId === "America/Honolulu") {
                     longTimeZoneName = "Hawaii";
                     formattedOffset = "UTC-10:00";
                     offsetHours = -10;
-                } else { // Generic fallback for any other problematic ID
+                } else if (tzId === "Etc/UTC") {
+                    longTimeZoneName = "Coordinated Universal Time";
+                    formattedOffset = "UTC+0";
+                    offsetHours = 0;
+                } else {
                     longTimeZoneName = `${tzId} (Unsupported)`;
-                    formattedOffset = `UTC+0`; // Default to UTC+0 for unsupported
+                    formattedOffset = `UTC+0`;
                     offsetHours = 0;
                 }
             }
 
             tempOptions.push({
                 id: tzId,
-                name: `<span class="math-inline">\{longTimeZoneName\} \(</span>{formattedOffset})`,
+                name: `${longTimeZoneName} (${formattedOffset})`, // CORRECTED TEMPLATE LITERAL
                 offset: offsetHours
             });
         });
@@ -759,8 +768,8 @@
             timezoneSelect.appendChild(option);
         });
 
+        // Set default to local time zone, or closest match if not in curated list
         timezoneSelect.value = localTimeZone;
-
         if (timezoneSelect.value !== localTimeZone && tempOptions.length > 0) {
             const localOffset = getNumericalOffsetInHours(localTimeZone);
             let bestMatchIndex = 0;
@@ -774,7 +783,7 @@
                 }
             }
             timezoneSelect.selectedIndex = bestMatchIndex;
-            console.warn(`Local timezone '<span class="math-inline">\{localTimeZone\}' not directly in curated list or unsupported\. Defaulting to closest offset\: '</span>{tempOptions[bestMatchIndex].name}'.`);
+            console.log(`Local timezone '${localTimeZone}' not directly in curated list. Defaulting to closest offset: '${tempOptions[bestMatchIndex].name}'.`);
         }
     }
 
@@ -830,7 +839,7 @@
                     // previous auto-fills, but not manually changed values.
                     if (currentLevel > 0 && currentLevel === triggeredLevel &&
                         (currentQuartzValue === 0 || currentQuartzValue === triggeredQuartzValue)) {
-                        
+
                         currentQuartzElement.value = triggeredQuartzValue.toString(); // Set the raw value
                         formatInput(currentQuartzElement); // Immediately format the auto-populated field
                     }
@@ -866,7 +875,7 @@
             timeDisplay.textContent = `${hoursRequired.toFixed(2)} hrs`;
 
             const completionDateTimeUtc = new Date(Date.now() + hoursRequired * 60 * 60 * 1000);
-            
+
             const selectedTimeZone = document.getElementById('timezoneSelect').value;
 
             if (!selectedTimeZone) {
@@ -874,7 +883,7 @@
                 completionTimeDisplay.textContent = "N/A (Select TZ)";
                 return;
             }
-            
+
             try {
                 const formatter = new Intl.DateTimeFormat('en-US', {
                     hour: 'numeric',
