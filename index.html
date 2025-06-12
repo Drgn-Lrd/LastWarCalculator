@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title data-i18n="title">Resistance Level Upgrade Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,33 +8,65 @@
     :root {
         --level-input-width: 45px; /* Enough for "Level" text + padding (max 2 digits) */
         --held-input-width: 130px; /* Comfortably fits "99,999,999,999" plus padding (16 chars) */
+
+        /* Light Mode Colors (Default) */
+        --bg-color: #f4f4f4;
+        --container-bg: #fff;
+        --border-color: #ccc;
+        --text-color: #333;
+        --header-text-color: #333;
+        --input-border: #ddd;
+        --hr-color: #eee;
+        --link-color: #007bff; /* Example for future links */
+        --button-bg: #e0e0e0;
+        --button-text: #333;
+        --button-hover-bg: #d0d0d0;
+    }
+
+    /* Dark Mode Colors */
+    [data-theme="dark"] {
+        --bg-color: #1a1a1a;
+        --container-bg: #2b2b2b;
+        --border-color: #444;
+        --text-color: #e0e0e0;
+        --header-text-color: #f0f0f0;
+        --input-border: #555;
+        --hr-color: #444;
+        --link-color: #8ab4f8; /* Lighter link for dark mode */
+        --button-bg: #444;
+        --button-text: #e0e0e0;
+        --button-hover-bg: #555;
     }
 
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
-        background-color: #f4f4f4;
+        background-color: var(--bg-color); /* Use variable */
         display: flex;
         flex-direction: column; /* Stack children (language selector, container, version) vertically */
         justify-content: flex-start; /* Align content from the top */
         align-items: center; /* Center items horizontally */
         min-height: 90vh;
+        color: var(--text-color); /* Use variable */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
     }
     .container {
         max-width: 550px;
         width: 100%;
         margin: 20px 0; /* Adjusted margin to allow space for language selector above */
         padding: 20px;
-        border: 1px solid #ccc;
+        border: 1px solid var(--border-color); /* Use variable */
         border-radius: 8px;
-        background-color: #fff;
+        background-color: var(--container-bg); /* Use variable */
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     h2 {
         text-align: center;
         margin-top: 0;
         margin-bottom: 20px;
         line-height: 1.2;
+        color: var(--header-text-color); /* Use variable */
     }
     .row {
         display: flex;
@@ -55,11 +87,13 @@
     .row select {
         flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 44px;
+        border: 1px solid var(--input-border); /* Use variable */
+        border-radius: 4px;
         box-sizing: border-box;
         text-align: right; /* Keep numbers aligned to the right */
         max-width: var(--held-input-width); /* Ensure it doesn't grow if flex: 1 was somehow applied */
+        background-color: var(--container-bg); /* Match container bg */
+        color: var(--text-color); /* Match text color */
     }
     /* Specific override for timezoneSelect - allow it to be wider */
     #timezoneSelect {
@@ -70,7 +104,7 @@
     /* Display values for general rows - NOW FIXED WIDTH on desktop */
     .display-value {
         font-weight: bold;
-        color: #333;
+        color: var(--text-color); /* Use variable */
         flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         text-align: right; /* Ensure right justification */
         padding: 8px; /* Match input padding for alignment */
@@ -101,20 +135,24 @@
         width: 100%; /* Fill its grid cell */
         max-width: var(--level-input-width); /* Ensure it doesn't exceed its defined width */
         padding: 8px; /* Consistent padding */
-        border: 1px solid #ddd;
+        border: 1px solid var(--input-border); /* Use variable */
         border-radius: 4px;
         box-sizing: border-box;
         text-align: right;
+        background-color: var(--container-bg);
+        color: var(--text-color);
     }
     .building-row input[id^="resource"] {
         grid-column: 3;
         width: 100%; /* Fill its grid cell */
         max-width: var(--held-input-width); /* Ensure it doesn't exceed its defined width */
         padding: 8px; /* Consistent padding */
-        border: 1px solid #ddd;
+        border: 1px solid var(--input-border); /* Use variable */
         border-radius: 4px;
         box-sizing: border-box;
         text-align: right;
+        background-color: var(--container-bg);
+        color: var(--text-color);
     }
 
     .header-row {
@@ -136,18 +174,26 @@
     hr {
         border: 0;
         height: 1px;
-        background: #eee;
+        background: var(--hr-color); /* Use variable */
         margin: 15px 0;
     }
 
     /* --- Language Selector Container Styling --- */
+    #top-controls {
+        display: flex;
+        justify-content: flex-end; /* Push to right */
+        align-items: center;
+        gap: 15px; /* Space between language and theme */
+        margin-top: 10px;
+        margin-right: 20px;
+        width: 100%; /* Occupy full width to align right */
+        max-width: 590px; /* Match container width + padding for alignment */
+    }
+
     #language-selector-container {
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-top: 10px;
-        margin-left: auto;
-        margin-right: 20px;
         padding: 5px 0;
     }
     #language-selector-container label {
@@ -156,18 +202,35 @@
     }
     #languageSelect {
         padding: 5px 8px;
-        border: 1px solid #ccc;
+        border: 1px solid var(--border-color);
         border-radius: 4px;
-        background-color: #fff;
+        background-color: var(--container-bg);
+        color: var(--text-color);
         cursor: pointer;
         min-width: 100px;
     }
+
+    /* --- Theme Toggle Button Styling --- */
+    #theme-toggle {
+        padding: 8px 12px;
+        background-color: var(--button-bg);
+        color: var(--button-text);
+        border: 1px solid var(--input-border);
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    #theme-toggle:hover {
+        background-color: var(--button-hover-bg);
+    }
+
 
     /* --- Version Info Styling --- */
     .version-info {
         margin-top: 20px;
         font-size: 0.8em;
-        color: #777;
+        color: var(--text-color); /* Use variable */
         text-align: center;
     }
 
@@ -177,14 +240,23 @@
             font-size: 15px; /* Reduced base font size for better mobile fit */
         }
 
-        /* Language Selector Stacking */
-        #language-selector-container {
-            flex-direction: column; /* Stack label and dropdown vertically */
+        /* Top Controls Stacking */
+        #top-controls {
+            flex-direction: column; /* Stack language and theme selector vertically */
             align-items: flex-end; /* Keep aligned right if stacked */
-            gap: 2px;
+            gap: 10px; /* Space between stacked elements */
             margin-top: 10px;
             margin-right: 10px;
             padding: 0;
+            max-width: 95%; /* Adjust max-width for mobile */
+        }
+
+        #language-selector-container {
+            flex-direction: row; /* Keep label and dropdown horizontal */
+            align-items: center;
+            gap: 5px;
+            width: 100%; /* Take full width of top-controls */
+            justify-content: flex-end; /* Push content to right */
         }
         #language-selector-container label {
             font-size: 0.9em; /* Slightly larger for readability */
@@ -193,6 +265,13 @@
             padding: 5px 8px;
             font-size: 1em; /* Adjusted relative to new body font-size */
             min-width: unset; /* Allow it to shrink if needed */
+        }
+
+        #theme-toggle {
+            width: fit-content; /* Adjust width */
+            align-self: flex-end; /* Align button to the right */
+            padding: 6px 10px; /* Smaller padding for mobile */
+            font-size: 0.85em;
         }
 
         /* Main Container */
@@ -280,10 +359,13 @@
 </head>
 <body>
 
-<div id="language-selector-container">
-    <label for="languageSelect">Language:</label>
-    <select id="languageSelect" tabindex="1">
-        </select>
+<div id="top-controls">
+    <div id="language-selector-container">
+        <label for="languageSelect">Language:</label>
+        <select id="languageSelect" tabindex="1">
+            </select>
+    </div>
+    <button id="theme-toggle" tabindex="15">Toggle Theme</button>
 </div>
 
 <div class="container">
@@ -392,7 +474,8 @@
             timeRemainingFormat: '{hours} hrs', // New: "X hrs"
             timeAgoFormat: '{hours} hrs ago',    // New: "X hrs ago"
             completionTime: 'Completion Time:',
-            displayTimeZone: 'Display Time Zone:'
+            displayTimeZone: 'Display Time Zone:',
+            toggleTheme: 'Toggle Theme' // New translation for the button
         },
         'es': { // Spanish
             buildingName: 'Laboratorio Optoelectrónico',
@@ -414,7 +497,8 @@
             timeRemainingFormat: '{hours} h', // New: "X h"
             timeAgoFormat: 'hace {hours} h',    // New: "hace X h"
             completionTime: 'Hora de Finalización:',
-            displayTimeZone: 'Zona Horaria:'
+            displayTimeZone: 'Zona Horaria:',
+            toggleTheme: 'Cambiar Tema'
         },
         'pt': { // Portuguese
             buildingName: 'Laboratório Optoeletrônico',
@@ -436,7 +520,8 @@
             timeRemainingFormat: '{hours} h', // New: "X h"
             timeAgoFormat: 'há {hours} h',    // New: "há X h"
             completionTime: 'Hora de Conclusão:',
-            displayTimeZone: 'Fuso Horário:'
+            displayTimeZone: 'Fuso Horário:',
+            toggleTheme: 'Alternar Tema'
         },
         'ko': { // Korean
             buildingName: '광전자 연구소',
@@ -458,7 +543,8 @@
             timeRemainingFormat: '{hours}시간', // New: "X시간"
             timeAgoFormat: '{hours}시간 전',    // New: "X시간 전"
             completionTime: '완료 시간:',
-            displayTimeZone: '표시 시간대:'
+            displayTimeZone: '표시 시간대:',
+            toggleTheme: '테마 전환'
         },
         'ja': { // Japanese
             buildingName: '光電子研究所',
@@ -480,7 +566,8 @@
             timeRemainingFormat: '{hours}時間', // New: "X時間"
             timeAgoFormat: '{hours}時間前',    // New: "X時間前"
             completionTime: '完了時刻:',
-            displayTimeZone: '表示タイムゾーン:'
+            displayTimeZone: '表示タイムゾーン:',
+            toggleTheme: 'テーマ切り替え'
         }
     };
 
@@ -559,6 +646,12 @@
         const h2Element = document.querySelector('h2[data-i18n="title"]');
         if (h2Element && processedTranslations.title) {
             h2Element.textContent = processedTranslations.title;
+        }
+
+        // Update the theme toggle button text
+        const themeToggleButton = document.getElementById('theme-toggle');
+        if (themeToggleButton && processedTranslations.toggleTheme) {
+            themeToggleButton.textContent = processedTranslations.toggleTheme;
         }
     }
 
@@ -1005,19 +1098,84 @@
         }
     }
 
+    // ######################### Theme Logic #########################
+
+    // Function to apply the theme (light, dark, or system)
+    function applyTheme(theme) {
+        const body = document.body;
+        // Remove existing theme classes/attributes first
+        body.removeAttribute('data-theme');
+
+        if (theme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else if (theme === 'light') {
+            localStorage.setItem('theme', 'light');
+        } else { // 'system'
+            localStorage.removeItem('theme'); // Remove preference to default to system
+            updateThemeFromSystemPreference(); // Immediately apply system preference
+        }
+    }
+
+    // Function to get the theme preference (from localStorage or system)
+    function getStoredTheme() {
+        return localStorage.getItem('theme'); // 'light', 'dark', or null
+    }
+
+    // Function to update the theme based on system preference
+    function updateThemeFromSystemPreference() {
+        const body = document.body;
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+            body.setAttribute('data-theme', 'dark');
+        } else {
+            body.removeAttribute('data-theme'); // Ensure light mode is default
+        }
+    }
+
+    // Event listener for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        // Only react to system changes if no manual preference is set
+        if (!getStoredTheme()) {
+            updateThemeFromSystemPreference();
+        }
+    });
+
     // ######################### Initial Load #########################
     window.onload = () => {
+        // 1. Populate language selector and apply translations.
         populateLanguageSelector();
-        // The order is critical here:
-        // 1. Populate timezone dropdowns.
-        // 2. Apply translations (which calls setGlobalConstantsForLanguage internally).
-        // 3. Update calculations to ensure all numbers and times are fresh.
+        applyTranslations(); // This needs to run before the theme toggle text is set
+
+        // 2. Populate timezone dropdowns.
         populateTimezones();
-        applyTranslations();
+
+        // 3. Apply stored theme or system preference
+        const storedTheme = getStoredTheme();
+        if (storedTheme) {
+            applyTheme(storedTheme);
+        } else {
+            updateThemeFromSystemPreference();
+        }
+
+        // 4. Set up theme toggle button
+        const themeToggleButton = document.getElementById('theme-toggle');
+        themeToggleButton.addEventListener('click', () => {
+            const currentTheme = getStoredTheme(); // Get the currently applied manual preference
+            if (currentTheme === 'dark') {
+                applyTheme('light');
+            } else if (currentTheme === 'light') {
+                applyTheme('system'); // Next click goes to system default
+            } else { // Currently 'system' or no preference saved (so system default is active)
+                applyTheme('dark');
+            }
+        });
+
+        // 5. Run initial calculations
         updateCalculations();
     };
 
-    // Version 4.2.0 - Last Updated: June 12, 2025, 07:56 AM EDT
+    // Version 4.2.0 - Last Updated: June 12, 2025, 08:01 AM EDT
 </script>
 
 </body>
