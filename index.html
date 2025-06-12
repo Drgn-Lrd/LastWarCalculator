@@ -187,6 +187,7 @@
         max-width: 550px; /* Match container width for alignment */
         margin-top: 20px; /* Space above version info */
         padding: 0 20px; /* Horizontal padding to match container if needed, or adjust */
+        box-sizing: border-box; /* Ensure padding is included in width */
     }
 
     #language-selector-container {
@@ -315,31 +316,37 @@
             font-size: 0.9em; /* Match building row labels */
         }
 
-        /* Bottom controls on mobile */
+        /* Bottom controls on mobile - REVISED */
         #bottom-controls {
-            flex-direction: column; /* Stack language and theme selector vertically */
-            align-items: center; /* Center horizontally */
-            gap: 10px; /* Space between stacked elements */
+            flex-direction: row; /* Keep them in a row */
+            justify-content: space-between; /* Push to left and right */
+            align-items: center; /* Vertically align them */
+            gap: 10px; /* Space between them */
             margin-top: 15px;
-            padding: 0 10px; /* Reduce horizontal padding */
-            max-width: 95%; /* Adjust max-width for mobile */
+            padding: 0 10px; /* Horizontal padding */
+            max-width: 95%; /* Limit overall width */
+            box-sizing: border-box; /* Ensure padding is included in width */
+            flex-wrap: wrap; /* Allow wrapping if content is too wide */
         }
         #language-selector-container {
-            justify-content: center; /* Center language selector on mobile */
-            width: 100%;
+            justify-content: flex-end; /* Push language selector to the right */
+            width: auto; /* Allow content to dictate width */
+            flex-shrink: 0; /* Prevent shrinking */
         }
         #theme-toggle {
-            width: fit-content; /* Adjust width */
-            align-self: center; /* Center button on mobile */
-            padding: 6px 10px; /* Smaller padding for mobile */
+            align-self: flex-start; /* Align theme button to the left */
+            width: fit-content;
+            padding: 6px 10px;
             font-size: 0.85em;
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .version-info {
             font-size: 0.65em; /* Slightly smaller for mobile */
             margin-top: 15px;
         }
-    </style>
+    }
+</style>
 </head>
 <body>
 
