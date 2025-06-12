@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title data-i18n="title">Resistance Level Upgrade Calculator</title> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="title">Resistance Level Upgrade Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     /* Define CSS variables for consistent sizing */
     :root {
@@ -317,26 +318,26 @@
     <div class="workshop-row">
         <label id="workshop1-name" data-i18n="quartzWorkshop1">Quartz Workshop 1</label>
         <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="workshop1-name header-level" maxlength="2">
-        <input type="tel" id="quartz1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="workshop1-name header-held">
+        <input type="tel" id="quartz1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="workshop1-name header-held">
     </div>
     <div class="workshop-row">
         <label id="workshop2-name" data-i18n="quartzWorkshop2">Quartz Workshop 2</label>
-        <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="workshop2-name header-level" maxlength="2">
-        <input type="tel" id="quartz2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="workshop2-name header-held">
+        <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="workshop2-name header-level" maxlength="2">
+        <input type="tel" id="quartz2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="workshop2-name header-held">
     </div>
     <div class="workshop-row">
         <label id="workshop3-name" data-i18n="quartzWorkshop3">Quartz Workshop 3</label>
-        <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="workshop3-name header-level" maxlength="2">
-        <input type="tel" id="quartz3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="workshop3-name header-held">
+        <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="workshop3-name header-level" maxlength="2">
+        <input type="tel" id="quartz3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="workshop3-name header-held">
     </div>
     <div class="workshop-row">
         <label id="workshop4-name" data-i18n="quartzWorkshop4">Quartz Workshop 4</label>
-        <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="workshop4-name header-level" maxlength="2">
-        <input type="tel" id="quartz4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="workshop4-name header-held">
+        <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="workshop4-name header-level" maxlength="2">
+        <input type="tel" id="quartz4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="workshop4-name header-held">
     </div>
     <div class="workshop-row">
         <label id="weekly-name" data-i18n="weeklyWorkshop">Weekly Workshop</label>
-        <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="weekly-name header-level" maxlength="2">
+        <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weekly-name header-level" maxlength="2">
         <input type="tel" id="quartzWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weekly-name header-held">
     </div>
 
@@ -382,7 +383,7 @@
 </div>
 
 <div class="version-info">
-    Version 4.0.2 - Last Updated: June 12, 2025, 03:39 AM EDT
+    Version 4.0.3 - Last Updated: June 12, 2025, 03:52 AM EDT
 </div>
 
 <script>
@@ -390,6 +391,7 @@
     // Easily change these values to adapt the calculator for different buildings or resources
     const BUILDING_NAME = 'Optoelectronic Lab';
     const RESOURCE_NAME = 'Quartz';
+    const BUILDING_TYPE = 'Workshop'; // New variable for the type of building (e.g., Workshop, Factory, Field)
     // ###########################################################################
 
     // Define your translations
@@ -398,11 +400,11 @@
             title: `Time Until ${BUILDING_NAME} Can Be Upgraded`,
             headerLevel: 'Level',
             headerHeld: 'Held',
-            quartzWorkshop1: `${RESOURCE_NAME} Workshop 1`,
-            quartzWorkshop2: `${RESOURCE_NAME} Workshop 2`,
-            quartzWorkshop3: `${RESOURCE_NAME} Workshop 3`,
-            quartzWorkshop4: `${RESOURCE_NAME} Workshop 4`,
-            weeklyWorkshop: 'Weekly Workshop',
+            quartzWorkshop1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
+            quartzWorkshop2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
+            quartzWorkshop3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
+            quartzWorkshop4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
+            weeklyWorkshop: `Weekly ${BUILDING_TYPE}`,
             quartzPerHour: `${RESOURCE_NAME}/hr:`,
             quartzHeld: `${RESOURCE_NAME} Held:`,
             totalQuartz: `Total ${RESOURCE_NAME}:`,
@@ -416,11 +418,11 @@
             title: `Tiempo hasta que el ${BUILDING_NAME} pueda ser mejorado`,
             headerLevel: 'Nivel',
             headerHeld: 'Obtenido',
-            quartzWorkshop1: `Taller de ${RESOURCE_NAME} 1`,
-            quartzWorkshop2: `Taller de ${RESOURCE_NAME} 2`,
-            quartzWorkshop3: `Taller de ${RESOURCE_NAME} 3`,
-            quartzWorkshop4: `Taller de ${RESOURCE_NAME} 4`,
-            weeklyWorkshop: 'Taller Semanal',
+            quartzWorkshop1: `Taller de ${RESOURCE_NAME} 1`, // Needs to be updated
+            quartzWorkshop2: `Taller de ${RESOURCE_NAME} 2`, // Needs to be updated
+            quartzWorkshop3: `Taller de ${RESOURCE_NAME} 3`, // Needs to be updated
+            quartzWorkshop4: `Taller de ${RESOURCE_NAME} 4`, // Needs to be updated
+            weeklyWorkshop: 'Taller Semanal', // Needs to be updated
             quartzPerHour: `${RESOURCE_NAME}/hora:`,
             quartzHeld: `${RESOURCE_NAME} Actual:`,
             totalQuartz: `${RESOURCE_NAME} Total:`,
@@ -434,15 +436,15 @@
             title: `Tempo até o ${BUILDING_NAME} Poder Ser Atualizado`,
             headerLevel: 'Nível',
             headerHeld: 'Tido',
-            quartzWorkshop1: `Oficina de ${RESOURCE_NAME} 1`,
-            quartzWorkshop2: `Oficina de ${RESOURCE_NAME} 2`,
-            quartzWorkshop3: `Oficina de ${RESOURCE_NAME} 3`,
-            quartzWorkshop4: `Oficina de ${RESOURCE_NAME} 4`,
-            weeklyWorkshop: 'Oficina Semanal',
+            quartzWorkshop1: `Oficina de ${RESOURCE_NAME} 1`, // Needs to be updated
+            quartzWorkshop2: `Oficina de ${RESOURCE_NAME} 2`, // Needs to be updated
+            quartzWorkshop3: `Oficina de ${RESOURCE_NAME} 3`, // Needs to be updated
+            quartzWorkshop4: `Oficina de ${RESOURCE_NAME} 4`, // Needs to be updated
+            weeklyWorkshop: 'Oficina Semanal', // Needs to be updated
             quartzPerHour: `${RESOURCE_NAME}/hr:`,
             quartzHeld: `${RESOURCE_NAME} Atual:`,
             totalQuartz: `${RESOURCE_NAME} Total:`,
-            quartzNeeded: `${RESOURCE_NAME} Necessário:`,
+            quartzNeeded: `${RESOURCE_NAME} Necesário:`,
             timeToComplete: 'Tempo para Concluir:',
             completionTime: 'Hora de Conclusão:',
             displayTimeZone: 'Fuso Horário:',
@@ -452,11 +454,11 @@
             title: `${BUILDING_NAME} 업그레이드까지 남은 시간`,
             headerLevel: '레벨',
             headerHeld: '보유',
-            quartzWorkshop1: `${RESOURCE_NAME} 작업장 1`,
-            quartzWorkshop2: `${RESOURCE_NAME} 작업장 2`,
-            quartzWorkshop3: `${RESOURCE_NAME} 작업장 3`,
-            quartzWorkshop4: `${RESOURCE_NAME} 작업장 4`,
-            weeklyWorkshop: '주간 작업장',
+            quartzWorkshop1: `${RESOURCE_NAME} 작업장 1`, // Needs to be updated
+            quartzWorkshop2: `${RESOURCE_NAME} 작업장 2`, // Needs to be updated
+            quartzWorkshop3: `${RESOURCE_NAME} 작업장 3`, // Needs to be updated
+            quartzWorkshop4: `${RESOURCE_NAME} 작업장 4`, // Needs to be updated
+            weeklyWorkshop: '주간 작업장', // Needs to be updated
             quartzPerHour: `시간당 ${RESOURCE_NAME}:`,
             quartzHeld: `보유 ${RESOURCE_NAME}:`,
             totalQuartz: `총 ${RESOURCE_NAME}:`,
@@ -470,11 +472,11 @@
             title: `${BUILDING_NAME} アップグレードまでの時間`,
             headerLevel: 'レベル',
             headerHeld: '所持',
-            quartzWorkshop1: `${RESOURCE_NAME}ワークショップ 1`,
-            quartzWorkshop2: `${RESOURCE_NAME}ワークショップ 2`,
-            quartzWorkshop3: `${RESOURCE_NAME}ワークショップ 3`,
-            quartzWorkshop4: `${RESOURCE_NAME}ワークショップ 4`,
-            weeklyWorkshop: '週次ワークショップ',
+            quartzWorkshop1: `${RESOURCE_NAME}ワークショップ 1`, // Needs to be updated
+            quartzWorkshop2: `${RESOURCE_NAME}ワークショップ 2`, // Needs to be updated
+            quartzWorkshop3: `${RESOURCE_NAME}ワークショップ 3`, // Needs to be updated
+            quartzWorkshop4: `${RESOURCE_NAME}ワークショップ 4`, // Needs to be updated
+            weeklyWorkshop: '週次ワークショップ', // Needs to be updated
             quartzPerHour: `${RESOURCE_NAME}/時:`,
             quartzHeld: `所持${RESOURCE_NAME}:`,
             totalQuartz: `合計${RESOURCE_NAME}:`,
@@ -499,6 +501,23 @@
         }
 
         const currentTranslations = translations[langToUse] || translations['en'];
+
+        // Correctly apply BUILDING_TYPE for all workshop related labels
+        // This must be done BEFORE the translations are applied to textContent
+        // because the translation strings themselves need to be constructed.
+        // It would be cleaner to pre-process the translation strings based on variables
+        // in a separate function or at the top of applyTranslations.
+        // For simplicity, let's update the translation object on the fly for dynamic parts.
+
+        // Dynamically update the translation strings based on constants
+        // This is safe because `currentTranslations` is a copy or reference that
+        // will be used for this `applyTranslations` call.
+        currentTranslations.quartzWorkshop1 = `${RESOURCE_NAME} ${BUILDING_TYPE} 1`;
+        currentTranslations.quartzWorkshop2 = `${RESOURCE_NAME} ${BUILDING_TYPE} 2`;
+        currentTranslations.quartzWorkshop3 = `${RESOURCE_NAME} ${BUILDING_TYPE} 3`;
+        currentTranslations.quartzWorkshop4 = `${RESOURCE_NAME} ${BUILDING_TYPE} 4`;
+        currentTranslations.weeklyWorkshop = `Weekly ${BUILDING_TYPE}`;
+
 
         const languageSelect = document.getElementById('languageSelect');
         if (languageSelect && languageSelect.value !== langToUse) {
