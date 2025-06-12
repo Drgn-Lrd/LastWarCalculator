@@ -117,20 +117,9 @@
         text-align: right;
     }
 
-    button {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 15px;
-        font-size: 16px;
-    }
-    button:hover {
-        background-color: #0056b3;
-    }
+    /* REMOVED: button { ... } CSS rules */
+    /* REMOVED: button:hover { ... } CSS rules */
+
     .header-row {
         font-weight: bold;
         margin-bottom: 5px;
@@ -285,11 +274,8 @@
             font-size: 0.9em; /* Match building row labels */
         }
 
-        button {
-            padding: 10px;
-            font-size: 1em;
-            margin-top: 15px;
-        }
+        /* REMOVED: button { ... } CSS rules */
+        /* REMOVED: button { ... } CSS rules within media query */
 
         .version-info {
             font-size: 0.65em; /* Slightly smaller for mobile */
@@ -379,114 +365,139 @@
             </select>
     </div>
 
-    <button onclick="updateCalculations()" tabindex="15" data-i18n="calculateButton">Calculate</button>
-</div>
+    </div>
 
 <div class="version-info">
-    Version 4.1.1 - Last Updated: June 12, 2025, 04:30 AM EDT
+    Version 4.1.3 - Last Updated: June 12, 2025, 04:42 AM EDT
 </div>
 
 <script>
-    // ######################### Configuration Variables #########################
-    // Easily change these values to adapt the calculator for different buildings or resources
-    const BUILDING_NAME = 'Optoelectronic Lab';
-    const RESOURCE_NAME = 'Quartz'; // This constant defines the resource name and is NOT translated.
-    const BUILDING_TYPE = 'Workshop'; // New variable for the type of building (e.g., Workshop, Factory, Field)
-    // ###########################################################################
+    // These constants will be dynamically set by setGlobalConstantsForLanguage()
+    let BUILDING_NAME = '';
+    let RESOURCE_NAME = '';
+    let BUILDING_TYPE = '';
 
     // Define your translations
     const translations = {
         'en': { // English (default fallback)
-            title: `Time Until ${BUILDING_NAME} Can Be Upgraded`,
+            buildingName: 'Optoelectronic Lab',
+            resourceName: 'Quartz',
+            buildingType: 'Workshop',
+            title: `Time Until {buildingName} Can Be Upgraded`, // Placeholder to be replaced
             headerLevel: 'Level',
             headerHeld: 'Held',
-            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
-            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
-            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
-            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
-            weeklyBuilding: `Weekly ${BUILDING_TYPE}`,
-            resourcePerHour: `${RESOURCE_NAME}/hr:`,
-            resourceHeld: `${RESOURCE_NAME} Held:`,
-            totalResource: `Total ${RESOURCE_NAME}:`,
-            resourceNeeded: `${RESOURCE_NAME} Needed:`,
+            resourceBuilding1: `{resourceName} {buildingType} 1`,
+            resourceBuilding2: `{resourceName} {buildingType} 2`,
+            resourceBuilding3: `{resourceName} {buildingType} 3`,
+            resourceBuilding4: `{resourceName} {buildingType} 4`,
+            weeklyBuilding: `Weekly {buildingType}`,
+            resourcePerHour: `{resourceName}/hr:`,
+            resourceHeld: `{resourceName} Held:`,
+            totalResource: `Total {resourceName}:`,
+            resourceNeeded: `{resourceName} Needed:`,
             timeToComplete: 'Time to Complete:',
             completionTime: 'Completion Time:',
-            displayTimeZone: 'Display Time Zone:',
-            calculateButton: 'Calculate'
+            displayTimeZone: 'Display Time Zone:'
+            // REMOVED: calculateButton: 'Calculate'
         },
         'es': { // Spanish
-            title: `Tiempo hasta que el ${BUILDING_NAME} pueda ser mejorado`,
+            buildingName: 'Laboratorio Optoelectrónico',
+            resourceName: 'Cuarzo',
+            buildingType: 'Taller',
+            title: `Tiempo hasta que el {buildingName} pueda ser mejorado`,
             headerLevel: 'Nivel',
             headerHeld: 'Obtenido',
-            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
-            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
-            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
-            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
-            weeklyBuilding: `Semanal ${BUILDING_TYPE}`,
-            resourcePerHour: `${RESOURCE_NAME}/hora:`,
-            resourceHeld: `${RESOURCE_NAME} Actual:`,
-            totalResource: `${RESOURCE_NAME} Total:`,
-            resourceNeeded: `${RESOURCE_NAME} Necesario:`,
+            resourceBuilding1: `{resourceName} {buildingType} 1`,
+            resourceBuilding2: `{resourceName} {buildingType} 2`,
+            resourceBuilding3: `{resourceName} {buildingType} 3`,
+            resourceBuilding4: `{resourceName} {buildingType} 4`,
+            weeklyBuilding: `Semanal {buildingType}`,
+            resourcePerHour: `${RESOURCE_NAME}/hora:`, // Will be processed
+            resourceHeld: `{resourceName} Actual:`,
+            totalResource: `{resourceName} Total:`,
+            resourceNeeded: `{resourceName} Necesario:`,
             timeToComplete: 'Tiempo Restante:',
             completionTime: 'Hora de Finalización:',
-            displayTimeZone: 'Zona Horaria:',
-            calculateButton: 'Calcular'
+            displayTimeZone: 'Zona Horaria:'
+            // REMOVED: calculateButton: 'Calcular'
         },
         'pt': { // Portuguese
-            title: `Tempo até o ${BUILDING_NAME} Poder Ser Atualizado`,
+            buildingName: 'Laboratório Optoeletrônico',
+            resourceName: 'Quartzo',
+            buildingType: 'Oficina',
+            title: `Tempo até o {buildingName} Poder Ser Atualizado`,
             headerLevel: 'Nível',
             headerHeld: 'Tido',
-            resourceBuilding1: `${BUILDING_TYPE} de ${RESOURCE_NAME} 1`, // Portuguese word order
-            resourceBuilding2: `${BUILDING_TYPE} de ${RESOURCE_NAME} 2`,
-            resourceBuilding3: `${BUILDING_TYPE} de ${RESOURCE_NAME} 3`,
-            resourceBuilding4: `${BUILDING_TYPE} de ${RESOURCE_NAME} 4`,
-            weeklyBuilding: `${BUILDING_TYPE} Semanal`,
-            resourcePerHour: `${RESOURCE_NAME}/hr:`,
-            resourceHeld: `${RESOURCE_NAME} Atual:`,
-            totalResource: `${RESOURCE_NAME} Total:`,
-            resourceNeeded: `${RESOURCE_NAME} Necessário:`,
+            resourceBuilding1: `{buildingType} de {resourceName} 1`, // Portuguese word order
+            resourceBuilding2: `{buildingType} de {resourceName} 2`,
+            resourceBuilding3: `{buildingType} de {resourceName} 3`,
+            resourceBuilding4: `{buildingType} de {resourceName} 4`,
+            weeklyBuilding: `{buildingType} Semanal`,
+            resourcePerHour: `{resourceName}/hr:`,
+            resourceHeld: `{resourceName} Atual:`,
+            totalResource: `{resourceName} Total:`,
+            resourceNeeded: `{resourceName} Necessário:`,
             timeToComplete: 'Tempo para Concluir:',
             completionTime: 'Hora de Conclusão:',
-            displayTimeZone: 'Fuso Horário:',
-            calculateButton: 'Calcular'
+            displayTimeZone: 'Fuso Horário:'
+            // REMOVED: calculateButton: 'Calcular'
         },
         'ko': { // Korean
-            title: `${BUILDING_NAME} 업그레이드까지 남은 시간`,
+            buildingName: '광전자 연구소',
+            resourceName: '석영',
+            buildingType: '작업장',
+            title: `{buildingName} 업그레이드까지 남은 시간`,
             headerLevel: '레벨',
             headerHeld: '보유',
-            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`,
-            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
-            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
-            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
-            weeklyBuilding: `주간 ${BUILDING_TYPE}`,
-            resourcePerHour: `시간당 ${RESOURCE_NAME}:`,
-            resourceHeld: `보유 ${RESOURCE_NAME}:`,
-            totalResource: `총 ${RESOURCE_NAME}:`,
-            resourceNeeded: `필요한 ${RESOURCE_NAME}:`,
+            resourceBuilding1: `{resourceName} {buildingType} 1`,
+            resourceBuilding2: `{resourceName} {buildingType} 2`,
+            resourceBuilding3: `{resourceName} {buildingType} 3`,
+            resourceBuilding4: `{resourceName} {buildingType} 4`,
+            weeklyBuilding: `주간 {buildingType}`,
+            resourcePerHour: `시간당 {resourceName}:`,
+            resourceHeld: `보유 {resourceName}:`,
+            totalResource: `총 {resourceName}:`,
+            resourceNeeded: `필요한 {resourceName}:`,
             timeToComplete: '완료까지 남은 시간:',
             completionTime: '완료 시간:',
-            displayTimeZone: '표시 시간대:',
-            calculateButton: '계산'
+            displayTimeZone: '표시 시간대:'
+            // REMOVED: calculateButton: '계산'
         },
         'ja': { // Japanese
-            title: `${BUILDING_NAME} アップグレードまでの時間`,
+            buildingName: '光電子研究所',
+            resourceName: '石英',
+            buildingType: '作業場',
+            title: `{buildingName} アップグレードまでの時間`,
             headerLevel: 'レベル',
             headerHeld: '所持',
-            resourceBuilding1: `${RESOURCE_NAME} ${BUILDING_TYPE} 1`, // Added space for consistency and readability
-            resourceBuilding2: `${RESOURCE_NAME} ${BUILDING_TYPE} 2`,
-            resourceBuilding3: `${RESOURCE_NAME} ${BUILDING_TYPE} 3`,
-            resourceBuilding4: `${RESOURCE_NAME} ${BUILDING_TYPE} 4`,
-            weeklyBuilding: `週次 ${BUILDING_TYPE}`, // Added space
-            resourcePerHour: `${RESOURCE_NAME}/時:`,
-            resourceHeld: `所持${RESOURCE_NAME}:`, // No space here as per common Japanese
-            totalResource: `合計${RESOURCE_NAME}:`, // No space here
-            resourceNeeded: `必要な${RESOURCE_NAME}:`, // No space here
+            resourceBuilding1: `{resourceName} {buildingType} 1`,
+            resourceBuilding2: `{resourceName} {buildingType} 2`,
+            resourceBuilding3: `{resourceName} {buildingType} 3`,
+            resourceBuilding4: `{resourceName} {buildingType} 4`,
+            weeklyBuilding: `週次 {buildingType}`,
+            resourcePerHour: `{resourceName}/時:`,
+            resourceHeld: `所持{resourceName}:`,
+            totalResource: `合計{resourceName}:`,
+            resourceNeeded: `必要な{resourceName}:`,
             timeToComplete: '完了までの時間:',
             completionTime: '完了時刻:',
-            displayTimeZone: '表示タイムゾーン:',
-            calculateButton: '計算'
+            displayTimeZone: '表示タイムゾーン:'
+            // REMOVED: calculateButton: '計算'
         }
     };
+
+
+    /**
+     * Dynamically sets the global constants (BUILDING_NAME, RESOURCE_NAME, BUILDING_TYPE)
+     * based on the currently selected or detected language.
+     * This must run BEFORE applyTranslations to ensure template literals are correctly resolved.
+     */
+    function setGlobalConstantsForLanguage(langToUse) {
+        const currentTranslations = translations[langToUse] || translations['en'];
+        BUILDING_NAME = currentTranslations.buildingName;
+        RESOURCE_NAME = currentTranslations.resourceName;
+        BUILDING_TYPE = currentTranslations.buildingType;
+    }
 
     // Function to apply translations based on a specified language or auto-detect
     function applyTranslations(langOverride = null) {
@@ -501,7 +512,28 @@
         }
 
         // Ensure the language code exists in our translations, fallback to 'en'
-        const currentTranslations = translations[langToUse] || translations['en'];
+        langToUse = translations[langToUse] ? langToUse : 'en';
+
+        // Set global constants for the chosen language BEFORE applying translations
+        setGlobalConstantsForLanguage(langToUse);
+
+        // Now, get the translations for the chosen language.
+        // We'll create a temporary object to hold the fully processed strings.
+        const processedTranslations = {};
+        const currentTranslationsSource = translations[langToUse];
+
+        // Process each translation string to replace placeholders with dynamic global constants
+        for (const key in currentTranslationsSource) {
+            if (currentTranslationsSource.hasOwnProperty(key)) {
+                let value = currentTranslationsSource[key];
+                if (typeof value === 'string') {
+                    value = value.replace(/{buildingName}/g, BUILDING_NAME);
+                    value = value.replace(/{resourceName}/g, RESOURCE_NAME);
+                    value = value.replace(/{buildingType}/g, BUILDING_TYPE);
+                }
+                processedTranslations[key] = value;
+            }
+        }
 
         const languageSelect = document.getElementById('languageSelect');
         if (languageSelect && languageSelect.value !== langToUse) {
@@ -510,27 +542,23 @@
 
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
-            if (currentTranslations[key]) {
+            if (processedTranslations[key]) {
                 // If the element is the title tag, update document.title
                 if (element.tagName.toLowerCase() === 'title') {
-                    document.title = currentTranslations[key];
+                    document.title = processedTranslations[key];
                 } else {
-                    element.textContent = currentTranslations[key];
+                    element.textContent = processedTranslations[key];
                 }
             }
         });
 
         // Ensure the h2 element is updated (it also has data-i18n="title")
-        // This is a redundant but safe way to ensure the main title is updated.
         const h2Element = document.querySelector('h2[data-i18n="title"]');
-        if (h2Element && currentTranslations.title) {
-            h2Element.textContent = currentTranslations.title;
+        if (h2Element && processedTranslations.title) {
+            h2Element.textContent = processedTranslations.title;
         }
 
-        const buttonElement = document.querySelector('button');
-        if (buttonElement && currentTranslations.calculateButton) {
-            buttonElement.textContent = currentTranslations.calculateButton;
-        }
+        // REMOVED: buttonElement update logic
     }
 
     // Function to populate the language selection dropdown
@@ -714,9 +742,9 @@
                     const fractionalMinutes = Math.round((absOffsetHours % 1) * 60); // Round to avoid 59.9999
 
                     if (fractionalMinutes > 0) {
-                        formattedOffset = `UTC${offsetSign}${integerHours.toString().padStart(2, '0')}:${fractionalMinutes.toString().padStart(2, '0')}`;
+                        formattedOffset = `UTC${offsetSign}${integerHours.toString()}:${fractionalMinutes.toString().padStart(2, '0')}`; // No padStart for hours
                     } else {
-                        formattedOffset = `UTC${offsetSign}${integerHours.toString().padStart(2, '0')}`;
+                        formattedOffset = `UTC${offsetSign}${integerHours.toString()}`; // No padStart for hours
                     }
                 }
 
@@ -748,7 +776,7 @@
                 // Static fallbacks for explicitly unsupported or problematic IDs
                 if (tzId === "America/Honolulu") {
                     longTimeZoneName = "Hawaii";
-                    formattedOffset = "UTC-10:00";
+                    formattedOffset = "UTC-10";
                     offsetHours = -10;
                 } else if (tzId === "Etc/UTC") {
                     longTimeZoneName = "Coordinated Universal Time";
@@ -831,7 +859,6 @@
         if (triggeringElement && triggeringElement.id.startsWith('resource')) {
             const triggeredLevelId = 'level' + triggeringElement.id.replace('resource', '');
             const triggeredLevelElement = document.getElementById(triggeredLevelId);
-            const triggeredLevel = getCleanNumber(triggeredLevelId);
             const triggeredResourceValue = getCleanNumber(triggeringElement.id);
 
             // Only auto-populate if source level is valid (greater than 0) and resource value is also valid
@@ -939,9 +966,13 @@
     // ######################### Initial Load #########################
     window.onload = () => {
         populateLanguageSelector();
+        // The order is critical here:
+        // 1. Populate timezone dropdowns.
+        // 2. Apply translations (which calls setGlobalConstantsForLanguage internally).
+        // 3. Update calculations to ensure all numbers and times are fresh.
         populateTimezones();
-        applyTranslations(); // Initial translation application, including for title
-        updateCalculations(); // Initial calculation and display update
+        applyTranslations();
+        updateCalculations();
     };
 </script>
 
