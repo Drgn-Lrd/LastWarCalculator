@@ -211,7 +211,8 @@
     }
 
     /* --- Theme Toggle Button Styling --- */
-    #theme-toggle {
+    #theme-toggle,
+    #instructions-button { /* Apply similar styling to both buttons */
         padding: 8px 12px;
         background-color: var(--button-bg);
         color: var(--button-text);
@@ -221,8 +222,14 @@
         font-size: 0.9em;
         transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
-    #theme-toggle:hover {
+    #theme-toggle:hover,
+    #instructions-button:hover {
         background-color: var(--button-hover-bg);
+    }
+    #instructions-button {
+        font-size: 1.2em; /* Make question mark larger */
+        padding: 5px 10px; /* Adjust padding for icon */
+        line-height: 1; /* Align text within button */
     }
 
 
@@ -232,6 +239,82 @@
         font-size: 0.8em;
         color: var(--text-color); /* Use variable */
         text-align: center;
+    }
+
+    /* --- Modal Styles --- */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+    .modal-content {
+        background-color: var(--container-bg);
+        margin: auto; /* Auto margin for centering */
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        width: 90%; /* Responsive width */
+        max-width: 500px; /* Max width for larger screens */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        position: relative; /* For close button positioning */
+        color: var(--text-color);
+        line-height: 1.5;
+        max-height: 80vh; /* Limit height to prevent modal from going off-screen */
+        overflow-y: auto; /* Enable vertical scroll if content is too long */
+    }
+
+    .modal-close-button {
+        color: var(--text-color);
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .modal-close-button:hover,
+    .modal-close-button:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-content h3 {
+        color: var(--header-text-color);
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+    }
+
+    .modal-content p {
+        margin-bottom: 10px;
+    }
+
+    .modal-content ul {
+        list-style: disc;
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+    .modal-content ul li strong {
+        color: var(--header-text-color); /* Keep strong text within modal distinct */
     }
 
     /* --- Media Queries for Mobile Responsiveness (max-width: 480px) --- */
@@ -343,6 +426,11 @@
             font-size: 0.85em;
             flex-shrink: 0; /* Prevent shrinking */
         }
+        #instructions-button { /* Adjust for mobile if needed */
+            font-size: 1.1em; /* Slightly smaller on mobile if desired */
+            padding: 4px 8px; /* Adjusted padding */
+        }
+
 
         .version-info {
             font-size: 0.65em; /* Slightly smaller for mobile */
@@ -429,6 +517,7 @@
 
     <div id="bottom-controls">
         <button id="theme-toggle" tabindex="15">Toggle Theme</button>
+        <button id="instructions-button" tabindex="16" aria-label="Instructions">❓</button>
         <div id="language-selector-container">
             <label for="languageSelect">Language:</label>
             <select id="languageSelect" tabindex="1">
@@ -437,7 +526,18 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.1 - Last Updated: June 12, 2025, 10:02 AM EDT
+        Version 4.2.2 - Last Updated: June 12, 2025, 10:07 AM EDT
+    </div>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-button" aria-label="Close Instructions">&times;</button>
+            <h3 id="modal-title" data-i18n="directionsTitle">Directions for Use</h3>
+            <div id="modal-text-content">
+                <!-- Instructions will be dynamically loaded here -->
+            </div>
+        </div>
     </div>
 
     <script>
@@ -469,7 +569,15 @@
                 timeAgoFormat: '{hours} hrs ago',    // New: "X hrs ago"
                 completionTime: 'Completion Time:',
                 displayTimeZone: 'Display Time Zone:',
-                toggleTheme: 'Toggle Theme' // New translation for the button
+                toggleTheme: 'Toggle Theme', // New translation for the button
+                directionsTitle: 'Directions for Use', // New modal title translation
+                directionsText: [ // New modal content translation
+                    'To effectively use the {buildingName} Upgrade Calculator, please follow these steps:',
+                    '1. **Enter {buildingType} Levels:** Begin by inputting the current level for each individual {resourceName} {buildingType} (e.g., "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+                    '2. **Input {resourceName} Held in {buildingType}s:** Next, enter the amount of {resourceName} currently held in the "bubbles" above each of your {buildingType}s. Note that the calculator will automatically **auto-fill** the {resourceName} held for any other {buildingType}s that are at the **same level** as the one you just entered.',
+                    '3. **Specify Lab {resourceName} Values:** Finally, input the amount of {resourceName} you currently **hold** in your main inventory (directly under "{resourceName} Held") and the **total amount of {resourceName} needed** for the next {buildingName} upgrade (under "{resourceName} Needed").',
+                    'Once these values are entered, the calculator will automatically display your production rate, remaining time, and estimated completion time.'
+                ]
             },
             'es': { // Spanish
                 buildingName: 'Laboratorio Optoelectrónico',
@@ -492,7 +600,15 @@
                 timeAgoFormat: 'hace {hours} h',    // New: "hace X h"
                 completionTime: 'Hora de Finalización:',
                 displayTimeZone: 'Zona Horaria:',
-                toggleTheme: 'Cambiar Tema'
+                toggleTheme: 'Cambiar Tema',
+                directionsTitle: 'Instrucciones de Uso',
+                directionsText: [
+                    'Para usar eficazmente la Calculadora de Mejoras del {buildingName}, siga estos pasos:',
+                    '1. **Introduzca los niveles de {buildingType}:** Comience ingresando el nivel actual para cada {buildingType} de {resourceName} individual (por ejemplo, "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+                    '2. **Introduzca el {resourceName} Obtenido en los {buildingType}s:** A continuación, introduzca la cantidad de {resourceName} que se encuentra actualmente en las "burbujas" encima de cada uno de sus {buildingType}s. Tenga en cuenta que la calculadora rellenará automáticamente el {resourceName} para cualquier otro {buildingType} que esté en el **mismo nivel** que el que acaba de introducir.',
+                    '3. **Especifique los Valores de {resourceName} del Laboratorio:** Finalmente, introduzca la cantidad de {resourceName} que **tiene actualmente** en su inventario principal (directamente debajo de "{resourceName} Actual") y la **cantidad total de {resourceName} necesaria** para la próxima mejora del {buildingName} (debajo de "{resourceName} Necesario").',
+                    'Una vez introducidos estos valores, la calculadora mostrará automáticamente su tasa de producción, el tiempo restante y el tiempo estimado de finalización.'
+                ]
             },
             'pt': { // Portuguese
                 buildingName: 'Laboratório Optoeletrônico',
@@ -515,7 +631,15 @@
                 timeAgoFormat: 'há {hours} h',    // New: "há X h"
                 completionTime: 'Hora de Conclusão:',
                 displayTimeZone: 'Fuso Horário:',
-                toggleTheme: 'Alternar Tema'
+                toggleTheme: 'Alternar Tema',
+                directionsTitle: 'Instruções de Uso',
+                directionsText: [
+                    'Para usar eficazmente a Calculadora de Melhorias do {buildingName}, siga estes passos:',
+                    '1. **Introduza os Níveis da {buildingType}:** Comece por inserir o nível atual para cada {buildingType} de {resourceName} individual (ex: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+                    '2. **Introduza o {resourceName} Detido nas {buildingType}s:** Em seguida, introduza a quantidade de {resourceName} atualmente detida nas "bolhas" acima de cada uma das suas {buildingType}s. Note que a calculadora preencherá automaticamente o {resourceName} detido para quaisquer outras {buildingType}s que estejam no **mesmo nível** que a que acabou de introduzir.',
+                    '3. **Especifique os Valores de {resourceName} do Laboratório:** Finalmente, introduza a quantidade de {resourceName} que **detém atualmente** no seu inventário principal (diretamente abaixo de "{resourceName} Atual") e a **quantidade total de {resourceName} necessária** para a próxima melhoria do {buildingName} (abaixo de "{resourceName} Necessário").',
+                    'Uma vez introduzidos estes valores, a calculadora exibirá automaticamente a sua taxa de produção, tempo restante e tempo estimado de conclusão.'
+                ]
             },
             'ko': { // Korean
                 buildingName: '광전자 연구소',
@@ -538,7 +662,15 @@
                 timeAgoFormat: '{hours}시간 전',    // New: "X시간 전"
                 completionTime: '완료 시간:',
                 displayTimeZone: '표시 시간대:',
-                toggleTheme: '테마 전환'
+                toggleTheme: '테마 전환',
+                directionsTitle: '사용 방법',
+                directionsText: [
+                    `{buildingName} 업그레이드 계산기를 효과적으로 사용하려면 다음 단계를 따르세요:`,
+                    `1. **{buildingType} 레벨 입력:** 먼저 각 개별 {resourceName} {buildingType}(예: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2" 등)의 현재 레벨을 입력합니다.`,
+                    `2. **{buildingType}에 보유한 {resourceName} 입력:** 다음으로, 각 {buildingType} "버블" 위에 현재 보유하고 있는 {resourceName}의 양을 입력합니다. 계산기는 방금 입력한 {buildingType}과 **동일한 레벨**의 다른 모든 {buildingType}에 대해 보유 {resourceName}를 자동으로 **자동 채우기**합니다.`,
+                    `3. **연구소 {resourceName} 값 지정:** 마지막으로, 메인 인벤토리({resourceName} 보유" 바로 아래)에 현재 **보유하고 있는 {resourceName}의 양과 다음 {buildingName} 업그레이드에 필요한 총 {resourceName} 양({resourceName} 필요" 아래)을 입력합니다.`,
+                    `이 값을 입력하면 계산기가 자동으로 생산 속도, 남은 시간 및 예상 완료 시간을 표시합니다.`
+                ]
             },
             'ja': { // Japanese
                 buildingName: '光電子研究所',
@@ -561,7 +693,15 @@
                 timeAgoFormat: '{hours}時間前',    // New: "X時間前"
                 completionTime: '完了時刻:',
                 displayTimeZone: '表示タイムゾーン:',
-                toggleTheme: 'テーマ切り替え'
+                toggleTheme: 'テーマ切り替え',
+                directionsTitle: '使用方法',
+                directionsText: [
+                    `{buildingName} アップグレード計算機を効果的に使用するには、以下の手順に従ってください:`,
+                    `1. **{buildingType}レベルの入力:** まず、各{resourceName} {buildingType} (例: "{resourceName} {buildingType} 1"、"{resourceName} {buildingType} 2" など) の現在のレベルを入力します。`,
+                    `2. **{buildingType}に保持されている{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{buildingType}と**同じレベル**の他のすべての{buildingType}に対して、自動的に{resourceName}の保持量を**自動入力**することに注意してください。`,
+                    `3. **ラボの{resourceName}値の指定:** 最後に、現在メインインベントリ (「所持{resourceName}」の真下) に**保持している{resourceName}の量**と、次の{buildingName}アップグレードに**必要な合計{resourceName}量** (「必要な{resourceName}」の下) を入力します。`,
+                    `これらの値を入力すると、計算機は自動的に生産レート、残り時間、および推定完了時間を表示します。`
+                ]
             }
         };
 
@@ -605,7 +745,16 @@
             for (const key in currentTranslationsSource) {
                 if (currentTranslationsSource.hasOwnProperty(key)) {
                     let value = currentTranslationsSource[key];
-                    if (typeof value === 'string') {
+                    if (Array.isArray(value)) { // Handle arrays (like directionsText)
+                        value = value.map(item => {
+                            if (typeof item === 'string') {
+                                item = item.replace(/{buildingName}/g, BUILDING_NAME);
+                                item = item.replace(/{resourceName}/g, RESOURCE_NAME);
+                                item = item.replace(/{buildingType}/g, BUILDING_TYPE);
+                            }
+                            return item;
+                        });
+                    } else if (typeof value === 'string') {
                         value = value.replace(/{buildingName}/g, BUILDING_NAME);
                         value = value.replace(/{resourceName}/g, RESOURCE_NAME);
                         value = value.replace(/{buildingType}/g, BUILDING_TYPE);
@@ -623,8 +772,8 @@
                 const key = element.getAttribute('data-i18n');
                 // Do not update dynamic display elements here, as they are updated by updateCalculations
                 // This prevents overwriting of numeric values or 'X hrs ago' text
-                if (key === 'timeRemainingFormat' || key === 'timeAgoFormat') {
-                    return; // These are templates used by JS, not direct textContent
+                if (key === 'timeRemainingFormat' || key === 'timeAgoFormat' || key === 'directionsText') {
+                    return; // These are templates used by JS, not direct textContent (except for directionsText which needs special handling)
                 }
                 if (processedTranslations[key]) {
                     // If the element is the title tag, update document.title
@@ -646,6 +795,24 @@
             const themeToggleButton = document.getElementById('theme-toggle');
             if (themeToggleButton && processedTranslations.toggleTheme) {
                 themeToggleButton.textContent = processedTranslations.toggleTheme;
+            }
+
+            // Update modal title explicitly
+            const modalTitleElement = document.getElementById('modal-title');
+            if (modalTitleElement && processedTranslations.directionsTitle) {
+                modalTitleElement.textContent = processedTranslations.directionsTitle;
+            }
+
+            // Update modal text content
+            const modalTextContentElement = document.getElementById('modal-text-content');
+            if (modalTextContentElement && processedTranslations.directionsText) {
+                modalTextContentElement.innerHTML = ''; // Clear previous content
+                processedTranslations.directionsText.forEach(paragraph => {
+                    const p = document.createElement('p');
+                    // Replace markdown bold with HTML strong tag
+                    p.innerHTML = paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    modalTextContentElement.appendChild(p);
+                });
             }
         }
 
@@ -1165,11 +1332,31 @@
                 }
             });
 
-            // 5. Run initial calculations
+            // 5. Set up instructions modal
+            const instructionsButton = document.getElementById('instructions-button');
+            const instructionsModal = document.getElementById('instructionsModal');
+            const modalCloseButton = document.querySelector('.modal-close-button');
+
+            instructionsButton.addEventListener('click', () => {
+                instructionsModal.style.display = 'flex'; // Show the modal
+            });
+
+            modalCloseButton.addEventListener('click', () => {
+                instructionsModal.style.display = 'none'; // Hide the modal
+            });
+
+            // Close modal if user clicks outside of it
+            window.addEventListener('click', (event) => {
+                if (event.target === instructionsModal) {
+                    instructionsModal.style.display = 'none';
+                }
+            });
+
+            // 6. Run initial calculations
             updateCalculations();
         };
 
-        // Version 4.2.1 - Last Updated: June 12, 2025, 10:02 AM EDT
+        // Version 4.2.2 - Last Updated: June 12, 2025, 10:07 AM EDT
     </script>
 
 </body>
