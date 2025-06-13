@@ -126,3 +126,22 @@ This version introduces significant improvements to user guidance and interface 
 
   * The label "Quartz Needed" has been updated to "**Required Quartz**" for improved clarity and precision in English and its localized equivalents.
 ```
+
+---
+
+## Version 4.2.3: Critical Time Zone & Error Fixes
+
+This version provides crucial bug fixes related to time zone calculations and display, ensuring accuracy and eliminating console errors.
+
+* **Hawaii Standard Time (HST) Fix:**
+    * Completely removed dynamic time zone lookups for `America/Honolulu`.
+    * Hardcoded **`UTC-10` offset** and **`HST` abbreviation** for Hawaii Standard Time in completion time displays, resolving console errors and ensuring accurate output.
+* **Dynamic Abbreviation Accuracy:**
+    * Enhanced `getShortTimeZoneAbbreviation` to correctly display dynamic abbreviations like **`EDT`** (Eastern Daylight Time) and **`EST`** (Eastern Standard Time) based on DST rules for major time zones.
+    * Ensured `Etc/UTC` consistently displays **`UTC`** as its abbreviation.
+    * Confirmed `Asia/Dubai` (Gulf Standard Time) correctly displays **`GST`**.
+    * Improved overall abbreviation logic for consistent and accurate time zone displays.
+* **Error Resolution:**
+    * Fixed `Value second out of range` console error by correcting `toLocaleString` options in time zone offset calculations.
+* **Timestamp Update:**
+    * Updated the "Last Updated" timestamp to **`June 13, 2025, 4:14 PM EDT`** to reflect the latest fixes.
