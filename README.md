@@ -125,7 +125,6 @@ This version introduces significant improvements to user guidance and interface 
 * **Terminology Update:**
 
   * The label "Quartz Needed" has been updated to "**Required Quartz**" for improved clarity and precision in English and its localized equivalents.
-```
 
 ---
 
