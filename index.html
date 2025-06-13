@@ -243,7 +243,7 @@
 
     /* --- Modal Styles --- */
     .modal {
-        display: none; /* Hidden by default */
+        display: none; /* Hidden by default - THIS WAS THE FIX */
         position: fixed; /* Stay in place */
         z-index: 1000; /* Sit on top */
         left: 0;
@@ -252,7 +252,6 @@
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        display: flex; /* Use flexbox for centering */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
     }
@@ -526,7 +525,7 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.2 - Last Updated: June 12, 2025, 10:07 AM EDT
+        Version 4.2.2 - Last Updated: June 12, 2025, 10:09 AM EDT
     </div>
 
     <!-- Instructions Modal -->
@@ -563,7 +562,7 @@
                 resourcePerHour: `{resourceName}/hr:`,
                 resourceHeld: `{resourceName} Held:`,
                 totalResource: `Total {resourceName}:`,
-                resourceNeeded: `{resourceName} Needed:`,
+                resourceNeeded: `Required {resourceName}:`, // Changed from 'Quartz Needed' to 'Required Quartz' for clarity
                 timeToComplete: 'Time to Complete:',
                 timeRemainingFormat: '{hours} hrs', // New: "X hrs"
                 timeAgoFormat: '{hours} hrs ago',    // New: "X hrs ago"
@@ -594,7 +593,7 @@
                 resourcePerHour: `Cuarzo/hora:`,
                 resourceHeld: `Cuarzo Actual:`,
                 totalResource: `Cuarzo Total:`,
-                resourceNeeded: `Cuarzo Necesario:`,
+                resourceNeeded: `Cuarzo Requerido:`, // Changed from 'Cuarzo Necesario' to 'Cuarzo Requerido' for clarity
                 timeToComplete: 'Tiempo Restante:',
                 timeRemainingFormat: '{hours} h', // New: "X h"
                 timeAgoFormat: 'hace {hours} h',    // New: "hace X h"
@@ -1356,7 +1355,7 @@
             updateCalculations();
         };
 
-        // Version 4.2.2 - Last Updated: June 12, 2025, 10:07 AM EDT
+        // Version 4.2.2 - Last Updated: June 12, 2025, 10:09 AM EDT
     </script>
 
 </body>
