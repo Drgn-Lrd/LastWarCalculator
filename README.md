@@ -94,3 +94,35 @@ This version focuses on enhancing the user interface layout by repositioning key
 * **Mobile Alignment Refinement:**
     * Addressed an issue where the theme toggle and language selector would stack vertically on smaller screens.
     * Implemented CSS adjustments to ensure both controls remain on the same horizontal line on mobile devices, maintaining their left and right justification for a polished and consistent appearance across all screen sizes.
+---
+
+## Version 4.2.2: Enhanced Usability with Instructions and UI Refinements
+
+This version introduces significant improvements to user guidance and interface layout, making the calculator more intuitive and user-friendly.
+
+* **New Instructions Feature:**
+
+  * A "❓" (Instructions) button has been added to the bottom control area.
+
+  * Clicking this button now correctly opens a **pop-up modal window** that provides clear, step-by-step directions on how to use the calculator effectively. The modal now consistently starts hidden and only appears when activated.
+
+  * The instructions are fully localized to match the selected language.
+
+* **Refined Auto-Fill Logic Clarity:**
+
+  * The instructions now explicitly clarify that the **auto-fill feature for "Held" resources only applies to empty fields** when matching workshop levels.
+
+  * Users are informed that they **retain the ability to manually edit** any "Held" resource field, even after auto-fill, to account for unique resource amounts.
+
+* **UI Control Repositioning & Mobile Alignment:**
+
+  * The Theme Toggle button, Instructions button, and Language Selector dropdown have been relocated to the bottom of the page for better accessibility.
+
+  * These controls are now consistently aligned: the Theme Toggle on the **bottom-left**, the Language Selector on the **bottom-right**, and the new Instructions button placed **between them**, providing a balanced and intuitive layout.
+
+  * CSS adjustments ensure these controls remain on a single horizontal line across various mobile screen sizes, preventing unwanted stacking.
+
+* **Terminology Update:**
+
+  * The label "Quartz Needed" has been updated to "**Required Quartz**" for improved clarity and precision in English and its localized equivalents.
+```
