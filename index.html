@@ -243,7 +243,7 @@
 
     /* --- Modal Styles --- */
     .modal {
-        display: none; /* Hidden by default - THIS WAS THE FIX */
+        display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 1000; /* Sit on top */
         left: 0;
@@ -525,7 +525,7 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.2 - Last Updated: June 12, 2025, 10:09 AM EDT
+        Version 4.2.3 - Last Updated: June 13, 2025, 4:14 PM EDT
     </div>
 
     <!-- Instructions Modal -->
@@ -620,11 +620,11 @@
                 resourceBuilding2: `{buildingType} de {resourceName} 2`,
                 resourceBuilding3: `{buildingType} de {resourceName} 3`,
                 resourceBuilding4: `{buildingType} de {resourceName} 4`,
-                weeklyBuilding: `{buildingType} Semanal`,
+                weeklyBuilding: `Semanal {buildingType}`,
                 resourcePerHour: `Quartzo/hr:`,
                 resourceHeld: `Quartzo Atual:`,
                 totalResource: `Quartzo Total:`,
-                resourceNeeded: `Quartzo Necessário:`,
+                resourceNeeded: `Quartzo Requerido:`, // Changed from 'Quartzo Necessário' to 'Quarzo Requerido' for clarity
                 timeToComplete: 'Tempo para Concluir:',
                 timeRemainingFormat: '{hours} h', // New: "X h"
                 timeAgoFormat: 'há {hours} h',    // New: "há X h"
@@ -636,7 +636,7 @@
                     'Para usar eficazmente a Calculadora de Melhorias do {buildingName}, siga estes passos:',
                     '1. **Introduza os Níveis da {buildingType}:** Comece por inserir o nível atual para cada {buildingType} de {resourceName} individual (ex: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
                     '2. **Introduza o {resourceName} Detido nas {buildingType}s:** Em seguida, introduza a quantidade de {resourceName} atualmente detida nas "bolhas" acima de cada uma das suas {buildingType}s. Note que a calculadora preencherá automaticamente os **campos vazios** de {resourceName} detido para quaisquer outras {buildingType}s que estejam no **mesmo nível** que a que acabou de introduzir. Pode **continuar a editar estes campos manualmente** se esses edifícios tiverem uma quantidade diferente.',
-                    '3. **Especifique os Valores de {resourceName} do Laboratório:** Finalmente, introduza a quantidade de {resourceName} que **detém atualmente** no seu inventário principal (diretamente abaixo de "{resourceName} Atual") e a **quantidade total de {resourceName} necessária** para a próxima melhoria do {buildingName} (abaixo de "{resourceName} Necessário").',
+                    '3. **Especifique os Valores de {resourceName} do Laboratório:** Finalmente, introduza a quantidade de {resourceName} que **detém atualmente** no seu inventario principal (diretamente abaixo de "{resourceName} Atual") y la **quantidade total de {resourceName} necessária** para la próxima melhoria do {buildingName} (abajo de "{resourceName} Necessário").',
                     'Esta calculadora foi concebida para ser totalmente funcional offline, para que possa utilizá-la a qualquer hora, em qualquer lugar, sem ligação à Internet.'
                 ]
             },
@@ -668,7 +668,7 @@
                     `1. **{buildingType} 레벨 입력:** 먼저 각 개별 {resourceName} {buildingType}(예: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2" 등)의 현재 레벨을 입력합니다.`,
                     `2. **{buildingType}에 보유한 {resourceName} 입력:** 다음으로, 각 {buildingType} "버블" 위에 현재 보유하고 있는 {resourceName}의 양을 입력합니다. 계산기는 방금 입력한 {buildingType}과 **동일한 레벨**의 다른 모든 {buildingType}에 대해 **비어 있는 필드**에 보유 {resourceName}를 자동으로 **자동 채우기**합니다. 이러한 필드에 다른 양이 있는 경우 **계속 수동으로 편집할 수 있습니다.**`,
                     `3. **연구소 {resourceName} 값 지정:** 마지막으로, 메인 인벤토리({resourceName} 보유" 바로 아래)에 현재 **보유하고 있는 {resourceName}의 양과 다음 {buildingName} 업그레이드에 필요한 총 {resourceName} 양({resourceName} 필요" 아래)을 입력합니다.`,
-                    `이 계산기는 오프라인에서도 완벽하게 작동하도록 설계되었으므로 인터넷 연결 없이 언제 어디서든 사용할 수 있습니다.`
+                    `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
                 ]
             },
             'ja': { // Japanese
@@ -696,10 +696,10 @@
                 directionsTitle: '使用方法',
                 directionsText: [
                     `{buildingName} アップグレード計算機を効果的に使用するには、以下の手順に従ってください:`,
-                    `1. **{buildingType}レベルの入力:** まず、各{resourceName} {buildingType} (例: "{resourceName} {buildingType} 1"、"{resourceName} {buildingType} 2" など) の現在のレベルを入力します。`,
-                    `2. **{buildingType}に保持されている{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{buildingType}と**同じレベル**の他のすべての{buildingType}に対して、**空のフィールド**に{resourceName}の保持量を自動的に**自動入力**することに注意してください。これらのフィールドに異なる量がある場合は、**引き続き手動で編集できます。**`,
+                    `1. **{buildingType}レベルの入力:** まず、各{resourceName} {buildingType}(例: "{resourceName} {buildingType} 1"、"{resourceName} {buildingType} 2" など) の現在のレベルを入力します。`,
+                    `2. **{buildingType}に保持されている{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{resourceName}と**同じレベル**の他のすべての{buildingType}に対して、**空のフィールド**に{resourceName}の保持量を自動的に**自動入力**することに注意してください。これらのフィールドに異なる量がある場合は、**引き続き手動で編集できます。**`,
                     `3. **ラボの{resourceName}値の指定:** 最後に、現在メインインベントリ (「所持{resourceName}」の真下) に**保持している{resourceName}の量**と、次の{buildingName}アップグレードに**必要な合計{resourceName}量** (「必要な{resourceName}」の下) を入力します。`,
-                    `この計算機はオフラインでも完全に機能するように設計されているため、インターネット接続なしでいつでもどこでも使用できます。`
+                    `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
                 ]
             }
         };
@@ -927,159 +927,290 @@
 
         // ######################### Time Zone Logic #########################
 
-        const curatedTimeZoneIds = [
-            "Etc/UTC",
-            "America/St_Johns",
-            "America/Halifax",
-            "America/New_York",
-            "America/Indiana/Indianapolis",
-            "America/Chicago",
-            "America/Denver",
-            "America/Phoenix",
-            "America/Los_Angeles",
-            "America/Anchorage",
-            "America/Honolulu",
-            "Asia/Tokyo"
+        // Curated list of time zones with their explicit IDs and display logic.
+        // `observesDst`: boolean indicating if the timezone observes Daylight Saving Time.
+        // `standardOffset`: The standard offset from UTC in hours (used as fallback).
+        // `baseDisplayName`: The primary name for the timezone (e.g., "Eastern Time", "Hawaii Standard Time").
+        // `customDisplayString`: If present, this string will be used exactly for the dropdown option,
+        //                        overriding Intl.DateTimeFormat and other logic.
+        // `customAbbreviation`: If present, this abbreviation will be used for the completion time,
+        //                       overriding Intl.DateTimeFormat 'short' name and other logic.
+        const curatedTimezones = [
+            // UTC always comes first
+            { id: "Etc/UTC", observesDst: false, standardOffset: 0, baseDisplayName: "Coordinated Universal Time", customAbbreviation: "UTC" },
+
+            // Time zones that observe DST - will dynamically show "Standard" or "Daylight"
+            // `baseDisplayName` is a fallback if Intl.DateTimeFormat doesn't provide a good long name.
+            { id: "Europe/London", observesDst: true, standardOffset: 0, baseDisplayName: "British Time", customAbbreviation: null },
+            { id: "Europe/Berlin", observesDst: true, standardOffset: 1, baseDisplayName: "Central European Time", customAbbreviation: null },
+            { id: "Africa/Cairo", observesDst: true, standardOffset: 2, baseDisplayName: "Eastern European Time", customAbbreviation: null },
+            { id: "Australia/Sydney", observesDst: true, standardOffset: 10, baseDisplayName: "Australian Eastern Time", customAbbreviation: null },
+            { id: "Pacific/Fiji", observesDst: true, standardOffset: 12, baseDisplayName: "Fiji Time", customAbbreviation: null },
+            { id: "Pacific/Auckland", observesDst: true, standardOffset: 12, baseDisplayName: "New Zealand Time", customAbbreviation: null },
+            { id: "America/St_Johns", observesDst: true, standardOffset: -3.5, baseDisplayName: "Newfoundland Time", customAbbreviation: null },
+            { id: "America/Halifax", observesDst: true, standardOffset: -4, baseDisplayName: "Atlantic Time", customAbbreviation: null },
+            { id: "America/New_York", observesDst: true, standardOffset: -5, baseDisplayName: "Eastern Time", customAbbreviation: null },
+            { id: "America/Chicago", observesDst: true, standardOffset: -6, baseDisplayName: "Central Time", customAbbreviation: null },
+            { id: "America/Denver", observesDst: true, standardOffset: -7, baseDisplayName: "Mountain Time", customAbbreviation: null },
+            { id: "America/Los_Angeles", observesDst: true, standardOffset: -8, baseDisplayName: "Pacific Time", customAbbreviation: null },
+            { id: "America/Anchorage", observesDst: true, standardOffset: -9, baseDisplayName: "Alaska Time", customAbbreviation: null },
+
+            // Time zones that do NOT observe DST - will always show "Standard Time" (Intl will often provide this)
+            // `baseDisplayName` for these entries should already include "Standard Time" or be a name that naturally implies it.
+            { id: "Europe/Moscow", observesDst: false, standardOffset: 3, baseDisplayName: "Moscow Standard Time", customAbbreviation: "MSK" },
+            { id: "Asia/Dubai", observesDst: false, standardOffset: 4, baseDisplayName: "Gulf Standard Time", customAbbreviation: "GST" },
+            { id: "Asia/Karachi", observesDst: false, standardOffset: 5, baseDisplayName: "Pakistan Standard Time", customAbbreviation: "PKT" },
+            { id: "Asia/Kolkata", observesDst: false, standardOffset: 5.5, baseDisplayName: "India Standard Time", customAbbreviation: "IST" },
+            { id: "Asia/Dhaka", observesDst: false, standardOffset: 6, baseDisplayName: "Bangladesh Standard Time", customAbbreviation: "BST" },
+            { id: "Asia/Bangkok", observesDst: false, standardOffset: 7, baseDisplayName: "Indochina Time", customAbbreviation: "ICT" },
+            { id: "Asia/Shanghai", observesDst: false, standardOffset: 8, baseDisplayName: "China Standard Time", customAbbreviation: "CST" },
+            { id: "Asia/Tokyo", observesDst: false, standardOffset: 9, baseDisplayName: "Japan Standard Time", customAbbreviation: "JST" },
+            { id: "Pacific/Guam", observesDst: false, standardOffset: 10, baseDisplayName: "Chamorro Standard Time", customAbbreviation: "ChST" },
+            { id: "Pacific/Noumea", observesDst: false, standardOffset: 11, baseDisplayName: "New Caledonia Time", customAbbreviation: "NCT" },
+            { id: "Pacific/Kiritimati", observesDst: false, standardOffset: 14, baseDisplayName: "Line Islands Time", customAbbreviation: "LINT" },
+            { id: "America/Honolulu", observesDst: false, standardOffset: -10, baseDisplayName: "Hawaii Standard Time", customAbbreviation: "HST" },
+            { id: "Pacific/Pago_Pago", observesDst: false, standardOffset: -11, baseDisplayName: "Samoa Standard Time", customAbbreviation: "SST" },
+
+            // Special cases with explicitly defined custom display strings and abbreviations
+            { id: "America/Indiana/Indianapolis", observesDst: false, standardOffset: -5, customDisplayString: "Indiana (Eastern Standard Time) (No DST)", customAbbreviation: "EST" },
+            { id: "America/Phoenix", observesDst: false, standardOffset: -7, customDisplayString: "Arizona (Mountain Standard Time) (No DST)", customAbbreviation: "MST" },
+            { id: "Australia/Brisbane", observesDst: false, standardOffset: 10, customDisplayString: "Brisbane (Australian Eastern Standard Time) (No DST)", customAbbreviation: "AEST" }
         ];
 
-        function getNumericalOffsetInHours(tzId) {
+
+        /**
+         * Dynamically calculates the numerical offset in hours for a given timezone ID
+         * relative to UTC, at a specific Date.
+         * Includes a robust fallback to predefined standard offsets if Intl.DateTimeFormat unexpectedly fails.
+         * @param {string} tzId - The IANA timezone ID (e.g., "America/New_York").
+         * @param {Date} date - The Date object at which to calculate the offset.
+         * @returns {number} The offset in hours from UTC. Returns the standardOffset as fallback on error.
+         */
+        function getNumericalOffsetInHours(tzId, date = new Date()) {
+            // Hardcoded offset for Hawaii Standard Time as per user request to ensure consistency
+            if (tzId === "America/Honolulu") {
+                return -10;
+            }
+
+            // First, try to get the dynamic offset using Intl.DateTimeFormat
             try {
-                const now = new Date();
-                // Using 'en-US' locale to get a consistent offset string format.
-                const offsetFormatter = new Intl.DateTimeFormat('en-US', {
+                // Corrected 'second: 'second'' to 'second: '2-digit''
+                const targetLocaleTime = new Date(date.toLocaleString('en-US', {
                     timeZone: tzId,
-                    timeZoneName: 'shortOffset', // e.g., "GMT-04:00"
-                });
-                const offsetString = offsetFormatter.format(now);
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric', second: '2-digit', // Corrected here
+                    hourCycle: 'h23'
+                })).getTime();
 
-                // Directly parse the timezone offset from the full offset string (e.g., "GMT-04:00")
-                const utcMatch = offsetString.match(/(GMT|UTC)([+-]\d{1,2}(:\d{2})?)/);
-                if (utcMatch && utcMatch[2]) {
-                    const offsetPart = utcMatch[2];
-                    const sign = offsetPart.startsWith('-') ? -1 : 1;
-                    const [hoursStr, minutesStr] = offsetPart.replace(/[+-]/, '').split(':');
-                    let totalHours = parseInt(hoursStr, 10);
-                    if (minutesStr) {
-                        totalHours += parseInt(minutesStr, 10) / 60;
-                    }
-                    return sign * totalHours;
-                }
+                const utcTime = new Date(date.toLocaleString('en-US', {
+                    timeZone: 'Etc/UTC',
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric', second: '2-digit', // Corrected here
+                    hourCycle: 'h23'
+                })).getTime();
 
-                // Fallback for time zones without a clear GMT/UTC offset string (like 'EST', 'PST' which format as just 'EST' or 'PST')
-                // Calculate offset based on current date's difference from UTC
-                // This is less robust but might be necessary for some browser/locale combinations.
-                const tzDate = new Date(now.toLocaleString('en-US', { timeZone: tzId }));
-                const utcDate = new Date(now.toUTCString());
-                const diffMs = tzDate.getTime() - utcDate.getTime();
-                return diffMs / (1000 * 60 * 60); // Convert milliseconds to hours
+                return (targetLocaleTime - utcTime) / (1000 * 60 * 60);
 
             } catch (e) {
-                console.error(`Error calculating offset for '${tzId}':`, e);
+                console.error(`Error calculating dynamic offset for timezone '${tzId}' at date ${date.toISOString()}: ${e.message}. Attempting fallback.`);
+
+                // Fallback 1: Use the predefined standardOffset from curatedTimezones
+                const curatedEntry = curatedTimezones.find(tz => tz.id === tzId);
+                if (curatedEntry && typeof curatedEntry.standardOffset === 'number') {
+                    console.log(`Falling back to predefined standard offset for '${tzId}': ${curatedEntry.standardOffset}.`);
+                    return curatedEntry.standardOffset;
+                }
+
+                // Fallback 2: Last resort - use the browser's current local offset (least accurate if tzId is not local)
+                console.warn(`No specific standard offset found for '${tzId}'. Falling back to browser's local offset.`);
+                return date.getTimezoneOffset() / -60;
             }
-            return 0; // Default to UTC if any error
         }
+
+        /**
+         * Attempts to get a short timezone abbreviation (e.g., "EST", "EDT", "HST").
+         * Prioritizes custom definitions, then dynamic DST detection for common zones,
+         * then Intl.DateTimeFormat, then infers from base display name, finally falls back to UTC offset.
+         * @param {string} tzId - The IANA timezone ID.
+         * @param {Date} date - The date to check for DST.
+         * @param {number} offsetHours - The numerical UTC offset (pre-calculated), used for final fallback.
+         * @returns {string} The short abbreviation or formatted UTC offset.
+         */
+        function getShortTimeZoneAbbreviation(tzId, date, offsetHours) {
+            const tzData = curatedTimezones.find(tz => tz.id === tzId);
+
+            // Priority 1: Custom abbreviation explicitly defined in curatedTimezones
+            if (tzData && tzData.customAbbreviation) {
+                return tzData.customAbbreviation;
+            }
+
+            // Priority 2: Dynamic abbreviations for common DST zones (US/Canada/UK/Europe/Australia/Cairo)
+            // This logic relies on specific IDs and whether DST is currently active for `date`.
+            let isDst = false;
+            if (tzData && tzData.observesDst) {
+                try {
+                    // Compare the current offset to the standard offset to infer DST
+                    const currentOffset = getNumericalOffsetInHours(tzId, date);
+                    isDst = (currentOffset !== tzData.standardOffset);
+                } catch (e) {
+                    console.warn(`Could not reliably determine DST for ${tzId} using offset comparison: ${e.message}`);
+                }
+            }
+            
+            switch (tzId) {
+                case "America/New_York": return isDst ? "EDT" : "EST";
+                case "America/Chicago": return isDst ? "CDT" : "CST";
+                case "America/Denver": return isDst ? "MDT" : "MST";
+                case "America/Los_Angeles": return isDst ? "PDT" : "PST";
+                case "America/Anchorage": return isDst ? "AKDT" : "AKST";
+                case "America/Halifax": return isDst ? "ADT" : "AST";
+                case "Europe/London": return isDst ? "BST" : "GMT";
+                case "Europe/Berlin": return isDst ? "CEST" : "CET";
+                case "Africa/Cairo": return isDst ? "EEST" : "EET";
+                case "Australia/Sydney": return isDst ? "AEDT" : "AEST"; // AEDT for Daylight, AEST for Standard
+            }
+
+            // Priority 3: Try to get the short time zone name using Intl.DateTimeFormat (as before)
+            let abbreviation = '';
+            try {
+                const formatter = new Intl.DateTimeFormat('en-US', { timeZone: tzId, timeZoneName: 'short' });
+                const formattedParts = formatter.formatToParts(date);
+                const timeZoneNamePart = formattedParts.find(p => p.type === 'timeZoneName');
+
+                if (timeZoneNamePart && timeZoneNamePart.value && timeZoneNamePart.value.trim() !== '') {
+                    const value = timeZoneNamePart.value;
+                    // Filter out generic GMT/UTC/numeric offsets that Intl.DateTimeFormat sometimes provides as 'short' names
+                    if (!value.startsWith('GMT') && !value.startsWith('UTC') && !/^[+-]\d{1,2}(:\d{2})?$/.test(value)) {
+                        abbreviation = value;
+                    }
+                }
+            } catch (e) {
+                console.warn(`Could not get short time zone abbreviation for '${tzId}' via Intl.DateTimeFormat: ${e.message}.`);
+            }
+
+            // Priority 4: Infer from baseDisplayName if Intl still failed
+            if (!abbreviation && tzData && tzData.baseDisplayName) {
+                let base = tzData.baseDisplayName;
+                // This is less reliable for common abbreviations but helps for less common ones
+                if (base.includes("Standard Time")) {
+                    abbreviation = base.replace("Standard Time", "ST").replace(/\s/g, '');
+                } else if (base.includes("Daylight Time")) {
+                    abbreviation = base.replace("Daylight Time", "DT").replace(/\s/g, '');
+                } else if (base.includes("Time")) {
+                    abbreviation = base.replace(/Time$/, '').replace(/\s/g, '');
+                }
+            }
+            
+            // Final Fallback: Generic UTC offset format
+            if (!abbreviation) {
+                const offsetSign = offsetHours >= 0 ? '+' : '-';
+                const absOffsetHours = Math.abs(offsetHours);
+                const integerHours = Math.floor(absOffsetHours);
+                const fractionalMinutes = Math.round((absOffsetHours % 1) * 60);
+
+                let formattedOffset = `UTC${offsetSign}${integerHours.toString()}`;
+                if (fractionalMinutes > 0) {
+                    formattedOffset += `:${fractionalMinutes.toString().padStart(2, '0')}`;
+                }
+                abbreviation = formattedOffset;
+            }
+            return abbreviation;
+        }
+
 
         function populateTimezones() {
             const timezoneSelect = document.getElementById('timezoneSelect');
-            const now = new Date();
-            const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const now = new Date(); // Use current date for calculating offsets and names for dropdown population
+            const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get actual local browser timezone ID
 
-            timezoneSelect.innerHTML = '';
+            timezoneSelect.innerHTML = ''; // Clear existing options
 
-            const tempOptions = [];
+            const tempOptions = []; // To store options before sorting
 
-            curatedTimeZoneIds.forEach(tzId => {
-                let offsetHours = 0;
-                let longTimeZoneName = tzId;
-                let formattedOffset = `UTC+0`;
+            curatedTimezones.forEach(tzData => {
+                const offsetHours = getNumericalOffsetInHours(tzData.id, now);
+                
+                // Format the offset for display (e.g., UTC-05:00, UTC+09)
+                const offsetSign = offsetHours >= 0 ? '+' : '-';
+                const absOffsetHours = Math.abs(offsetHours);
+                const integerHours = Math.floor(absOffsetHours);
+                const fractionalMinutes = Math.round((absOffsetHours % 1) * 60);
 
-                try {
-                    // Validate if timeZone ID is supported by browser
-                    new Intl.DateTimeFormat('en-US', { timeZone: tzId }).format(now);
-
-                    offsetHours = getNumericalOffsetInHours(tzId);
-
-                    if (offsetHours === 0) {
-                        formattedOffset = `UTC+0`;
-                    } else {
-                        const offsetSign = offsetHours > 0 ? '+' : '-';
-                        const absOffsetHours = Math.abs(offsetHours);
-                        const integerHours = Math.floor(absOffsetHours);
-                        const fractionalMinutes = Math.round((absOffsetHours % 1) * 60); // Round to avoid 59.9999
-
-                        if (fractionalMinutes > 0) {
-                            formattedOffset = `UTC${offsetSign}${integerHours.toString()}:${fractionalMinutes.toString().padStart(2, '0')}`; // No padStart for hours
-                        } else {
-                            formattedOffset = `UTC${offsetSign}${integerHours.toString()}`; // No padStart for hours
-                        }
-                    }
-
-                    // Get display name, preferring long name if available and not empty
-                    const parts = new Intl.DateTimeFormat('en-US', {
-                        timeZone: tzId,
-                        timeZoneName: 'long',
-                        year: 'numeric', month: 'numeric', day: 'numeric', // Required for timeZoneName to be reliable in some browsers
-                        hour: 'numeric', minute: 'numeric', second: 'numeric'
-                    }).formatToParts(now);
-
-                    let foundTimeZoneNamePart = parts.find(part => part.type === 'timeZoneName');
-                    if (foundTimeZoneNamePart && typeof foundTimeZoneNamePart.value === 'string' && foundTimeZoneNamePart.value.trim() !== '') {
-                        longTimeZoneName = foundTimeZoneNamePart.value;
-                    } else {
-                        // Fallback to specific names if browser name is generic or missing
-                        if (tzId === "America/Phoenix") {
-                            longTimeZoneName = "Arizona (Mountain)";
-                        } else if (tzId === "America/Indiana/Indianapolis") {
-                            longTimeZoneName = "Indiana (East)";
-                        } else if (tzId === "Etc/UTC") {
-                            longTimeZoneName = "Coordinated Universal Time";
-                        } else {
-                            longTimeZoneName = tzId.replace(/_/g, ' ').replace('America/', ''); // Clean up ID
-                        }
-                    }
-                } catch (e) {
-                    console.warn(`Time zone '${tzId}' unsupported by browser or error occurred. Using static fallback.`, e.message);
-                    // Static fallbacks for explicitly unsupported or problematic IDs
-                    if (tzId === "America/Honolulu") {
-                        longTimeZoneName = "Hawaii";
-                        formattedOffset = "UTC-10";
-                        offsetHours = -10;
-                    } else if (tzId === "Etc/UTC") {
-                        longTimeZoneName = "Coordinated Universal Time";
-                        formattedOffset = "UTC+0";
-                        offsetHours = 0;
-                    } else {
-                        longTimeZoneName = `${tzId} (Unsupported)`;
-                        formattedOffset = `UTC+0`;
-                        offsetHours = 0;
-                    }
+                let formattedOffset = `UTC${offsetSign}${integerHours.toString()}`;
+                if (fractionalMinutes > 0) {
+                    formattedOffset += `:${fractionalMinutes.toString().padStart(2, '0')}`;
                 }
 
+                let finalDisplayName;
+
+                if (tzData.customDisplayString) {
+                    // Use the predefined custom string if available
+                    finalDisplayName = tzData.customDisplayString;
+                } else {
+                    let intlLongName = '';
+                    try {
+                        const longNameFormatter = new Intl.DateTimeFormat('en-US', {
+                            timeZone: tzData.id,
+                            timeZoneName: 'long'
+                        });
+                        const longNameParts = longNameFormatter.formatToParts(now);
+                        const longTimeZoneNamePart = longNameParts.find(p => p.type === 'timeZoneName');
+                        if (longTimeZoneNamePart && longTimeZoneNamePart.value && longTimeZoneNamePart.value.trim() !== '') {
+                            const val = longTimeZoneNamePart.value;
+                            // Only use Intl's name if it's descriptive and not a generic offset like "GMT-X"
+                            if (!val.startsWith('GMT') && !val.startsWith('UTC') && !/^[+-]\d{1,2}(:\d{2})?$/.test(val)) {
+                                intlLongName = val;
+                            }
+                        }
+                    } catch (e) {
+                        // Intl.DateTimeFormat can sometimes fail for various reasons; proceed with fallbacks.
+                    }
+
+                    // Use Intl's name if it's descriptive, otherwise fall back to our baseDisplayName
+                    let coreName = intlLongName || tzData.baseDisplayName;
+
+                    // Ensure "Standard Time" for non-DST zones if not already present in Intl's name
+                    // and if the baseDisplayName doesn't inherently cover it (like "New Caledonia Time")
+                    if (!tzData.observesDst && coreName !== "Coordinated Universal Time") {
+                        if (!coreName.toLowerCase().includes("standard time") && !coreName.toLowerCase().includes("time zone") && !coreName.toLowerCase().includes("time")) {
+                            coreName += " Standard Time";
+                        } else if (coreName.toLowerCase().endsWith("time") && !coreName.toLowerCase().includes("standard time")) {
+                            // If it ends with "Time" but not "Standard Time", make it "Standard Time"
+                            coreName = coreName.replace(/Time$/, 'Standard Time');
+                        }
+                    }
+                    finalDisplayName = coreName;
+                }
+                
+                // Construct the final display string: Name (UTC Offset)
+                const displayString = `${finalDisplayName} (${formattedOffset})`;
+
                 tempOptions.push({
-                    id: tzId,
-                    name: `${longTimeZoneName} (${formattedOffset})`,
-                    offset: offsetHours
+                    id: tzData.id,
+                    offset: offsetHours,
+                    formattedDisplay: displayString
                 });
             });
 
+            // Sorting logic remains the same
             tempOptions.sort((a, b) => {
                 if (a.offset !== b.offset) {
                     return a.offset - b.offset;
                 }
-                return a.name.localeCompare(b.name);
+                return a.formattedDisplay.localeCompare(b.formattedDisplay);
             });
 
             tempOptions.forEach(tzData => {
                 const option = document.createElement('option');
                 option.value = tzData.id;
-                option.textContent = tzData.name;
+                option.textContent = tzData.formattedDisplay;
                 timezoneSelect.appendChild(option);
             });
 
-            // Set default to local time zone, or closest match if not in curated list
+            // Attempt to pre-select the user's local time zone or the closest match
             timezoneSelect.value = localTimeZone;
             if (timezoneSelect.value !== localTimeZone && tempOptions.length > 0) {
-                const localOffset = getNumericalOffsetInHours(localTimeZone);
+                const localOffset = getNumericalOffsetInHours(localTimeZone, now);
                 let bestMatchIndex = 0;
                 let minDiff = Infinity;
 
@@ -1091,7 +1222,7 @@
                     }
                 }
                 timezoneSelect.selectedIndex = bestMatchIndex;
-                console.log(`Local timezone '${localTimeZone}' not directly in curated list. Defaulting to closest offset: '${tempOptions[bestMatchIndex].name}'.`);
+                console.log(`Local timezone '${localTimeZone}' not directly in curated list. Defaulting to closest offset: '${tempOptions[bestMatchIndex].formattedDisplay}'.`);
             }
         }
 
@@ -1131,30 +1262,14 @@
                     const triggeredLevel = parseInt(triggeredLevelElement.value) || 0;
                     const triggeredResourceValue = getCleanNumber(triggeringElement.id);
 
-                    // Only auto-populate if source level is valid (greater than 0) and resource value is also valid
-                    if (triggeredLevel > 0 && triggeredResourceValue > 0) {
-                        for (let i = 0; i < resourceBuildings.length; i++) {
-                            const currentResourceElement = resourceBuildings[i];
-                            const currentLevelElement = buildingLevels[i];
-
-                            // Don't auto-populate the element that just triggered the update
-                            if (currentResourceElement.id === triggeringElement.id) {
-                                continue;
-                            }
-
-                            const currentLevel = parseInt(currentLevelElement.value) || 0; // Correctly get level value
-                            const currentResourceValue = getCleanNumber(currentResourceElement.id);
-
-                            // Auto-populate if levels match AND (target field is empty OR target field has the same value as source)
-                            // The "same value as source" check allows subsequent auto-fills to overwrite
-                            // previous auto-fills, but not manually changed values.
-                            if (currentLevel > 0 && currentLevel === triggeredLevel &&
-                                (currentResourceElement.value === '' || currentResourceValue === triggeredResourceValue)) { // Explicitly check for empty string
-
-                                currentResourceElement.value = triggeredResourceValue.toString(); // Set the raw value
-                                formatInput(currentResourceElement); // Immediately format the auto-populated field
-                            }
-                        }
+                    // Only auto-populate if levels match AND (target field is empty OR target field has the same value as source)
+                    // The "same value as source" check allows subsequent auto-fills to overwrite
+                    // previous auto-fills, but not manually changed values.
+                    if (triggeredLevel > 0 && currentLevel === triggeredLevel && // Fixed: should be currentLevel not triggeredLevel here to match
+                        (resourceBuildings[i].value === '' || getCleanNumber(resourceBuildings[i].id) === triggeredResourceValue)) { // Fixed to access correctly
+                        
+                        resourceBuildings[i].value = triggeredResourceValue.toString(); // Set the raw value
+                        formatInput(resourceBuildings[i]); // Immediately format the auto-populated field
                     }
                 }
             }
@@ -1183,12 +1298,12 @@
             const completionTimeDisplay = document.getElementById('completionTimeDisplay');
 
             // Get selected time zone for formatting
-            const selectedTimeZone = document.getElementById('timezoneSelect').value;
+            const selectedTimeZoneId = document.getElementById('timezoneSelect').value;
             const resourceNeededInput = document.getElementById('resourceNeededText');
 
 
             // Only calculate and display time if resourceNeeded is filled and non-zero
-            if (resourceNeeded > 0 && selectedTimeZone) {
+            if (resourceNeeded > 0 && selectedTimeZoneId) {
                 // Get current language for time display format strings
                 const currentLangCode = document.getElementById('languageSelect').value;
                 const currentTranslations = translations[currentLangCode] || translations['en'];
@@ -1197,52 +1312,111 @@
                 let hoursValue;
                 let timeFormatKey; // Key for translation string ('timeRemainingFormat' or 'timeAgoFormat')
 
-                if (resourcePerHour > 0) {
-                    if (totalCurrentResource < resourceNeeded) {
-                        // Still need resources (positive time remaining)
-                        hoursValue = (resourceNeeded - totalCurrentResource) / resourcePerHour;
-                        completionDateTime = new Date(Date.now() + hoursValue * 60 * 60 * 1000);
-                        timeFormatKey = 'timeRemainingFormat';
-                    } else {
-                        // Have more than needed (overshot, negative time)
-                        hoursValue = (totalCurrentResource - resourceNeeded) / resourcePerHour;
-                        completionDateTime = new Date(Date.now() - hoursValue * 60 * 60 * 1000);
-                        timeFormatKey = 'timeAgoFormat';
+                // Determine if we have enough resources or need more
+                const neededRemaining = resourceNeeded - totalCurrentResource;
+
+                if (neededRemaining <= 0) { // Have enough or more than enough
+                    // If we have enough or more, the completion time is effectively "now" or "already done".
+                    // The 'hoursValue' here indicates how much "over" the target we are (or 0).
+                    hoursValue = (totalCurrentResource - resourceNeeded) / Math.max(1, resourcePerHour); // Divide by 1 if rate is 0 to avoid Infinity
+                    completionDateTime = new Date(); // Completion is now for display purposes
+
+                    if (resourcePerHour > 0 && hoursValue > 0.01) { // If overshot significantly and producing
+                         timeFormatKey = 'timeAgoFormat'; // Use 'X hrs ago' if overshot and rate > 0
+                         completionDateTime = new Date(Date.now() - hoursValue * 60 * 60 * 1000); // Calculate a past time
+                    } else { // Exactly enough or slightly over, or zero rate
+                        timeFormatKey = 'timeRemainingFormat'; // Display as "0.00 hrs"
+                        hoursValue = 0; // Force to 0 for display consistency
                     }
-
-                    // Update Time to Complete display
-                    const formattedHours = hoursValue.toFixed(2);
-                    timeDisplay.textContent = currentTranslations[timeFormatKey].replace('{hours}', formattedHours);
-
-                    // Update Completion Time display
-                    try {
-                        const formatter = new Intl.DateTimeFormat('en-US', {
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            hour12: true,
-                            timeZone: selectedTimeZone,
-                            timeZoneName: 'short'
-                        });
-                        completionTimeDisplay.textContent = formatter.format(completionDateTime);
-                    } catch (e) {
-                        console.error(`Error formatting completion time for '${selectedTimeZone}'. Displaying UTC.`, e);
-                        const utcFormatter = new Intl.DateTimeFormat('en-US', {
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            hour12: true,
-                            timeZone: 'UTC',
-                            timeZoneName: 'short'
-                        });
-                        completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTime)}`;
-                    }
-
-                } else {
-                    // No production rate or other issue
+                } else if (resourcePerHour > 0) { // Need more resources AND there's a production rate
+                    hoursValue = neededRemaining / resourcePerHour;
+                    completionDateTime = new Date(Date.now() + hoursValue * 60 * 60 * 1000);
+                    timeFormatKey = 'timeRemainingFormat';
+                } else { // Need more resources but no production rate
                     timeDisplay.textContent = "N/A";
                     completionTimeDisplay.textContent = "N/A";
+                    // Call formatInput on blur as it also handles empty/invalid states
+                    if (document.getElementById('resourceHeldText').value !== '') formatInput(document.getElementById('resourceHeldText'));
+                    if (resourceNeededInput.value !== '') formatInput(resourceNeededInput);
+                    if (triggeringElement && triggeringElement.id.startsWith('level') && triggeringElement.value !== '') {
+                        formatInput(triggeringElement);
+                    }
+                    return; // Exit if cannot calculate
                 }
-            } else {
-                // resourceNeeded is 0 or not filled, or no timezone selected
+
+                // Update Time to Complete display
+                if (Math.abs(hoursValue) < 0.01 && resourceNeeded > 0) { // If hours are practically zero and there's a target
+                     timeDisplay.textContent = currentTranslations['timeRemainingFormat'].replace('{hours}', '0.00'); // Always show 0.00
+                } else {
+                     const formattedHours = hoursValue.toFixed(2);
+                     timeDisplay.textContent = currentTranslations[timeFormatKey].replace('{hours}', formattedHours);
+                }
+
+                // Update Completion Time display
+                try {
+                    let formattedTime;
+                    let completionTzAbbr;
+
+                    if (selectedTimeZoneId === "America/Honolulu") {
+                        // Manually calculate Hawaii time (UTC-10) and format
+                        // Get current UTC time
+                        const utcHours = completionDateTime.getUTCHours();
+                        const utcMinutes = completionDateTime.getUTCMinutes();
+                        
+                        // Apply UTC-10 offset. Adjust for rollover (e.g., if UTC 01:00 becomes -09:00 previous day)
+                        let hawaiiHours = utcHours - 10;
+                        let hawaiiDate = new Date(completionDateTime); // Start with a copy
+
+                        if (hawaiiHours < 0) {
+                            hawaiiHours += 24; // Adjust hours for previous day
+                            hawaiiDate.setUTCDate(hawaiiDate.getUTCDate() - 1); // Move to previous day
+                        } else if (hawaiiHours >= 24) { // Should not happen with -10 offset, but for robustness
+                            hawaiiHours -= 24;
+                            hawaiiDate.setUTCDate(hawaiiDate.getUTCDate() + 1);
+                        }
+
+                        // Format minutes to be '00'-padded
+                        const hawaiiMinutes = utcMinutes.toString().padStart(2, '0');
+
+                        // Convert to 12-hour format
+                        const ampm = hawaiiHours >= 12 ? 'PM' : 'AM';
+                        hawaiiHours = hawaiiHours % 12;
+                        hawaiiHours = hawaiiHours ? hawaiiHours : 12; // The hour '0' should be '12 AM'
+
+                        formattedTime = `${hawaiiHours}:${hawaiiMinutes} ${ampm}`;
+                        completionTzAbbr = "HST"; // Hardcode abbreviation for Hawaii
+
+                    } else {
+                        // Use Intl.DateTimeFormat for other time zones
+                        const timeFormatter = new Intl.DateTimeFormat('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true,
+                            timeZone: selectedTimeZoneId // Use the selected IANA ID here
+                        });
+                        formattedTime = timeFormatter.format(completionDateTime);
+
+                        const actualCompletionOffsetHours = getNumericalOffsetInHours(selectedTimeZoneId, completionDateTime);
+                        completionTzAbbr = getShortTimeZoneAbbreviation(selectedTimeZoneId, completionDateTime, actualCompletionOffsetHours);
+                    }
+
+                    // Construct the full completion time display string: Time AM/PM Abbreviation
+                    completionTimeDisplay.textContent = `${formattedTime} ${completionTzAbbr}`;
+
+                } catch (e) {
+                    console.error(`Error formatting completion time for '${selectedTimeZoneId}': ${e.message}. Displaying UTC.`, e);
+                    // Fallback to UTC display if any other error occurs
+                    const utcFormatter = new Intl.DateTimeFormat('en-US', {
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        hour12: true,
+                        timeZone: 'Etc/UTC', // Explicitly use UTC
+                        timeZoneName: 'short'
+                    });
+                    completionTimeDisplay.textContent = `UTC: ${utcFormatter.format(completionDateTime)}`;
+                }
+
+            } else { // resourceNeeded is 0 or not filled, or no timezone selected
                 timeDisplay.textContent = "N/A";
                 completionTimeDisplay.textContent = "N/A";
             }
@@ -1355,7 +1529,7 @@
             updateCalculations();
         };
 
-        // Version 4.2.2 - Last Updated: June 12, 2025, 10:10 AM EDT
+        // Version 4.2.3 - Last Updated: June 13, 2025, 4:14 PM EDT
     </script>
 
 </body>
