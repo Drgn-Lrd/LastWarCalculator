@@ -88,7 +88,7 @@
         flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         padding: 8px;
         border: 1px solid var(--input-border); /* Use variable */
-        border-radius: 4px;
+        border-radius: 44px;
         box-sizing: border-box;
         text-align: right; /* Keep numbers aligned to the right */
         max-width: var(--held-input-width); /* Ensure it doesn't grow if flex: 1 was somehow applied */
@@ -432,8 +432,207 @@
 
 
         .version-info {
-            font-size: 0.65em; /* Slightly smaller for mobile */
             margin-top: 15px;
+            font-size: 0.8em;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+    /* --- Modal Styles --- */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+    .modal-content {
+        background-color: var(--container-bg);
+        margin: auto; /* Auto margin for centering */
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        width: 90%; /* Responsive width */
+        max-width: 500px; /* Max width for larger screens */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        position: relative; /* For close button positioning */
+        color: var(--text-color);
+        line-height: 1.5;
+        max-height: 80vh; /* Limit height to prevent modal from going off-screen */
+        overflow-y: auto; /* Enable vertical scroll if content is too long */
+    }
+
+    .modal-close-button {
+        color: var(--text-color);
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .modal-close-button:hover,
+    .modal-close-button:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-content h3 {
+        color: var(--header-text-color);
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+    }
+
+    .modal-content p {
+        margin-bottom: 10px;
+    }
+
+    .modal-content ul {
+        list-style: disc;
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+    .modal-content ul li strong {
+        color: var(--header-text-color); /* Keep strong text within modal distinct */
+    }
+
+    /* --- Media Queries for Mobile Responsiveness (max-width: 480px) --- */
+    @media (max-width: 480px) {
+        body {
+            font-size: 15px; /* Reduced base font size for better mobile fit */
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 95%;
+            margin: 10px auto;
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 1.3em; /* Slightly smaller for mobile */
+            margin-bottom: 15px;
+        }
+
+        /* General rows on mobile (e.g., Resource Held) */
+        .row {
+            flex-wrap: nowrap; /* IMPORTANT: Prevent wrapping labels/inputs onto new line */
+            justify-content: space-between; /* Space out label and input */
+        }
+        .row .display-label,
+        .row label {
+            flex: 0 1 auto; /* Allow label to shrink if needed (flex-shrink: 1), but prefer content size */
+            min-width: 0; /* Allow content to shrink below its intrinsic width */
+            margin-right: 10px; /* Keep a small gap */
+            font-size: 1em; /* Adjust relative to new body font-size */
+        }
+        /* Inputs and display values for general rows on mobile */
+        .row input[type="tel"],
+        .display-value {
+            flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
+            min-width: 0; /* Allow input to shrink below its intrinsic width */
+            text-align: right !important; /* Force right justification on mobile */
+            font-size: 1em; /* Adjust relative to new body font-size */
+            max-width: 120px; /* Adjusted from 85px to better fit large numbers */
+        }
+        /* Specific overrides for timezoneSelect on mobile */
+        #timezoneSelect {
+            flex: 1; /* Takes available space */
+            max-width: 100%; /* Ensure it doesn't overflow */
+            width: 100%;
+        }
+
+
+        /* Building rows on mobile */
+        .building-row {
+            display: grid; /* Keep grid */
+            /* Precise mobile column widths for strict alignment and consistent sizing */
+            grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
+            gap: 8px; /* Slightly reduced gap on mobile */
+            align-items: center; /* Ensure vertical alignment */
+        }
+        /* Make inputs fill their grid columns on mobile and remove desktop max-width */
+        .building-row input[id^="level"] {
+            width: 100%;
+            max-width: unset; /* Remove desktop fixed width constraints */
+            font-size: 0.9em;
+            padding: 5px; /* Smaller padding for mobile */
+            text-align: right !important; /* Force right justification on mobile */
+        }
+        .building-row input[id^="resource"] {
+            width: 100%;
+            max-width: unset; /* Remove desktop fixed width constraints */
+            font-size: 0.9em;
+            padding: 5px; /* Smaller padding for mobile */
+            text-align: right !important; /* Force right justification on mobile */
+        }
+        .building-row label {
+            font-size: 0.9em;
+            padding: 0; /* Remove padding if not needed */
+        }
+
+        .header-row {
+            /* Match building-row on mobile for perfect alignment */
+            grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
+            gap: 8px;
+            font-size: 0.9em; /* Match building row labels */
+        }
+
+        /* Bottom controls on mobile - REVISED for alignment */
+        #bottom-controls {
+            flex-direction: row; /* Keep them in a row */
+            justify-content: space-between; /* Push to left and right */
+            align-items: center;
+            gap: 10px; /* Space between them */
+            margin-top: 15px;
+            padding: 0 15px; /* Adjust padding to match container's inner padding */
+            max-width: 95%; /* Limit overall width */
+            box-sizing: border-box; /* Ensure padding is included in width */
+            flex-wrap: nowrap; /* Prevent wrapping on mobile */
+        }
+        #language-selector-container {
+            justify-content: flex-end; /* Push language selector to the right */
+            width: auto; /* Allow content to dictate width */
+            flex-shrink: 0; /* Prevent shrinking */
+            /* Ensure alignment with theme toggle */
+            display: flex; /* Explicitly set flex to ensure alignment */
+            align-items: center; /* Vertically align with button */
+        }
+        #theme-toggle {
+            align-self: center; /* Ensure vertical alignment to center */
+            width: fit-content;
+            padding: 6px 10px;
+            font-size: 0.85em;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        #instructions-button { /* Adjust for mobile if needed */
+            font-size: 1.1em; /* Slightly smaller on mobile if desired */
+            padding: 4px 8px; /* Adjusted padding */
+        }
+
+
+        .version-info {
+            margin-top: 15px;
+            font-size: 0.8em;
+            color: var(--text-color);
+            text-align: center;
         }
     }
 </style>
@@ -525,7 +724,7 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.3 - Last Updated: June 13, 2025, 4:14 PM EDT
+        Version 4.2.4 - Last Updated: June 13, 2025, 10:53 PM EDT
     </div>
 
     <!-- Instructions Modal -->
@@ -634,9 +833,9 @@
                 directionsTitle: 'Instruções de Uso',
                 directionsText: [
                     'Para usar eficazmente a Calculadora de Melhorias do {buildingName}, siga estes passos:',
-                    '1. **Introduza os Níveis da {buildingType}:** Comece por inserir o nível atual para cada {buildingType} de {resourceName} individual (ex: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
-                    '2. **Introduza o {resourceName} Detido nas {buildingType}s:** Em seguida, introduza a quantidade de {resourceName} atualmente detida nas "bolhas" acima de cada uma das suas {buildingType}s. Note que a calculadora preencherá automaticamente os **campos vazios** de {resourceName} detido para quaisquer outras {buildingType}s que estejam no **mesmo nível** que a que acabou de introduzir. Pode **continuar a editar estes campos manualmente** se esses edifícios tiverem uma quantidade diferente.',
-                    '3. **Especifique os Valores de {resourceName} do Laboratório:** Finalmente, introduza a quantidade de {resourceName} que **detém atualmente** no seu inventario principal (diretamente abaixo de "{resourceName} Atual") y la **quantidade total de {resourceName} necessária** para la próxima melhoria do {buildingName} (abajo de "{resourceName} Necessário").',
+                    '1. **Introduza os Níveis da {buildingType}:** Comece por inserir o nível actual para cada {buildingType} de {resourceName} individual (ex: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+                    '2. **Introduza o {resourceName} Detido nas {buildingType}s:** Em seguida, introduza a quantidade de {resourceName} actualmente detida nas "bolhas" acima de cada uma das suas {buildingType}s. Note que a calculadora preencherá automaticamente os **campos vazios** de {resourceName} detido para quaisquer outras {buildingType}s que estejam no **mesmo nível** que a que acabou de introduzir. Pode **continuar a editar estes campos manualmente** se esses edifícios tiverem uma quantidade diferente.',
+                    '3. **Especifique os Valores de {resourceName} do Laboratório:** Finalmente, introduza a quantidade de {resourceName} que **detém actualmente** no seu inventario principal (directamente abaixo de "{resourceName} Actual") y la **quantidade total de {resourceName} necessária** para la próxima melhoria do {buildingName} (abajo de "{resourceName} Necessário").',
                     'Esta calculadora foi concebida para ser totalmente funcional offline, para que possa utilizá-la a qualquer hora, em qualquer lugar, sem ligação à Internet.'
                 ]
             },
@@ -994,18 +1193,17 @@
 
             // First, try to get the dynamic offset using Intl.DateTimeFormat
             try {
-                // Corrected 'second: 'second'' to 'second: '2-digit''
                 const targetLocaleTime = new Date(date.toLocaleString('en-US', {
                     timeZone: tzId,
                     year: 'numeric', month: 'numeric', day: 'numeric',
-                    hour: 'numeric', minute: 'numeric', second: '2-digit', // Corrected here
+                    hour: 'numeric', minute: 'numeric', second: '2-digit',
                     hourCycle: 'h23'
                 })).getTime();
 
                 const utcTime = new Date(date.toLocaleString('en-US', {
                     timeZone: 'Etc/UTC',
                     year: 'numeric', month: 'numeric', day: 'numeric',
-                    hour: 'numeric', minute: 'numeric', second: '2-digit', // Corrected here
+                    hour: 'numeric', minute: 'numeric', second: '2-digit',
                     hourCycle: 'h23'
                 })).getTime();
 
@@ -1045,7 +1243,7 @@
             }
 
             // Priority 2: Dynamic abbreviations for common DST zones (US/Canada/UK/Europe/Australia/Cairo)
-            // This logic relies on specific IDs and whether DST is currently active for `date`.
+            // Determine if DST is active for the given date in the specific timezone
             let isDst = false;
             if (tzData && tzData.observesDst) {
                 try {
@@ -1262,14 +1460,28 @@
                     const triggeredLevel = parseInt(triggeredLevelElement.value) || 0;
                     const triggeredResourceValue = getCleanNumber(triggeringElement.id);
 
-                    // Only auto-populate if levels match AND (target field is empty OR target field has the same value as source)
-                    // The "same value as source" check allows subsequent auto-fills to overwrite
-                    // previous auto-fills, but not manually changed values.
-                    if (triggeredLevel > 0 && currentLevel === triggeredLevel && // Fixed: should be currentLevel not triggeredLevel here to match
-                        (resourceBuildings[i].value === '' || getCleanNumber(resourceBuildings[i].id) === triggeredResourceValue)) { // Fixed to access correctly
-                        
-                        resourceBuildings[i].value = triggeredResourceValue.toString(); // Set the raw value
-                        formatInput(resourceBuildings[i]); // Immediately format the auto-populated field
+                    // Iterate through all resource buildings for auto-population
+                    for (let i = 0; i < resourceBuildings.length; i++) {
+                        const currentResourceElement = resourceBuildings[i];
+                        const currentLevelElement = buildingLevels[i]; // Get the corresponding level element
+                        const currentLevel = parseInt(currentLevelElement.value) || 0;
+
+                        // Don't auto-populate the element that just triggered the update
+                        if (currentResourceElement.id === triggeringElement.id) {
+                            continue;
+                        }
+
+                        const currentResourceValue = getCleanNumber(currentResourceElement.id);
+
+                        // Auto-populate if levels match AND (target field is empty OR target field has the same value as source)
+                        // The "same value as source" check allows subsequent auto-fills to overwrite
+                        // previous auto-fills, but not manually changed values.
+                        if (currentLevel > 0 && currentLevel === triggeredLevel &&
+                            (currentResourceElement.value === '' || currentResourceValue === triggeredResourceValue)) {
+                            
+                            currentResourceElement.value = triggeredResourceValue.toString(); // Set the raw value
+                            formatInput(currentResourceElement); // Immediately format the auto-populated field
+                        }
                     }
                 }
             }
@@ -1529,7 +1741,7 @@
             updateCalculations();
         };
 
-        // Version 4.2.3 - Last Updated: June 13, 2025, 4:14 PM EDT
+        // Version 4.2.4 - Last Updated: June 13, 2025, 10:53 PM EDT
     </script>
 
 </body>
