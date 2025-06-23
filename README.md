@@ -159,18 +159,6 @@ This version focuses on correcting an issue with the resource tally display and 
 
 ---
 
-## Version 4.2.5: Critical Tally Correction & Versioning
-
-This version focuses on correcting an issue with the resource tally display and refining the versioning logic.
-
-* **Tally Counter Correction:**
-  * Removed redundant `(Total Quartz/Required Quartz)` display next to "Total Quartz."
-  * Introduced a new "Workshop Held Total" line directly below the workshop resource inputs, which now accurately displays the sum of only the resources held within the workshops.
-* **Versioning Refinement:**
-  * The version number was correctly incremented to `4.2.5` to reflect a bug fix.
-
----
-
 ## Version 4.2.6: Functionality Restoration & Scope Fixes
 
 This version addresses critical errors introduced in the previous update, restoring full functionality to the calculator.
