@@ -144,3 +144,26 @@ This version provides crucial bug fixes related to time zone calculations and di
     * Fixed `Value second out of range` console error by correcting `toLocaleString` options in time zone offset calculations.
 * **Timestamp Update:**
     * Updated the "Last Updated" timestamp to **`June 13, 2025, 4:14 PM EDT`** to reflect the latest fixes.
+
+---
+
+## Version 4.2.5: Critical Tally Correction & Versioning
+
+This version focuses on correcting an issue with the resource tally display and refining the versioning logic.
+
+* **Tally Counter Correction:**
+  * Removed redundant `(Total Quartz/Required Quartz)` display next to "Total Quartz."
+  * Introduced a new "Workshop Held Total" line directly below the workshop resource inputs, which now accurately displays the sum of only the resources held within the workshops.
+* **Versioning Refinement:**
+  * The version number was correctly incremented to `4.2.5` to reflect a bug fix.
+
+---
+
+## Version 4.2.6: Functionality Restoration & Scope Fixes
+
+This version addresses critical errors introduced in the previous update, restoring full functionality to the calculator.
+
+* **Global Function Scope Fix:**
+  * Moved all core JavaScript functions (e.g., `expandDecimal`, `updateCalculations`, `formatInput`, `populateTimezones`) out of the `window.onload` block. This ensures these functions are in the global scope and are accessible to HTML attributes (like `onblur`, `onchange`), resolving previous `ReferenceError`s.
+* **Full Functionality Restoration:**
+  * Confirmed and restored the correct operation of all features, including the theme toggle, language/timezone dropdowns, all mathematical calculations, and the intelligent autofill logic.
