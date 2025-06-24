@@ -533,7 +533,7 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.6 - Last Updated: June 23, 2025, 11:09 AM EDT
+        Version 4.2.7 - Last Updated: June 24, 2025, 11:45 AM EDT
     </div>
 
     <!-- Instructions Modal -->
@@ -1304,7 +1304,7 @@
             // --- Standard Calculations ---
             for (let i = 0; i < 5; i++) {
                 let level = parseInt(buildingLevels[i].value) || 0; // Get level value for rate calculation
-                if (level <= 30) { // Only levels up to 30 contribute to rate
+                if (level <= 35) { // Only levels up to 35 contribute to rate
                     totalBuildingRate += level;
                 }
                 let resource = getCleanNumber(resourceBuildings[i].id);
@@ -1563,7 +1563,7 @@
             updateCalculations();
         };
 
-        // Version 4.2.6 - Last Updated: June 23, 2025, 11:09 AM EDT
+        // Version 4.2.7 - Last Updated: June 24, 2025, 11:45 AM EDT
     </script>
 
 </body>
