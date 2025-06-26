@@ -10,17 +10,17 @@
         --held-input-width: 130px; /* Comfortably fits "99,999,999,999" plus padding (16 chars) */
 
         /* Light Mode Colors (Default) */
-        --bg-color: #f4f4f4;
-        --container-bg: #fff;
-        --border-color: #ccc;
-        --text-color: #333;
-        --header-text-color: #333;
-        --input-border: #ddd;
-        --hr-color: #eee;
-        --link-color: #007bff; /* Example for future links */
-        --button-bg: #e0e0e0;
-        --button-text: #333;
-        --button-hover-bg: #d0d0d0;
+        --bg-color: #565F6B; /* User's chosen 'Slate Smoke' for background */
+        --container-bg: #B0B0B0; /* User's chosen 'Stone Grey' for content container */
+        --border-color: #909090; /* Adjusted border to contrast with container */
+        --text-color: #000000; /* Darker text for main text, as requested */
+        --header-text-color: #2C2C2C; /* Slightly darker for headings */
+        --input-border: #909090; /* Gentle, muted border for inputs */
+        --hr-color: #8C8C8C; /* Matching the new background slightly for dividers */
+        --link-color: #007bff; /* Example for future links - kept standard blue */
+        --button-bg: #D8D8D8; /* Soft grey for buttons */
+        --button-text: #3C3C3C; /* Matching main text for buttons */
+        --button-hover-bg: #C1C1C1; /* Slightly darker hover for buttons */
     }
 
     /* Dark Mode Colors */
@@ -237,7 +237,7 @@
     .version-info {
         margin-top: 15px; /* Small margin after bottom-controls */
         font-size: 0.8em;
-        color: var(--text-color); /* Use variable */
+        color: var(--text-color);
         text-align: center;
     }
 
@@ -340,103 +340,103 @@
             justify-content: space-between; /* Space out label and input */
         }
         .row .display-label,
-        .row label {
-            flex: 0 1 auto; /* Allow label to shrink if needed (flex-shrink: 1), but prefer content size */
-            min-width: 0; /* Allow content to shrink below its intrinsic width */
-            margin-right: 10px; /* Keep a small gap */
-            font-size: 1em; /* Adjust relative to new body font-size */
-        }
-        /* Inputs and display values for general rows on mobile */
-        .row input[type="tel"],
-        .display-value {
-            flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
-            min-width: 0; /* Allow input to shrink below its intrinsic width */
-            text-align: right !important; /* Force right justification on mobile */
-            font-size: 1em; /* Adjust relative to new body font-size */
-            max-width: 120px; /* Adjusted from 85px to better fit large numbers */
-        }
-        /* Specific overrides for timezoneSelect on mobile */
-        #timezoneSelect {
-            flex: 1; /* Takes available space */
-            max-width: 100%; /* Ensure it doesn't overflow */
-            width: 100%;
-        }
+    .row label {
+        flex: 0 1 auto; /* Allow label to shrink if needed (flex-shrink: 1), but prefer content size */
+        min-width: 0; /* Allow content to shrink below its intrinsic width */
+        margin-right: 10px; /* Keep a small gap */
+        font-size: 1em; /* Adjust relative to new body font-size */
+    }
+    /* Inputs and display values for general rows on mobile */
+    .row input[type="tel"],
+    .display-value {
+        flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
+        min-width: 0; /* Allow input to shrink below its intrinsic width */
+        text-align: right !important; /* Force right justification on mobile */
+        font-size: 1em; /* Adjust relative to new body font-size */
+        max-width: 120px; /* Adjusted from 85px to better fit large numbers */
+    }
+    /* Specific overrides for timezoneSelect on mobile */
+    #timezoneSelect {
+        flex: 1; /* Takes available space */
+        max-width: 100%; /* Ensure it doesn't overflow */
+        width: 100%;
+    }
 
 
-        /* Building rows on mobile */
-        .building-row {
-            display: grid; /* Keep grid */
-            /* Precise mobile column widths for strict alignment and consistent sizing */
-            grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
-            gap: 8px; /* Slightly reduced gap on mobile */
-            align-items: center; /* Ensure vertical alignment */
-        }
-        /* Make inputs fill their grid columns on mobile and remove desktop max-width */
-        .building-row input[id^="level"] {
-            width: 100%;
-            max-width: unset; /* Remove desktop fixed width constraints */
-            font-size: 0.9em;
-            padding: 5px; /* Smaller padding for mobile */
-            text-align: right !important; /* Force right justification on mobile */
-        }
-        .building-row input[id^="resource"] {
-            width: 100%;
-            max-width: unset; /* Remove desktop fixed width constraints */
-            font-size: 0.9em;
-            padding: 5px; /* Smaller padding for mobile */
-            text-align: right !important; /* Force right justification on mobile */
-        }
-        .building-row label {
-            font-size: 0.9em;
-            padding: 0; /* Remove padding if not needed */
-        }
+    /* Building rows on mobile */
+    .building-row {
+        display: grid; /* Keep grid */
+        /* Precise mobile column widths for strict alignment and consistent sizing */
+        grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
+        gap: 8px; /* Slightly reduced gap on mobile */
+        align-items: center; /* Ensure vertical alignment */
+    }
+    /* Make inputs fill their grid columns on mobile and remove desktop max-width */
+    .building-row input[id^="level"] {
+        width: 100%;
+        max-width: unset; /* Remove desktop fixed width constraints */
+        font-size: 0.9em;
+        padding: 5px; /* Smaller padding for mobile */
+        text-align: right !important; /* Force right justification on mobile */
+    }
+    .building-row input[id^="resource"] {
+        width: 100%;
+        max-width: unset; /* Remove desktop fixed width constraints */
+        font-size: 0.9em;
+        padding: 5px; /* Smaller padding for mobile */
+        text-align: right !important; /* Force right justification on mobile */
+    }
+    .building-row label {
+        font-size: 0.9em;
+        padding: 0; /* Remove padding if not needed */
+    }
 
-        .header-row {
-            /* Match building-row on mobile for perfect alignment */
-            grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
-            gap: 8px;
-            font-size: 0.9em; /* Match building row labels */
-        }
+    .header-row {
+        /* Match building-row on mobile for perfect alignment */
+        grid-template-columns: minmax(80px, 1fr) 40px 120px; /* Adjusted last column from 85px to 120px */
+        gap: 8px;
+        font-size: 0.9em; /* Match building row labels */
+    }
 
-        /* Bottom controls on mobile - REVISED for alignment */
-        #bottom-controls {
-            flex-direction: row; /* Keep them in a row */
-            justify-content: space-between; /* Push to left and right */
-            align-items: center;
-            gap: 10px; /* Space between them */
-            margin-top: 15px;
-            padding: 0 15px; /* Adjust padding to match container's inner padding */
-            max-width: 95%; /* Limit overall width */
-            box-sizing: border-box; /* Ensure padding is included in width */
-            flex-wrap: nowrap; /* Prevent wrapping on mobile */
-        }
-        #language-selector-container {
-            justify-content: flex-end; /* Push language selector to the right */
-            width: auto; /* Allow content to dictate width */
-            flex-shrink: 0; /* Prevent shrinking */
-            /* Ensure alignment with theme toggle */
-            display: flex; /* Explicitly set flex to ensure alignment */
-            align-items: center; /* Vertically align with button */
-        }
-        #theme-toggle {
-            align-self: center; /* Ensure vertical alignment to center */
-            width: fit-content;
-            padding: 6px 10px;
-            font-size: 0.85em;
-            flex-shrink: 0; /* Prevent shrinking */
-        }
-        #instructions-button { /* Adjust for mobile if needed */
-            font-size: 1.1em; /* Slightly smaller on mobile if desired */
-            padding: 4px 8px; /* Adjusted padding */
-        }
+    /* Bottom controls on mobile - REVISED for alignment */
+    #bottom-controls {
+        flex-direction: row; /* Keep them in a row */
+        justify-content: space-between; /* Push to left and right */
+        align-items: center;
+        gap: 10px; /* Space between them */
+        margin-top: 15px;
+        padding: 0 15px; /* Adjust padding to match container's inner padding */
+        max-width: 95%; /* Limit overall width */
+        box-sizing: border-box; /* Ensure padding is included in width */
+        flex-wrap: nowrap; /* Prevent wrapping on mobile */
+    }
+    #language-selector-container {
+        justify-content: flex-end; /* Push language selector to the right */
+        width: auto; /* Allow content to dictate width */
+        flex-shrink: 0; /* Prevent shrinking */
+        /* Ensure alignment with theme toggle */
+        display: flex; /* Explicitly set flex to ensure alignment */
+        align-items: center; /* Vertically align with button */
+    }
+    #theme-toggle {
+        align-self: center; /* Ensure vertical alignment to center */
+        width: fit-content;
+        padding: 6px 10px;
+        font-size: 0.85em;
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+    #instructions-button { /* Adjust for mobile if needed */
+        font-size: 1.1em; /* Slightly smaller on mobile if desired */
+        padding: 4px 8px; /* Adjusted padding */
+    }
 
 
-        .version-info {
-            margin-top: 15px;
-            font-size: 0.8em;
-            color: var(--text-color);
-            text-align: center;
-        }
+    .version-info {
+        margin-top: 15px;
+        font-size: 0.8em;
+        color: var(--text-color);
+        text-align: center;
+    }
     }
 </style>
 </head>
@@ -533,7 +533,7 @@
     </div>
 
     <div class="version-info">
-        Version 4.2.7 - Last Updated: June 24, 2025, 11:45 AM EDT
+        Version 4.2.10 - Last Updated: June 24, 2025, 08:55 PM EDT
     </div>
 
     <!-- Instructions Modal -->
@@ -679,7 +679,7 @@
                     `{buildingName} 업그레이드 계산기를 효과적으로 사용하려면 다음 단계를 따르세요:`,
                     `1. **{buildingType} 레벨 입력:** 먼저 각 개별 {resourceName} {buildingType}(예: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2" 등)의 현재 레벨을 입력합니다.`,
                     `2. **{buildingType}에 보유한 {resourceName} 입력:** 다음으로, 각 {buildingType} "버블" 위에 현재 보유하고 있는 {resourceName}의 양을 입력합니다. 계산기는 방금 입력한 {buildingType}과 **동일한 레벨**의 다른 모든 {buildingType}에 대해 **비어 있는 필드**에 보유 {resourceName}를 자동으로 **自動 채우기**합니다. 이러한 필드에 다른 양이 있는 경우 **계속 수동으로 편집할 수 있습니다.**`,
-                    `3. **연구소 {resourceName} 값 지정:** 마지막으로, 메인 인벤토리({resourceName} 보유" 바로 아래)에 현재 **보유하고 있는 {resourceName}의 양과 다음 {buildingName} 업그레이드에 필요한 총 {resourceName} 量({resourceName} 必要" 아래)을 입력합니다.`,
+                    `3. **연구소 {resourceName} 값 지정:** 마지막으로, 메인 인벤토리({resourceName} 보유" 바로 아래)에 현재 **보유하고 있는 {resourceName}의 양과 다음 {buildingName} 업그레이드에 필요한 총 {resourceName} 量({resourceName} 必要" 아래)を 입력합니다。`,
                     `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
                 ]
             },
@@ -773,7 +773,7 @@
                     }
                     processedTranslations[key] = value;
                 }
-            }
+            } 
 
             const languageSelect = document.getElementById('languageSelect');
             if (languageSelect && languageSelect.value !== langToUse) {
@@ -1003,6 +1003,10 @@
             // Hardcoded offset for Hawaii Standard Time as per user request to ensure consistency
             if (tzId === "America/Honolulu") {
                 return -10;
+            }
+            // Hardcoded offset for Indiana/Indianapolis to force EST (UTC-5) due to historical Intl API inconsistencies
+            if (tzId === "America/Indiana/Indianapolis") {
+                return -5;
             }
 
             // First, try to get the dynamic offset using Intl.DateTimeFormat
@@ -1563,7 +1567,7 @@
             updateCalculations();
         };
 
-        // Version 4.2.7 - Last Updated: June 24, 2025, 11:45 AM EDT
+        // Version 4.2.10 - Last Updated: June 24, 2025, 08:55 PM EDT
     </script>
 
 </body>
