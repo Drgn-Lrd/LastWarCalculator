@@ -83,7 +83,7 @@
         text-align: left; /* Align text to the left within its own space */
     }
     /* Inputs and select for general rows - NOW FIXED WIDTH on desktop */
-    .row input[type="tel"],
+    .row input[type="number"],
     .row select {
         flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         padding: 8px;
@@ -347,7 +347,7 @@
         font-size: 1em; /* Adjust relative to new body font-size */
     }
     /* Inputs and display values for general rows on mobile */
-    .row input[type="tel"],
+    .row input[type="number"],
     .display-value {
         flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
         min-width: 0; /* Allow input to shrink below its intrinsic width */
@@ -453,28 +453,28 @@
 
         <div class="building-row">
             <label id="building1-name" data-i18n="resourceBuilding1">Quartz Workshop 1</label>
-            <input type="tel" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
-            <input type="tel" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
+            <input type="number" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
+            <input type="number" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
         </div>
         <div class="building-row">
             <label id="building2-name" data-i18n="resourceBuilding2">Quartz Workshop 2</label>
-            <input type="tel" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
-            <input type="tel" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
+            <input type="number" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
+            <input type="number" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
         </div>
         <div class="building-row">
             <label id="building3-name" data-i18n="resourceBuilding3">Quartz Workshop 3</label>
-            <input type="tel" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
-            <input type="tel" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
+            <input type="number" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
+            <input type="number" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
         </div>
         <div class="building-row">
             <label id="building4-name" data-i18n="resourceBuilding4">Quartz Workshop 4</label>
-            <input type="tel" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
-            <input type="tel" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
+            <input type="number" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
+            <input type="number" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
         </div>
         <div class="building-row">
             <label id="weeklyBuilding-name" data-i18n="weeklyBuilding">Weekly Workshop</label>
-            <input type="tel" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
-            <input type="tel" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
+            <input type="number" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
+            <input type="number" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
         </div>
 
         <!-- NEW: Workshop Held Total -->
@@ -492,7 +492,7 @@
 
         <div class="row">
             <label for="resourceHeldText" data-i18n="resourceHeld">Quartz Held:</label>
-            <input type="tel" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
+            <input type="number" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
         </div>
 
         <div class="row">
@@ -502,7 +502,7 @@
 
         <div class="row">
             <label for="resourceNeededText" data-i18n="resourceNeeded">Quartz Needed:</label>
-            <input type="tel" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
+            <input type="number" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
         </div>
 
         <div class="row">
