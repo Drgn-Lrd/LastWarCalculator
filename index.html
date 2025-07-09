@@ -83,7 +83,7 @@
         text-align: left; /* Align text to the left within its own space */
     }
     /* Inputs and select for general rows - NOW FIXED WIDTH on desktop */
-    .row input[type="number"],
+    input[type="number"], /* Changed from tel */
     .row select {
         flex: 0 0 var(--held-input-width); /* Fixed width for consistency */
         padding: 8px;
@@ -347,7 +347,7 @@
         font-size: 1em; /* Adjust relative to new body font-size */
     }
     /* Inputs and display values for general rows on mobile */
-    .row input[type="number"],
+    input[type="number"], /* Changed from tel */
     .display-value {
         flex: 1 1 auto; /* Allow input to fill remaining space, can shrink (flex-shrink: 1) */
         min-width: 0; /* Allow input to shrink below its intrinsic width */
@@ -453,28 +453,28 @@
 
         <div class="building-row">
             <label id="building1-name" data-i18n="resourceBuilding1">Quartz Workshop 1</label>
-            <input type="number" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
-            <input type="number" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
+            <input type="number" inputmode="numeric" id="level1" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="2" aria-labelledby="building1-name header-level" maxlength="2">
+            <input type="number" inputmode="numeric" id="resource1" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="7" aria-labelledby="building1-name header-held">
         </div>
         <div class="building-row">
             <label id="building2-name" data-i18n="resourceBuilding2">Quartz Workshop 2</label>
-            <input type="number" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
-            <input type="number" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
+            <input type="number" inputmode="numeric" id="level2" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="3" aria-labelledby="building2-name header-level" maxlength="2">
+            <input type="number" inputmode="numeric" id="resource2" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="8" aria-labelledby="building2-name header-held">
         </div>
         <div class="building-row">
             <label id="building3-name" data-i18n="resourceBuilding3">Quartz Workshop 3</label>
-            <input type="number" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
-            <input type="number" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
+            <input type="number" inputmode="numeric" id="level3" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="4" aria-labelledby="building3-name header-level" maxlength="2">
+            <input type="number" inputmode="numeric" id="resource3" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="9" aria-labelledby="building3-name header-held">
         </div>
         <div class="building-row">
             <label id="building4-name" data-i18n="resourceBuilding4">Quartz Workshop 4</label>
-            <input type="number" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
-            <input type="number" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
+            <input type="number" inputmode="numeric" id="level4" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="5" aria-labelledby="building4-name header-level" maxlength="2">
+            <input type="number" inputmode="numeric" id="resource4" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="10" aria-labelledby="building4-name header-held">
         </div>
         <div class="building-row">
             <label id="weeklyBuilding-name" data-i18n="weeklyBuilding">Weekly Workshop</label>
-            <input type="number" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
-            <input type="number" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
+            <input type="number" inputmode="numeric" id="levelWeekly" value="" onblur="updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="6" aria-labelledby="weeklyBuilding-name header-level" maxlength="2">
+            <input type="number" inputmode="numeric" id="resourceWeekly" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="11" aria-labelledby="weeklyBuilding-name header-held">
         </div>
 
         <!-- NEW: Workshop Held Total -->
@@ -492,7 +492,7 @@
 
         <div class="row">
             <label for="resourceHeldText" data-i18n="resourceHeld">Quartz Held:</label>
-            <input type="number" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
+            <input type="number" inputmode="numeric" id="resourceHeldText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="12">
         </div>
 
         <div class="row">
@@ -502,7 +502,7 @@
 
         <div class="row">
             <label for="resourceNeededText" data-i18n="resourceNeeded">Quartz Needed:</label>
-            <input type="number" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
+            <input type="number" inputmode="numeric" id="resourceNeededText" value="" onblur="expandDecimal(this); updateCalculations(this); formatInput(this)" onfocus="this.select()" tabindex="13">
         </div>
 
         <div class="row">
@@ -710,7 +710,7 @@
                 directionsText: [
                     `{buildingName} アップグレード計算機を効果的に使用するには、以下の手順に従ってください:`,
                     `1. **{buildingType}レベルの入力:** まず、各{resourceName} {buildingType}(例: "{resourceName} {buildingType} 1"、"{resourceName} {buildingType} 2" など) の現在のレベルを入力します。`,
-                    `2. **{buildingType}に保持されている{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{resourceName}と**同じレベル**の他のすべての{buildingType}に対して、**空のフィールド**に{resourceName}の保持量を自動的に**自動入力**することに注意してください。これらのフィールドに異なる量がある場合は、**引き続き手動で編集できます。**`,
+                    `2. **バブルで保有している{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{resourceName}と**同じレベル**の他のすべての{buildingType}に対して、**空のフィールド**に{resourceName}の保持量を自動的に**自動入力**することに注意してください。これらのフィールドに異なる量がある場合は、**引き続き手動で編集できます。**`,
                     `3. **ラボの{resourceName}値の指定:** 最後に、現在メインインベントリ (「所持{resourceName}」の真下) に**保持している{resourceName}の量**と、次の{buildingName}アップグレードに**必要な合計{resourceName}量** (「必要な{resourceName}」の下) を入力します。`,
                     `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
                 ]
@@ -1294,7 +1294,7 @@
                             // 1. Levels must match (current building's level and the triggered building's level)
                             // 2. The target resource field must be currently empty (`''`). This prevents overwriting existing data.
                             if (currentLevel > 0 && currentLevel === triggeredLevel &&
-                                currentResourceElement.value === '') { // Ensure target field is empty
+                                currentResourceElement.value === '') { 
                                 
                                 currentResourceElement.value = triggeringElement.value; // Copy the formatted string value
                                 // No need to call formatInput again as it's already formatted by the triggering element's blur
