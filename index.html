@@ -555,165 +555,164 @@
 
         // Define your translations
         const translations = {
-            'en': { // English (default fallback)
-                buildingName: 'Optoelectronic Lab',
-                resourceName: 'Quartz',
-                buildingType: 'Workshop',
-                title: `Time Until {buildingName} Can Be Upgraded`, // Placeholder to be replaced
-                headerLevel: 'Level',
-                headerHeld: 'Held',
-                resourceBuilding1: `{resourceName} {buildingType} 1`,
-                resourceBuilding2: `{resourceName} {buildingType} 2`,
-                resourceBuilding3: `{resourceName} {buildingType} 3`,
-                resourceBuilding4: `{resourceName} {buildingType} 4`,
-                weeklyBuilding: `Weekly {buildingType}`,
-                workshopHeldTotal: `Total {resourceName} in {buildingType}s:`, // NEW TRANSLATION
-                resourcePerHour: `{resourceName}/hr:`,
-                resourceHeld: `{resourceName} Held:`,
-                totalResource: `Total {resourceName}:`,
-                resourceNeeded: `Required {resourceName}:`, // Changed from 'Quartz Needed' to 'Required Quartz' for clarity
-                timeToComplete: 'Time to Complete:',
-                timeRemainingFormat: '{hours} hrs', // New: "X hrs"
-                timeAgoFormat: '{hours} hrs ago',    // New: "X hrs ago"
-                completionTime: 'Completion Time:',
-                displayTimeZone: 'Display Time Zone:',
-                toggleTheme: 'Toggle Theme', // New translation for the button
-                directionsTitle: 'Directions for Use', // New modal title translation
-                directionsText: [ // New modal content translation
-                    'To effectively use the {buildingName} Upgrade Calculator, please follow these steps:',
-                    '1. **Enter {buildingType} Levels:** Begin by inputting the current level for each individual {resourceName} {buildingType} (e.g., "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
-                    '2. **Input {resourceName} Held in {buildingType}s:** Next, enter the amount of {resourceName} currently held in the "bubbles" above each of your {buildingType}s. Note that the calculator will automatically **auto-fill empty fields** for any other {buildingType}s that are at the **same level** as the one you just entered. You can **still manually edit these fields** if those buildings are holding a different amount.',
-                    '3. **Specify Lab {resourceName} Values:** Finally, input the amount of {resourceName} you currently **hold** in your main inventory (directly under "{resourceName} Held") and the **total amount of {resourceName} needed** for the next {buildingName} upgrade (under "{resourceName} Needed").',
-                    'This calculator is designed to be fully functional offline, so you can use it anytime, anywhere without an internet connection.'
-                ]
-            },
-            'es': { // Spanish
-                buildingName: 'Laboratorio Optoelectrónico',
-                resourceName: 'Cuarzo',
-                buildingType: 'Taller',
-                title: `Tiempo hasta que el {buildingName} pueda ser mejorado`,
-                headerLevel: 'Nivel',
-                headerHeld: 'Obtenido',
-                resourceBuilding1: `{resourceName} {buildingType} 1`,
-                resourceBuilding2: `{resourceName} {buildingType} 2`,
-                resourceBuilding3: `{resourceName} {buildingType} 3`,
-                resourceBuilding4: `{resourceName} {buildingType} 4`,
-                weeklyBuilding: `Semanal {buildingType}`,
-                workshopHeldTotal: `Cuarzo Total en {buildingType}s:`, // NEW TRANSLATION
-                resourcePerHour: `Cuarzo/hora:`,
-                resourceHeld: `Cuarzo Actual:`,
-                totalResource: `Cuarzo Total:`,
-                resourceNeeded: `Cuarzo Requerido:`, // Changed from 'Cuarzo Necesario' to 'Cuarzo Requerido' for clarity
-                timeToComplete: 'Tiempo Restante:',
-                timeRemainingFormat: '{hours} h', // New: "X h"
-                timeAgoFormat: 'hace {hours} h',    // New: "hace X h"
-                completionTime: 'Hora de Finalización:',
-                displayTimeZone: 'Zona Horaria:',
-                toggleTheme: 'Cambiar Tema',
-                directionsTitle: 'Instrucciones de Uso',
-                directionsText: [
-                    'Para usar eficazmente la Calculadora de Mejoras del {buildingName}, siga estos pasos:',
-                    '1. **Introduzca los niveles de {buildingType}:** Comience ingresando el nivel actual para cada {buildingType} de {resourceName} individual (por ejemplo, "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
-                    '2. **Introduzca el {resourceName} Obtenido en los {buildingType}s:** A continuación, introduzca la cantidad de {resourceName} que se encuentra actualmente en las "burbujas" encima de cada uno de sus {buildingType}s. Tenga en cuenta que la calculadora rellenará automáticamente los **campos vacíos** de {resourceName} para cualquier otro {buildingType} que esté en el **mismo nivel** que el que acaba de introducir. Puede **seguir editando estos campos manualmente** si esos edificios tienen una cantidad diferente.',
-                    '3. **Especifique los Valores de {resourceName} del Laboratorio:** Finalmente, introduzca la cantidad de {resourceName} que **tiene actualmente** en su inventario principal (dirección debajo de "{resourceName} Actual") y la **cantidad total de {resourceName} necesaria** para la próxima mejora del {buildingName} (debajo de "{resourceName} Necesario").',
-                    'Esta calculadora está diseñada para ser completamente funcional sin conexión, por lo que puede usarla en cualquier momento y lugar sin necesidad de una conexión a Internet.'
-                ]
-            },
-            'pt': { // Portuguese
-                buildingName: 'Laboratório Optoeletrônico',
-                resourceName: 'Quartzo',
-                buildingType: 'Oficina',
-                title: `Tempo até o {buildingName} Poder Ser Atualizado`,
-                headerLevel: 'Nivel',
-                headerHeld: 'Tido',
-                resourceBuilding1: `{buildingType} de {resourceName} 1`,
-                resourceBuilding2: `{buildingType} de {resourceName} 2`,
-                resourceBuilding3: `{buildingType} de {resourceName} 3`,
-                resourceBuilding4: `{buildingType} de {resourceName} 4`,
-                weeklyBuilding: `Semanal {buildingType}`,
-                workshopHeldTotal: `Quartzo Total em {buildingType}s:`, // NEW TRANSLATION
-                resourcePerHour: `Quartzo/hr:`,
-                resourceHeld: `Quartzo Atual:`,
-                totalResource: `Quartzo Total:`,
-                resourceNeeded: `Quartzo Requerido:`, // Changed from 'Quartzo Necessário' to 'Quarzo Requerido' for clarity
-                timeToComplete: 'Tempo para Concluir:',
-                timeRemainingFormat: '{hours} h', // New: "X h"
-                timeAgoFormat: 'há {hours} h',    // New: "há X h"
-                completionTime: 'Hora de Conclusão:',
-                displayTimeZone: 'Fuso Horário:',
-                toggleTheme: 'Alternar Tema',
-                directionsTitle: 'Instruções de Uso',
-                directionsText: [
-                    'Para usar eficazmente a Calculadora de Melhorias do {buildingName}, siga estes passos:',
-                    '1. **Introduza os Níveis da {buildingType}:** Comece por inserir o nível actual para cada {buildingType} de {resourceName} individual (ex: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
-                    '2. **Introduza o {resourceName} Detido nas {buildingType}s:** Em seguida, introduza a quantidade de {resourceName} actualmente detida nas "bolhas" acima de cada uma das suas {buildingType}s. Note que a calculadora preencherá automaticamente os **campos vazios** de {resourceName} detido para quaisquer outras {buildingType}s que estejam no **mesmo nível** que a que acabou de introduzir. Pode **continuar a editar estes campos manualmente** se esses edifícios tiverem uma quantidade diferente.',
-                    '3. **Especifique os Valores de {resourceName} do Laboratório:** Finalmente, introduza a quantidade de {resourceName} que **detém actualmente** no seu inventario principal (directamente abaixo de "{resourceName} Actual") y la **quantidade total de {resourceName} necessária** para la próxima melhoria do {buildingName} (abajo de "{resourceName} Necessário").',
-                    'Esta calculadora foi concebida para ser totalmente funcional offline, para que possa utilizá-la a qualquer hora, em qualquer lugar, sem ligação à Internet.'
-                ]
-            },
-            'ko': { // Korean
-                buildingName: '광전자 연구소',
-                resourceName: '석영',
-                buildingType: '작업장',
-                title: `{buildingName} 업그레이드까지 남은 시간`,
-                headerLevel: '레벨',
-                headerHeld: '보유',
-                resourceBuilding1: `{resourceName} {buildingType} 1`,
-                resourceBuilding2: `{resourceName} {buildingType} 2`,
-                resourceBuilding3: `{resourceName} {buildingType} 3`,
-                resourceBuilding4: `{resourceName} {buildingType} 4`,
-                weeklyBuilding: `주간 {buildingType}`,
-                workshopHeldTotal: `총 {resourceName} ({buildingType}에 보유):`, // NEW TRANSLATION
-                resourcePerHour: `시간당 {resourceName}:`,
-                resourceHeld: `보유 {resourceName}:`,
-                totalResource: `총 {resourceName}:`,
-                resourceNeeded: `필요한 {resourceName}:`,
-                timeToComplete: '완료까지 남은 시간:',
-                timeRemainingFormat: '{hours}시간', // New: "X시간"
-                timeAgoFormat: '{hours}시간 전',    // New: "X시간 전"
-                completionTime: '완료 시간:',
-                displayTimeZone: '표시 시간대:',
-                toggleTheme: '테마 전환',
-                directionsTitle: '사용 방법',
-                directionsText: [
-                    `{buildingName} 업그레이드 계산기를 효과적으로 사용하려면 다음 단계를 따르세요:`,
-                    `1. **{buildingType} 레벨 입력:** 먼저 각 개별 {resourceName} {buildingType}(예: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2" 등)의 현재 레벨을 입력합니다.`,
-                    `2. **{buildingType}에 보유한 {resourceName} 입력:** 다음으로, 각 {buildingType} "버블" 위에 현재 보유하고 있는 {resourceName}의 양을 입력합니다. 계산기는 방금 입력한 {buildingType}과 **동일한 레벨**의 다른 모든 {buildingType}에 대해 **비어 있는 필드**에 보유 {resourceName}를 자동으로 **自動 채우기**합니다. 이러한 필드에 다른 양이 있는 경우 **계속 수동으로 편집할 수 있습니다.**`,
-                    `3. **연구소 {resourceName} 값 지정:** 마지막으로, 메인 인벤토리({resourceName} 보유" 바로 아래)에 현재 **보유하고 있는 {resourceName}의 양과 다음 {buildingName} 업그레이드에 필요한 총 {resourceName} 量({resourceName} 必要" 아래)を 입력합니다。`,
-                    `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
-                ]
-            },
-            'ja': { // Japanese
-                buildingName: '光電子研究所',
-                resourceName: '石英',
-                buildingType: '作業場',
-                title: `{buildingName} アップグレードまでの時間`,
-                headerLevel: 'レベル',
-                headerHeld: '所持',
-                resourceBuilding1: `{resourceName} {buildingType} 1`,
-                resourceBuilding2: `{resourceName} {buildingType} 2`,
-                resourceBuilding3: `{resourceName} {buildingType} 3`,
-                resourceBuilding4: `{resourceName} {buildingType} 4`,
-                weeklyBuilding: `週次 {buildingType}`,
-                workshopHeldTotal: `合計{resourceName} ({buildingType}に所持):`, // NEW TRANSLATION
-                resourcePerHour: `{resourceName}/時:`,
-                resourceHeld: `所持{resourceName}:`,
-                totalResource: `合計{resourceName}:`,
-                resourceNeeded: `必要な{resourceName}:`,
-                timeToComplete: '完了までの時間:',
-                timeRemainingFormat: '{hours}時間', // New: "X時間"
-                timeAgoFormat: '{hours}時間前',    // New: "X時間前"
-                completionTime: '完了時刻:',
-                displayTimeZone: '表示タイムゾーン:',
-                toggleTheme: 'テーマ切り替え',
-                directionsTitle: '使用方法',
-                directionsText: [
-                    `{buildingName} アップグレード計算機を効果的に使用するには、以下の手順に従ってください:`,
-                    `1. **{buildingType}レベルの入力:** まず、各{resourceName} {buildingType}(例: "{resourceName} {buildingType} 1"、"{resourceName} {buildingType} 2" など) の現在のレベルを入力します。`,
-                    `2. **バブルで保有している{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{resourceName}と**同じレベル**の他のすべての{buildingType}に対して、**空のフィールド**に{resourceName}の保持量を自動的に**自動入力**することに注意してください。これらのフィールドに異なる量がある場合は、**引き続き手動で編集できます。**`,
-                    `3. **ラボの{resourceName}値の指定:** 最後に、現在メインインベントリ (「所持{resourceName}」の真下) に**保持している{resourceName}の量**と、次の{buildingName}アップグレードに**必要な合計{resourceName}量** (「必要な{resourceName}」の下) を入力します。`,
-                    `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
-                ]
+    'en': { // English (default fallback)
+        buildingName: 'Caffeine Institute',
+        resourceName: 'Coffee',
+        buildingType: 'Factory',
+        title: `Time Until {buildingName} Can Be Upgraded`, // Placeholder to be replaced
+        headerLevel: 'Level',
+        headerHeld: 'Held',
+        resourceBuilding1: `{resourceName} {buildingType} 1`,
+        resourceBuilding2: `{resourceName} {buildingType} 2`,
+        resourceBuilding3: `{resourceName} {buildingType} 3`,
+        resourceBuilding4: `{resourceName} {buildingType} 4`,
+        weeklyBuilding: `Weekly {buildingType}`,
+        workshopHeldTotal: `Total {resourceName} in {buildingType}s:`, // Updated: Workshop to Factory
+        resourcePerHour: `{resourceName}/hr:`,
+        resourceHeld: `{resourceName} Held:`,
+        totalResource: `Total {resourceName}:`,
+        resourceNeeded: `Required {resourceName}:`,
+        timeToComplete: 'Time to Complete:',
+        timeRemainingFormat: '{hours} hrs',
+        timeAgoFormat: '{hours} hrs ago',
+        completionTime: 'Completion Time:',
+        displayTimeZone: 'Display Time Zone:',
+        toggleTheme: 'Toggle Theme',
+        directionsTitle: 'Directions for Use',
+        directionsText: [
+            'To effectively use the {buildingName} Upgrade Calculator, please follow these steps:',
+            '1. **Enter {buildingType} Levels:** Begin by inputting the current level for each individual {resourceName} {buildingType} (e.g., "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+            '2. **Input {resourceName} Held in {buildingType}s:** Next, enter the amount of {resourceName} currently held in the "bubbles" above each of your {buildingType}s. Note that the calculator will automatically **auto-fill empty fields** for any other {buildingType}s that are at the **same level** as the one you just entered. You can **still manually edit these fields** if those buildings are holding a different amount.',
+            '3. **Specify Lab {resourceName} Values:** Finally, input the amount of {resourceName} you currently **hold** in your main inventory (directly under "{resourceName} Held") and the **total amount of {resourceName} needed** for the next {buildingName} upgrade (under "{resourceName} Needed").',
+            'This calculator is designed to be fully functional offline, so you can use it anytime, anywhere without an internet connection.'
+        ]
+    },
+    'es': { // Spanish
+        buildingName: 'Instituto de Cafeína',
+        resourceName: 'Café',
+        buildingType: 'Fábrica',
+        title: `Tiempo hasta que el {buildingName} pueda ser mejorado`,
+        headerLevel: 'Nivel',
+        headerHeld: 'Obtenido',
+        resourceBuilding1: `{resourceName} {buildingType} 1`,
+        resourceBuilding2: `{resourceName} {buildingType} 2`,
+        resourceBuilding3: `{resourceName} {buildingType} 3`,
+        resourceBuilding4: `{resourceName} {buildingType} 4`,
+        weeklyBuilding: `Semanal {buildingType}`,
+        workshopHeldTotal: `Total {resourceName} en {buildingType}s:`, // Updated: Cuarzo Total to Total Café
+        resourcePerHour: `Café/hora:`, // Updated: Cuarzo/hora to Café/hora
+        resourceHeld: `Café Actual:`, // Updated: Cuarzo Actual to Café Actual
+        totalResource: `Café Total:`, // Updated: Cuarzo Total to Café Total
+        resourceNeeded: `Café Requerido:`, // Updated: Cuarzo Requerido to Café Requerido
+        timeToComplete: 'Tiempo Restante:',
+        timeRemainingFormat: '{hours} h',
+        timeAgoFormat: 'hace {hours} h',
+        completionTime: 'Hora de Finalización:',
+        displayTimeZone: 'Zona Horaria:',
+        toggleTheme: 'Cambiar Tema',
+        directionsTitle: 'Instrucciones de Uso',
+        directionsText: [
+            'Para usar eficazmente la Calculadora de Mejoras del {buildingName}, siga estos pasos:',
+            '1. **Introduzca los niveles de {buildingType}:** Comience ingresando el nivel actual para cada {buildingType} de {resourceName} individual (por ejemplo, "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+            '2. **Introduzca el {resourceName} Obtenido en las {buildingType}s:** A continuación, introduzca la cantidad de {resourceName} que se encuentra actualmente en las "burbujas" encima de cada una de sus {buildingType}s. Tenga en cuenta que la calculadora rellenará automáticamente los **campos vacíos** de {resourceName} para cualquier otra {buildingType} que esté en el **mismo nivel** que la que acaba de introducir. Puede **seguir editando estos campos manualmente** si esos edificios tienen una cantidad diferente.',
+            '3. **Especifique los Valores de {resourceName} del Instituto:** Finalmente, introduzca la cantidad de {resourceName} que **tiene actualmente** en su inventario principal (dirección debajo de "{resourceName} Actual") y la **cantidad total de {resourceName} necesaria** para la próxima mejora del {buildingName} (debajo de "{resourceName} Requerido").',
+            'Esta calculadora está diseñada para ser completamente funcional sin conexión, por lo que puede usarla en cualquier momento y lugar sin necesidad de una conexión a Internet.'
+        ]
+    },
+    'pt': { // Portuguese
+        buildingName: 'Instituto de Cafeína',
+        resourceName: 'Café',
+        buildingType: 'Fábrica',
+        title: `Tempo até o {buildingName} Poder Ser Atualizado`,
+        headerLevel: 'Nivel',
+        headerHeld: 'Tido',
+        resourceBuilding1: `{buildingType} de {resourceName} 1`,
+        resourceBuilding2: `{buildingType} de {resourceName} 2`,
+        resourceBuilding3: `{buildingType} de {resourceName} 3`,
+        resourceBuilding4: `{buildingType} de {resourceName} 4`,
+        weeklyBuilding: `Semanal {buildingType}`,
+        workshopHeldTotal: `Total {resourceName} em {buildingType}s:`, // Updated: Quartzo Total to Total Café
+        resourcePerHour: `Café/hr:`, // Updated: Quartzo/hr to Café/hr
+        resourceHeld: `Café Atual:`, // Updated: Quartzo Atual to Café Atual
+        totalResource: `Café Total:`, // Updated: Quartzo Total to Café Total
+        resourceNeeded: `Café Requerido:`, // Updated: Quartzo Requerido to Café Requerido
+        timeToComplete: 'Tempo para Concluir:',
+        timeRemainingFormat: '{hours} h',
+        timeAgoFormat: 'há {hours} h',
+        completionTime: 'Hora de Conclusão:',
+        displayTimeZone: 'Fuso Horário:',
+        toggleTheme: 'Alternar Tema',
+        directionsTitle: 'Instruções de Uso',
+        directionsText: [
+            'Para usar eficazmente a Calculadora de Melhorias do {buildingName}, siga estes passos:',
+            '1. **Introduza os Níveis da {buildingType}:** Comece por inserir o nível actual para cada {buildingType} de {resourceName} individual (ex: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2", etc.).',
+            '2. **Introduza o {resourceName} Detido nas {buildingType}s:** Em seguida, introduza a quantidade de {resourceName} actualmente detida nas "bolhas" acima de cada uma das suas {buildingType}s. Note que a calculadora preencherá automaticamente os **campos vazios** de {resourceName} detido para quaisquer outras {buildingType}s que estejam no **mesmo nível** que a que acabou de introduzir. Pode **continuar a editar estes campos manualmente** se esses edifícios tiverem uma quantidade diferente.',
+            '3. **Especifique os Valores de {resourceName} do Instituto:** Finalmente, introduza a quantidade de {resourceName} que **detém actualmente** no seu inventario principal (directamente abaixo de "{resourceName} Atual") e a **quantidade total de {resourceName} necessária** para a próxima melhoria do {buildingName} (abajo de "{resourceName} Requerido").',
+            'Esta calculadora foi concebida para ser totalmente funcional offline, para que possa utilizá-la a qualquer hora, em qualquer lugar, sem ligação à Internet.'
+        ]
+    },
+    'ko': { // Korean
+        buildingName: '카페인 연구소',
+        resourceName: '커피',
+        buildingType: '공장',
+        title: `{buildingName} 업그레이드까지 남은 시간`,
+        headerLevel: '레벨',
+        headerHeld: '보유',
+        resourceBuilding1: `{resourceName} {buildingType} 1`,
+        resourceBuilding2: `{resourceName} {buildingType} 2`,
+        resourceBuilding3: `{resourceName} {buildingType} 3`,
+        resourceBuilding4: `{resourceName} {buildingType} 4`,
+        weeklyBuilding: `주간 {buildingType}`,
+        workshopHeldTotal: `총 {resourceName} ({buildingType}에 보유):`, // Updated: Workshop to Factory
+        resourcePerHour: `시간당 {resourceName}:`, // Updated: 석영 to 커피
+        resourceHeld: `보유 {resourceName}:`, // Updated: 석영 to 커피
+        totalResource: `총 {resourceName}:`, // Updated: 석영 to 커피
+        resourceNeeded: `필요한 {resourceName}:`, // Updated: 석영 to 커피
+        timeToComplete: '완료까지 남은 시간:',
+        timeRemainingFormat: '{hours}시간',
+        timeAgoFormat: '{hours}시간 전',
+        completionTime: '완료 시간:',
+        displayTimeZone: '표시 시간대:',
+        toggleTheme: '테마 전환',
+        directionsTitle: '사용 방법',
+        directionsText: [
+            `{buildingName} 업그레이드 계산기를 효과적으로 사용하려면 다음 단계를 따르세요:`,
+            `1. **{buildingType} 레벨 입력:** 먼저 각 개별 {resourceName} {buildingType}(예: "{resourceName} {buildingType} 1", "{resourceName} {buildingType} 2" 등)의 현재 레벨을 입력합니다.`,
+            `2. **{buildingType}에 보유한 {resourceName} 입력:** 다음으로, 각 {buildingType} "버블" 위에 현재 보유하고 있는 {resourceName}의 양을 입력합니다. 계산기는 방금 입력한 {buildingType}과 **동일한 레벨**의 다른 모든 {buildingType}에 대해 **비어 있는 필드**에 보유 {resourceName}를 자동으로 **自動 채우기**합니다. 이러한 필드에 다른 양이 있는 경우 **계속 수동으로 편집할 수 있습니다.**`,
+            `3. **연구소 {resourceName} 값 지정:** 마지막으로, 메인 인벤토리({resourceName} 보유" 바로 아래)에 현재 **보유하고 있는 {resourceName}의 양과 다음 {buildingName} 업그레이드에 필요한 총 {resourceName} 量({resourceName} 필요" 아래)을 입력합니다.`,
+            `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`
+        ]
+    },
+    'ja': { // Japanese
+        buildingName: 'カフェイン研究所',
+        resourceName: 'コーヒー',
+        buildingType: '工場',
+        title: `{buildingName} アップグレードまでの時間`,
+        headerLevel: 'レベル',
+        headerHeld: '所持',
+        resourceBuilding1: `{resourceName} {buildingType} 1`,
+        resourceBuilding2: `{resourceName} {buildingType} 2`,
+        resourceBuilding3: `{resourceName} {buildingType} 3`,
+        resourceBuilding4: `{resourceName} {buildingType} 4`,
+        weeklyBuilding: `週次 {buildingType}`,
+        workshopHeldTotal: `合計{resourceName} ({buildingType}に所持):`, // Updated: 作業場 to 工場
+        resourcePerHour: `{resourceName}/時:`, // Updated: 石英 to コーヒー
+        resourceHeld: `所持{resourceName}:`, // Updated: 石英 to コーヒー
+        totalResource: `合計{resourceName}:`, // Updated: 石英 to コーヒー
+        resourceNeeded: `必要な{resourceName}:`, // Updated: 石英 to コーヒー
+        timeToComplete: '完了までの時間:',
+        timeRemainingFormat: '{hours}時間',
+        timeAgoFormat: '{hours}時間前',
+        completionTime: '完了時刻:',
+        displayTimeZone: '表示タイムゾーン:',
+        toggleTheme: 'テーマ切り替え',
+        directionsTitle: '使用方法',
+        directionsText: [
+            `{buildingName} アップグレード計算機を効果的に使用するには、以下の手順に従ってください:`,
+            `1. **{buildingType}レベルの入力:** まず、各{resourceName} {buildingType}(例: "{resourceName} {buildingType} 1"、"{resourceName} {buildingType} 2" など) の現在のレベルを入力します。`,
+            `2. **バブルで保有している{resourceName}の入力:** 次に、各{buildingType}の「泡」に現在保持されている{resourceName}の量を入力します。計算機は、入力した{resourceName}と**同じレベル**の他のすべての{buildingType}に対して、**空のフィールド**に{resourceName}の保持量を自動的に**自動入力**することに注意してください。これらのフィールドに異なる量がある場合は、**引き続き手動で編集できます。**`,
+            `3. **研究所の{resourceName}値の指定:** 最後に、現在メインインベントリ (「所持{resourceName}」の真下) に**保持している{resourceName}の量**と、次の{buildingName}アップグレードに**必要な合計{resourceName}量** (「必要な{resourceName}」の下) を入力します。`,
+            `この計算機はオフラインでも完全に機能するように設計되었으므로、インターネット接続なしでいつでもどこでも使用できます。`                ]
             }
         };
 
@@ -1572,4 +1571,5 @@
 
 </body>
 </html>
+
 
